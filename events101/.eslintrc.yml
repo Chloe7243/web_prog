@@ -1,0 +1,12 @@
+extends: portsoc
+root: true
+plugins:
+  - html
+overrides:
+  - files:
+    - "**/*.js"
+    - "**/*.html"
+env:
+  browser: true
+globals:
+  QUnit: "readonly"
