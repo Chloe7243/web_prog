@@ -83,7 +83,6 @@ function addToAll(arr, n) {
 }
 
 let remembered;
-
 function rememberThis(keepsake) {
   remembered = keepsake;
 }
