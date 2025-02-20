@@ -1,0 +1,31 @@
+{
+  "name": "node101",
+  "version": "1.0.0",
+  "description": "first steps with node and ES6 modules",
+  "main": "test.js",
+  "type": "module",
+  "scripts": {
+    "start": "npm test",
+    "test": "node test"
+  },
+  "keywords": [
+    "node",
+    "es6",
+    "modules",
+    "unit test"
+  ],
+  "author": "Rich Boakes <rjb@boakes.org> (http://boakes.org/)",
+  "license": "ISC",
+  "repository": "https://github.com/portsoc/ws_node.git",
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "eslint-config-portsoc": "^1.0.1"
+  },
+  "eslintConfig": {
+    "extends": "portsoc",
+    "root": true,
+    "env": {
+      "browser": true
+    }
+  }
+}
