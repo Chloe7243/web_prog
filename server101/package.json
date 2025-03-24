@@ -1,0 +1,43 @@
+{
+  "name": "server101",
+  "version": "0.1.0",
+  "description": "Example HTTP servers in Node.js using the HTTP and Express modules.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "s00": "node src/server-0-hello-browser.js",
+    "s0": "node src/server-0-hello-world.js",
+    "s1": "node src/server-1-hello-world.js",
+    "s2": "node src/server-2-files.js",
+    "s3": "node src/server-3-dynamic.js",
+    "s4": "node src/server-4-express-static.js",
+    "s5": "node src/server-5-express-dynamic.js",
+    "s6": "node src/server-6-express-minimal.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/portsoc/server101.git"
+  },
+  "keywords": [
+    "http",
+    "express",
+    "server",
+    "basic",
+    "example",
+    "static",
+    "dynamic"
+  ],
+  "author": "Rich Boakes <rich@boakes.org>",
+  "contributors": [
+    "Jacek Kopecky <jacek@jacek.cz>",
+    "Matt Dennis <matt.thepie@gmail.com>"
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/portsoc/server101/issues"
+  },
+  "homepage": "https://github.com/portsoc/server101#readme",
+  "dependencies": {
+    "express": "^5.0.0-beta.1"
+  }
+}

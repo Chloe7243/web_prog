@@ -1,0 +1,6 @@
+node_modules
+.vscode
+.DS_Store
+*.sqlite
+*.swp
+**/.DS_Store

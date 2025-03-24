@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./index.css" />
+    <script type="module" src="./index.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <p id="timer">00:00:00:000</p>
+    <div class="buttons">
+      <span id="timer-buttons">
+        <button id="toggle">Start / Stop</button>
+        <button id="save">Save</button>
+        <!-- <button id="stop">Stop</button> -->
+        <button id="reset">Reset</button>
+      </span>
+      <span id="result-buttons" class="hidden">
+        <button id="clear">Clear results</button>
+        <button id="submit">Submit results</button>
+      </span>
+    </div>
+    <div id="saved-times">
+      <table>
+        <thead>
+          <th>Position</th>
+          <th>Time</th>
+          <th>Runner ID</th>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </body>
+</html>

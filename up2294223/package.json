@@ -2,15 +2,16 @@
   "name": "race-timer",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "cd ./server && node --watch app.js"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
     "express": "^4.21.2",
-    "nodemon": "^3.1.9"
+    "sqlite3": "^5.1.7"
   }
 }
