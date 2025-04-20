@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <style>
+    div {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    div > * {
+      flex: 1;
+    }
+
+    div > * > * {
+      width: 100%;
+    }
+
+    div span:first-of-type {
+      text-align: left;
+    }
+
+    div span {
+      text-align: center;
+    }
+
+    span {
+      font-size: 1.5rem;
+      padding: 1rem 1.5rem;
+    }
+  </style>
+  <template id="read-template">
+    <div>
+      <span class="position"></span>
+      <span class="time"></span>
+      <span class="runner-id"></span>
+    </div>
+  </template>
+  <template id="edit-template">
+    <div>
+      <span class="position"></span>
+      <span class="time"></span>
+      <span class="runner-id">
+        <input type="text" />
+      </span>
+    </div>
+  </template>
+</html>

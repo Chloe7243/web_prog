@@ -1,4 +1,4 @@
-import { ShadowElement } from '../shadow-element/shadow-element.mjs';
+import { ShadowElement } from "../shadow-element/shadow-element.mjs";
 
 /**
  * EditableMessage
@@ -11,25 +11,25 @@ export class EditableMessage extends ShadowElement {
    * DOM display the readonly UI
    */
   async connectedCallback() {
-    const templateURL = import.meta.url.replace('.mjs', '.html');
+    const templateURL = import.meta.url.replace(".mjs", ".html");
     await this.loadTemplate(templateURL);
     this.showReadonly();
 
     // Add mouseenter handler to input/pre element
-    const msg = this.shadow.querySelector('#message');
-    msg.addEventListener('mouseenter', this.activateMessage.bind(this))
+    const msg = this.shadow.querySelector("#message");
+    msg.addEventListener("mouseenter", this.activateMessage.bind(this));
   }
 
   activateMessage() {
+    console.log({ this: this });
     // Dispatch custom event with URL
-    const event = new CustomEvent('messageactive', {
+    const event = new CustomEvent("messageactive", {
       bubbles: true,
       composed: true,
-      detail: { url: this.url }
+      detail: { url: this.url },
     });
-    console.log('dispatching messageactive event', event);
-    
-    
+    console.log("dispatching messageactive event", event);
+
     this.dispatchEvent(event);
   }
 
@@ -39,8 +39,8 @@ export class EditableMessage extends ShadowElement {
    * nor style and removing all matches.
    */
   clearShadow() {
-    const elems = this.shadow.querySelectorAll(':not(template, style)');
-    elems.forEach(elem => elem.remove());
+    const elems = this.shadow.querySelectorAll(":not(template, style)");
+    elems.forEach((elem) => elem.remove());
   }
 
   /**
@@ -48,11 +48,13 @@ export class EditableMessage extends ShadowElement {
    */
   showReadonly() {
     this.clearShadow();
-    this.showTemplate('read-template');
-    const msg = this.shadow.querySelector('#message');
+    this.showTemplate("read-template");
+    const msg = this.shadow.querySelector("#message");
     msg.textContent = this.textContent;
-    msg.addEventListener('dblclick', this.showEdit.bind(this));
-    this.shadow.querySelector('button#edit').addEventListener('click', this.showEdit.bind(this));
+    msg.addEventListener("dblclick", this.showEdit.bind(this));
+    this.shadow
+      .querySelector("button#edit")
+      .addEventListener("click", this.showEdit.bind(this));
   }
 
   /**
@@ -60,18 +62,22 @@ export class EditableMessage extends ShadowElement {
    */
   showEdit() {
     this.clearShadow();
-    this.showTemplate('edit-template');
-    const msg = this.shadow.querySelector('#message');
+    this.showTemplate("edit-template");
+    const msg = this.shadow.querySelector("#message");
     msg.value = this.textContent;
     msg.focus();
     msg.setSelectionRange(msg.value.length, msg.value.length);
 
-    this.shadow.querySelector('button#save').addEventListener('click', this.save.bind(this));
-    this.shadow.querySelector('button#cancel').addEventListener('click', this.showReadonly.bind(this));
+    this.shadow
+      .querySelector("button#save")
+      .addEventListener("click", this.save.bind(this));
+    this.shadow
+      .querySelector("button#cancel")
+      .addEventListener("click", this.showReadonly.bind(this));
 
-    msg.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') this.save();
-      if (e.key === 'Escape') this.showReadonly();
+    msg.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") this.save();
+      if (e.key === "Escape") this.showReadonly();
     });
   }
 
@@ -81,9 +87,9 @@ export class EditableMessage extends ShadowElement {
    * URL attribute of this custom element
    */
   async save() {
-    const method = 'PUT';
-    const headers = { 'Content-Type': 'application/json' };
-    const msg = this.shadow.querySelector('#message').value;
+    const method = "PUT";
+    const headers = { "Content-Type": "application/json" };
+    const msg = this.shadow.querySelector("#message").value;
     const body = JSON.stringify({ msg });
     const options = { method, headers, body };
     const response = await fetch(this.url, options);
@@ -91,7 +97,7 @@ export class EditableMessage extends ShadowElement {
       this.textContent = msg;
       this.showReadonly();
     } else {
-      console.error('Failed to save message');
+      console.error("Failed to save message");
     }
   }
 
@@ -112,13 +118,25 @@ export class EditableMessage extends ShadowElement {
 
   /** getters and setters */
 
-  get dbid() { return this.getAttribute('dbid'); }
-  get modified() { return this.getAttribute('modified'); }
-  get url() { return this.getAttribute('url'); }
+  get dbid() {
+    return this.getAttribute("dbid");
+  }
+  get modified() {
+    return this.getAttribute("modified");
+  }
+  get url() {
+    return this.getAttribute("url");
+  }
 
-  set dbid(value) { this.attr('dbid', value); }
-  set modified(value) { this.attr('modified', value); }
-  set url(value) { this.attr('url', value); }
+  set dbid(value) {
+    this.attr("dbid", value);
+  }
+  set modified(value) {
+    this.attr("modified", value);
+  }
+  set url(value) {
+    this.attr("url", value);
+  }
 }
 
-customElements.define('editable-message', EditableMessage);
+customElements.define("editable-message", EditableMessage);

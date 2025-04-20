@@ -1,0 +1,307 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+html {
+  width: 100dvw;
+  height: 100dvh;
+  font-size: 10px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  font-family: "Inter", sans-serif;
+  overflow: hidden;
+  /* background: rgba(0, 0, 0, 0.263); */
+}
+
+:root {
+  --background: #121212;
+  --primary: #4a90e2;
+  --bg-button: #fff;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  color: white;
+  background: var(--background);
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+nav * {
+  font-family: "Times New Roman", Times, serif;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.separator {
+  margin: 0.5rem 0;
+  height: 0.2rem;
+  background: gray;
+  width: 100%;
+}
+
+/* HOME PAGE Styles */
+
+nav.home {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+nav.home > * {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 2.5rem;
+  justify-content: center;
+  text-decoration: none;
+  color: white;
+  font-size: 3rem;
+}
+
+nav.home > .timer {
+  background: var(--primary);
+}
+
+nav.home > .timer > i {
+  font-size: 15rem;
+}
+nav.home > .history .history-icon {
+  position: relative;
+}
+
+nav.home > .history > .history-icon > i:first-of-type {
+  font-size: 15rem;
+  position: relative;
+  z-index: 10;
+}
+nav.home > .history > .history-icon > sub > i {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: rotate(45deg);
+  font-size: 4rem;
+}
+
+/* TIMER PAGE Styles */
+
+/* .timer{
+  pa
+} */
+
+.timer-page,
+.race-page,
+.race-details-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.page-nav {
+  width: 100%;
+  font-size: 1.7rem;
+  padding: 1.5rem;
+  background: var(--primary);
+}
+
+.page-nav > * {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: white;
+  text-decoration: none;
+}
+
+.timer-clock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  min-height: 7rem;
+  padding: 1.5rem;
+}
+
+.timer-clock #timer {
+  font-size: 4.5rem;
+}
+
+.timer-clock #timer-buttons {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.timer-clock #timer-buttons > span {
+  flex: 1;
+  display: flex;
+  gap: 1rem;
+  width: max-content;
+}
+
+.timer-clock #timer-buttons > span:last-of-type {
+  justify-content: end;
+}
+
+.timer-clock #timer-buttons #toggle {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: center;
+  color: white;
+}
+
+.timer-clock #timer-buttons #toggle.start {
+  background: rgb(16, 130, 16);
+}
+
+.timer-clock #timer-buttons #toggle.stop {
+  background: rgb(255, 37, 37);
+}
+
+.timer-clock #timer-buttons #save {
+  gap: 2rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.timer-clock #timer-buttons #save > i {
+  font-size: 2.5rem;
+}
+
+.timer-clock #timer-buttons #save {
+  font-size: 2rem;
+}
+
+.timer-page button {
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--bg-button);
+  padding: 1.1rem 0.8rem;
+  border-radius: 0.7rem;
+  width: min(10rem, 100%);
+}
+
+.timer-page .result {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.timer-page .result results-board {
+  flex: 1;
+  /* background: var(--primary); */
+}
+
+.timer-page .result #result-buttons {
+  padding: 1.5rem;
+  width: 100%;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.timer-page .result #result-buttons > button {
+  padding: 1.2rem;
+  flex: 1;
+}
+
+.timer-page .result #result-buttons > #clear {
+  color: rgb(199, 5, 5);
+  background: rgb(230, 148, 148);
+}
+
+/* Race page */
+
+.race-page > div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.race-page > div .races {
+  flex: 1;
+}
+.race-page > div race-list {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.races .head {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.races .head > * {
+  flex: 1;
+  font-weight: 600;
+  padding: 1rem;
+  font-size: 1.3rem;
+  text-wrap-mode: nowrap;
+}
+
+.races .body {
+  flex: 1;
+  display: flex;
+  overflow-y: auto;
+  flex-direction: column;
+}
+
+.races > div span:first-of-type {
+  text-align: left;
+  padding-left: 0;
+}
+
+.races > div > span {
+  text-align: center;
+}
+
+.races button {
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--bg-button);
+  padding: 1.1rem 0.8rem;
+  /* font-size: 1.43em; */
+  border-radius: 0.7rem;
+  width: min(10rem, 100%);
+}
+
+.races {
+  padding: 0 1.5rem;
+}
+
+.race-details-page > .content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.race-details-page > .content > .race-name {
+  padding: 1.5rem;
+}
+
+.race-details-page > .content > results-board {
+  flex: 1;
+}

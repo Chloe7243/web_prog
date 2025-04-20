@@ -1,3 +1,5 @@
+import { formatTime } from "./functions.js";
+
 const time = {
   ms: 0,
   secs: 0,
@@ -8,13 +10,9 @@ const time = {
 let interval;
 
 const timer = document.querySelector("#timer");
-function updateTimer() {
-  const formattedTime = Object.values(time)
-    .reverse()
-    .map((value, i) => String(value).padStart(i === 3 ? 3 : 2, "0"))
-    .join(":");
 
-  if (timer) timer.textContent = formattedTime;
+function updateTimer() {
+  if (timer) timer.textContent = formatTime(time);
 }
 
 export function setTime() {

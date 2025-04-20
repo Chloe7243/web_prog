@@ -1,4 +1,4 @@
-import { ShadowElement } from '../shadow-element/shadow-element.mjs';
+import { ShadowElement } from "../shadow-element/shadow-element.mjs";
 
 /**
  * MessageList component
@@ -11,7 +11,7 @@ export class MessageList extends ShadowElement {
    * @returns {string[]} Array of attribute names to observe
    */
   static get observedAttributes() {
-    return ['url'];
+    return ["url"];
   }
 
   /**
@@ -19,11 +19,11 @@ export class MessageList extends ShadowElement {
    * Loads template, fetches initial messages, and sets up event listeners
    */
   async connectedCallback() {
-    const templateURL = import.meta.url.replace('.mjs', '.html');
+    const templateURL = import.meta.url.replace(".mjs", ".html");
     await this.loadTemplate(templateURL);
     await this.fetchMessages();
     // Listen for new messages added to refresh the list
-    this.addEventListener('messageadded', this.fetchMessages);
+    this.addEventListener("messageadded", this.fetchMessages);
   }
 
   /**
@@ -32,22 +32,26 @@ export class MessageList extends ShadowElement {
    */
   async fetchMessages() {
     let messages;
+    console.log({ this: this });
+
     const url = this.url;
     if (url) {
-      const response = await fetch(url);
+      const response = await fetch(`http://localhost:8080/${url}`);
       if (response.ok) {
         messages = await response.json();
       } else {
-        messages = [{ msg: 'failed to load messages :-(' }];
+        messages = [{ msg: "failed to load messages :-(" }];
       }
     }
 
     // Clear existing messages and display new ones
     this.clearShadow();
-    messages.forEach(message => {
-      const clone = this.showTemplate('message');
-      clone.textContent = message.msg;
-      clone.url = `./messages/${message.id}`;
+    messages.forEach((message) => {
+      const clone = this.showTemplate("message");
+      if (clone) {
+        clone.textContent = message.msg;
+        clone.url = `./messages/${message.id}`;
+      }
     });
   }
 
@@ -55,8 +59,12 @@ export class MessageList extends ShadowElement {
    * Getter/setter for url attribute
    * Used to specify the endpoint for fetching messages
    */
-  get url() { return this.getAttribute('url'); }
-  set url(value) { this.attr('url', value); }
+  get url() {
+    return this.getAttribute("url");
+  }
+  set url(value) {
+    this.attr("url", value);
+  }
 
   /**
    * Handles changes to observed attributes
@@ -64,11 +72,11 @@ export class MessageList extends ShadowElement {
    * @param {string} name The name of the changed attribute
    */
   attributeChangedCallback(name) {
-    if (name === 'url') {
+    if (name === "url") {
       this.fetchMessages();
     }
   }
 }
 
 // Register the custom element with the browser
-customElements.define('message-list', MessageList);
+customElements.define("message-list", MessageList);

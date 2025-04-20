@@ -1,4 +1,4 @@
-import { ShadowElement } from '../shadow-element/shadow-element.mjs';
+import { ShadowElement } from "../shadow-element/shadow-element.mjs";
 
 /**
  * MessageBoard component
@@ -11,7 +11,7 @@ export class MessageBoard extends ShadowElement {
    * @returns {string[]} Array of attribute names to observe
    */
   static get observedAttributes() {
-    return ['url'];
+    return ["url"];
   }
 
   /**
@@ -19,32 +19,34 @@ export class MessageBoard extends ShadowElement {
    * Loads template and sets up event listeners
    */
   async connectedCallback() {
-    const templateURL = import.meta.url.replace('.mjs', '.html');
+    const templateURL = import.meta.url.replace(".mjs", ".html");
     await this.loadTemplate(templateURL);
 
     // Set up message list component
-    this.ml = this.shadow.querySelector('#ml');
+    this.ml = this.shadow.querySelector("#ml");
+    console.log({ mlThis: this });
+
     this.ml.url = this.url;
 
     // Set up message input with keyboard event handling
-    this.message = this.shadow.querySelector('#message');
-    this.message.addEventListener('keyup', this.checkKeys.bind(this));
+    this.message = this.shadow.querySelector("#message");
+    this.message.addEventListener("keyup", this.checkKeys.bind(this));
 
     // Set up send button
-    this.send = this.shadow.querySelector('#send');
-    this.send.addEventListener('click', this.storeMessage.bind(this));
+    this.send = this.shadow.querySelector("#send");
+    this.send.addEventListener("click", this.storeMessage.bind(this));
 
     // Listen for MessageActive events
-    this.addEventListener('messageactive', this.showDetail.bind(this));
+    this.addEventListener("messageactive", this.showDetail.bind(this));
   }
 
   /**
    * Event handler for keyboard input
    * Stores a message when Enter key is pressed
-   * @param {KeyboardEvent} e 
+   * @param {KeyboardEvent} e
    */
   checkKeys(e) {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       this.storeMessage();
     }
   }
@@ -56,18 +58,18 @@ export class MessageBoard extends ShadowElement {
   async storeMessage() {
     const payload = { msg: this.message.value };
 
-    const response = await fetch('messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const response = await fetch(`http://localhost:8080/messages`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
 
     if (response.ok) {
-      this.message.value = '';
+      this.message.value = "";
       // Trigger message list refresh via custom event
-      this.ml.dispatchEvent(new CustomEvent('messageadded', { bubbles: true }));
+      this.ml.dispatchEvent(new CustomEvent("messageadded", { bubbles: true }));
     } else {
-      console.log('failed to send message', response);
+      console.log("failed to send message", response);
     }
   }
 
@@ -75,15 +77,20 @@ export class MessageBoard extends ShadowElement {
    * Getter/setter for url attribute
    * Used to specify the endpoint for message operations
    */
-  get url() { return this.getAttribute('url'); }
-  set url(value) { this.attr('url', value); }
+  get url() {
+    console.log(this.getAttribute("url"));
+    return this.getAttribute("url");
+  }
+  set url(value) {
+    this.attr("url", value);
+  }
 
   /**
    * Handles changes to observed attributes
    * @param {string} name The name of the changed attribute
    */
   attributeChangedCallback(name) {
-    if (name === 'url') {
+    if (name === "url") {
       // TODO handle url changes
     }
   }
@@ -93,13 +100,13 @@ export class MessageBoard extends ShadowElement {
    * @param {CustomEvent} e Event containing message URL in detail
    */
   async showDetail(e) {
-    const response = await fetch(e.detail.url);
+    const response = await fetch(`http://localhost:8080/${e.detail.url}`);
     if (response.ok) {
       const detail = await response.json();
-      const detailElement = this.shadow.querySelector('#detail');
+      const detailElement = this.shadow.querySelector("#detail");
       detailElement.textContent = `Message received on server at ${detail.time}`;
     }
   }
 }
 
-customElements.define('message-board', MessageBoard);
+customElements.define("message-board", MessageBoard);

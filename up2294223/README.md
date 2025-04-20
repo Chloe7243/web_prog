@@ -45,3 +45,6 @@ For the GHIJ feature I ...
 
 > this is an example prompt given to a chatbot
 > words words words etc
+
+- [ ] Discusses why and how you have improved your artefact since the prototype deadline.
+- [ ] Reflects on the development as a whole, including your use of AI.

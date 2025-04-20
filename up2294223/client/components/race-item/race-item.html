@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <style>
+    div {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    div span:first-of-type {
+      text-align: left;
+      padding-left: 0;
+    }
+
+    div > span {
+      text-align: center;
+      font-size: 1.2rem;
+      padding: 1rem;
+    }
+
+    div > * {
+      flex: 1;
+    }
+
+    div > button {
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      background: var(--bg-button);
+      padding: 0.6rem;
+      border-radius: 0.7rem;
+    }
+  </style>
+  <template id="race-item-template">
+    <div>
+      <span class="race-id"></span>
+      <span class="race-name"></span>
+      <span class="race-date"></span>
+      <button class="view-result-button">View result</button>
+    </div>
+  </template>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="module" src="../components/race-list/race-list.mjs"></script>
+    <script type="module" src="../components/race-item/race-item.mjs"></script>
+    <script
+      src="https://kit.fontawesome.com/1925230fa1.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="../styles.css" />
+    <title>Races</title>
+  </head>
+  <body class="race-page">
+    <nav class="page-nav">
+      <a href="../"> <i class="fa-solid fa-arrow-left"></i>Back to home</a>
+    </nav>
+    <div class="content">
+      <div class="races">
+        <div class="head">
+          <span>Race ID</span>
+          <span>Race name</span>
+          <span>Race date</span>
+          <span></span>
+        </div>
+        <race-list> </race-list>
+      </div>
+    </div>
+  </body>
+</html>

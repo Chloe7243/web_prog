@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <style>
+    #results-table {
+      height: 100%;
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      overflow: hidden;
+      padding: 0 1.5rem;
+    }
+
+    #results-table .head {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    #results-table .head > * {
+      flex: 1;
+      font-weight: 600;
+    }
+
+    #results-table .body {
+      flex: 1;
+      display: flex;
+      overflow-y: auto;
+      flex-direction: column;
+    }
+
+    #results-table race-results {
+      flex: 1;
+      display: flex;
+      overflow-y: auto;
+      flex-direction: column;
+    }
+
+    #results-table > div span:first-of-type {
+      text-align: left;
+    }
+
+    #results-table > div span {
+      text-align: center;
+    }
+
+    #results-table span {
+      font-size: 1.5rem;
+      padding: 1.5rem;
+    }
+  </style>
+
+  <div id="results-table">
+    <div class="head">
+      <span>Position</span>
+      <span>Time</span>
+      <span>Runner ID</span>
+    </div>
+    <div class="body"></div>
+  </div>
+</html>

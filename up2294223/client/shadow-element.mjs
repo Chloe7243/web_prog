@@ -49,12 +49,13 @@ export class ShadowElement extends HTMLElement {
    */
   showTemplate(templateId) {
     const template = this.shadow.querySelector(`#${templateId}`);
+
     if (!template) {
       console.error(`Template not found: ${templateId}`);
       return null;
     }
     const clone = template.content.cloneNode(true);
-    this.shadow.append(clone);
+    this.shadow.appendChild(clone);
     return this.shadow.lastElementChild;
   }
 }

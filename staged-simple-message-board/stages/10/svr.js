@@ -1,12 +1,12 @@
-import * as mb from './messageboard.js';
+import * as mb from "./messageboard.js";
 
 // message board app
 // stage 8: Data belongs in a database
-import express from 'express';
+import express from "express";
 
 const app = express();
 
-app.use(express.static('client', { extensions: ['html'] }));
+app.use(express.static("client", { extensions: ["html"] }));
 
 async function getMessages(req, res) {
   res.json(await mb.listMessages());
@@ -17,7 +17,7 @@ async function getMessage(req, res) {
   if (result) {
     res.json(result);
   } else {
-    res.status(404).send('No match for that ID.');
+    res.status(404).send("No match for that ID.");
   }
 }
 
@@ -31,9 +31,25 @@ async function putMessage(req, res) {
   res.json(message);
 }
 
-app.get('/messages', getMessages);
-app.get('/messages/:id', getMessage);
-app.put('/messages/:id', express.json(), putMessage);
-app.post('/messages', express.json(), postMessage);
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:5500");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, OPTIONS"
+  );
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  // Respond to preflight requests
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(204);
+  }
+
+  next();
+});
+
+app.get("/messages", getMessages);
+app.get("/messages/:id", getMessage);
+app.put("/messages/:id", express.json(), putMessage);
+app.post("/messages", express.json(), postMessage);
 
 app.listen(8080);

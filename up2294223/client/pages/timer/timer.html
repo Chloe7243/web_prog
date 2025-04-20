@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      type="module"
+      src="../../components/results-board/results-board.mjs"
+    ></script>
+    <script
+      type="module"
+      src="../../components/runner-row/runner-row.mjs"
+    ></script>
+    <script
+      type="module"
+      src="../../components/race-results/race-results.mjs"
+    ></script>
+    <script
+      src="https://kit.fontawesome.com/1925230fa1.js"
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" src="./timer.js"></script>
+    <link rel="stylesheet" href="../../styles.css" />
+    <title>Document</title>
+  </head>
+  <body class="timer-page">
+    <nav class="page-nav">
+      <a href="../.."> <i class="fa-solid fa-arrow-left"></i>Back to home</a>
+    </nav>
+    <div class="timer-clock">
+      <div id="timer-buttons">
+        <span>
+          <button id="toggle" class="start">
+            <i class="fa-solid fa-circle-play"></i>
+            <p>Start</p>
+          </button>
+        </span>
+        <span>
+          <!-- <button id="stop">Stop</button> -->
+          <button id="reset">Reset</button>
+        </span>
+      </div>
+      <h1 id="timer">00:00:00.000</h1>
+      <div id="timer-buttons">
+        <button id="save">
+          <i class="fa-solid fa-flag-checkered"></i>Mark time
+        </button>
+      </div>
+    </div>
+    <div class="separator"></div>
+    <div class="result">
+      <results-board></results-board>
+      <div id="result-buttons" class="hidden">
+        <button id="clear">Clear results</button>
+        <button id="submit">Submit results</button>
+      </div>
+    </div>
+  </body>
+</html>

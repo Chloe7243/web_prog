@@ -21,7 +21,6 @@ function saveResultsCallback(err, data) {
           runner.position,
         ]),
         (err) => {
-          console.log({ err });
           if (err) throw new Error("Couldn't save data");
         }
       );
