@@ -26,14 +26,31 @@
   </head>
   <body class="race-details-page">
     <nav class="page-nav">
-      <a href="../races.html">
+      <a href="../races/races.html">
         <i class="fa-solid fa-arrow-left"></i>Back to races</a
       >
     </nav>
+
     <div class="content">
-      <h1 class="race-name"><span></span>Race details</h1>
+      <h1 class="race-name"><span>Race</span> details</h1>
       <div class="separator"></div>
-      <results-board class="result"></results-board>
+      <div class="result-container">
+        <div class="filters">
+          <fieldset class="">
+            <legend>Filter by</legend>
+            <span>
+              <label for="">Position:</label>
+              <input type="number" min="1" class="position" name="position" />
+            </span>
+            <p style="font-size: 1.5rem">Or</p>
+            <span>
+              <label for="">Runner ID:</label>
+              <input type="text" class="id" name="id" />
+            </span>
+          </fieldset>
+        </div>
+        <results-board class="result"></results-board>
+      </div>
     </div>
   </body>
 </html>

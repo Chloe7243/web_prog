@@ -1,5 +1,9 @@
 import { submitResults } from "../../api.js";
-import { formatTime } from "../../utils/functions.js";
+import { formatTime, toast } from "../../utils/functions.js";
+import {
+  localStorageResults,
+  localStorageStopwatch,
+} from "../../utils/constants.js";
 import {
   resetTimer,
   saveTime,
@@ -9,10 +13,17 @@ import {
 
 let isOn = false;
 const buttons = {};
-const runnersData = [];
+const dialog = document.getElementById("raceDialog");
+const dialogCancel = document.getElementById("cancelBtn");
+const dialogSubmit = document.getElementById("submitBtn");
+
+const toaster = document.querySelector("toast-message");
+const raceResults = document.querySelector("results-board");
 const buttonElements = document.querySelectorAll("button[id]");
 const resultButtons = document.querySelector("#result-buttons");
-const raceResults = document.querySelector("results-board");
+
+const runnersData = [];
+const resultsValue = JSON.parse(localStorage.getItem(localStorageResults));
 
 for (const button of buttonElements) {
   buttons[button.id] = button;
@@ -21,7 +32,6 @@ for (const button of buttonElements) {
 const runnersDataHandler = {
   set(target, property, value) {
     target[property] = value;
-
     const timeToMillis = (timeStr) => {
       const [h, m, s] = timeStr.split(":");
       const [sec, ms] = s.split(".");
@@ -54,6 +64,11 @@ const runnersDataHandler = {
 
 const watchedRunnersData = new Proxy(runnersData, runnersDataHandler);
 
+const clearResults = () => {
+  watchedRunnersData.splice(0, watchedRunnersData.length);
+  localStorage.removeItem(localStorageResults);
+};
+
 buttons.toggle.addEventListener("click", (e) => {
   e.stopPropagation();
   isOn ? stopTimer() : startTimer();
@@ -78,7 +93,7 @@ buttons.save.addEventListener("click", () => {
       position: "",
     });
   } else {
-    alert("Start timer");
+    toast({ message: "Please start the timer", toasterElement: toaster });
   }
 });
 
@@ -86,14 +101,57 @@ buttons.reset.addEventListener("click", () => {
   if (!isOn) resetTimer();
 });
 
-buttons.submit.addEventListener("click", async () => {
-  const body = JSON.stringify({ runners: runnersData });
-  const response = await submitResults(body);
+buttons.submit.addEventListener("click", async (e) => {
+  if (isOn) {
+    toast({
+      type: "warning",
+      message: "Can't submit while timer is still running",
+      toasterElement: toaster,
+    });
+    return;
+  }
+
+  dialog.showModal();
 });
 
-buttons.clear.addEventListener("click", () => {
-  watchedRunnersData.splice(0, watchedRunnersData.length);
+dialogCancel.addEventListener("click", () => {
+  dialog.close();
 });
+
+dialogSubmit.addEventListener("click", async () => {
+  dialog.close();
+  const raceNameInput = document.getElementById("raceName");
+  const raceName = raceNameInput.value;
+
+  const body = JSON.stringify({ runners: runnersData, raceName });
+
+  const onSubmitSuccess = () => {
+    toast({
+      type: "success",
+      message: "Submitted successfully",
+      toasterElement: toaster,
+    });
+    resetTimer();
+    clearResults();
+    raceNameInput.value = "";
+    return;
+  };
+
+  const onSubmitFailure = (err) => {
+    toast({
+      type: "error",
+      title: err.error,
+      message:
+        err.messages[0] || "Couldn't submit results! Please, try again later.",
+      toasterElement: toaster,
+    });
+    return;
+  };
+
+  await submitResults(body, onSubmitSuccess, onSubmitFailure);
+});
+
+buttons.clear.addEventListener("click", clearResults);
 
 document.addEventListener("update-runnerID", ({ detail }) => {
   const updateIndex = watchedRunnersData.findIndex(
@@ -106,4 +164,21 @@ document.addEventListener("update-runnerID", ({ detail }) => {
       id: detail.value,
     };
   }
+});
+
+window.addEventListener("load", async () => {
+  setTimeout(() => {
+    if (resultsValue) {
+      watchedRunnersData.push(...resultsValue);
+    }
+  }, 100);
+});
+
+window.addEventListener("beforeunload", (e) => {
+  try {
+    localStorage.setItem(
+      localStorageResults,
+      JSON.stringify(watchedRunnersData)
+    );
+  } catch (err) {}
 });

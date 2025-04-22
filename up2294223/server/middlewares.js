@@ -18,7 +18,8 @@ export function validateRaceBody(req, res, next) {
       const { id, position, time, status } = runner;
 
       // Runner ID must be a positive integer
-      // const IDValidation = Number.isInteger(id) || id > 0;
+      const IDValidation =
+        id !== undefined && id !== null && String(id).trim() !== "";
 
       // Position must be a positive integer or null (null for DNF)
       const positionValidation =
@@ -34,11 +35,13 @@ export function validateRaceBody(req, res, next) {
         !status ||
         (typeof status === "string" && validStatuses.includes(status));
 
-      return positionValidation && timeValidation && statusValidation;
+      return (
+        IDValidation && positionValidation && timeValidation && statusValidation
+      );
     });
     if (!runnersIsValid) {
       errors.push(
-        // `All runners ID must have a valid positive integer.`,
+        `Runner ID must not be empty`,
         `All runners position must either be a positive integer or null.`,
         `All runners must have a valid time string in HH:MM:SS.MS format or null.`,
         `Some runners have an invalid status. Allowed status: ${validStatuses.join(
@@ -57,6 +60,22 @@ export function validateRaceBody(req, res, next) {
 }
 
 export function validateResultParams(req, res, next) {
+  const data = req.params;
+  const errors = [];
+
+  if (!data?.id || (data.id && isNaN(data.id))) {
+    errors.push(`ID is required and must be a number`);
+  }
+
+  // If errors exist, stop and return a 400 response
+  if (errors.length > 0) {
+    handleError(res, "Invalid data", 400, { messages: errors });
+  } else {
+    next();
+  }
+}
+
+export function validateDeleteId(req, res, next) {
   const data = req.params;
   const errors = [];
 

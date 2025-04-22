@@ -1,6 +1,9 @@
+import { localStorageStopwatch } from "./constants.js";
 import { formatTime } from "./functions.js";
 
-const time = {
+const timePrevValue = JSON.parse(localStorage.getItem(localStorageStopwatch));
+
+const time = timePrevValue || {
   ms: 0,
   secs: 0,
   mins: 0,
@@ -34,6 +37,7 @@ export function setTime() {
 
 export function stopTimer() {
   clearInterval(interval);
+  localStorage.setItem(localStorageStopwatch, JSON.stringify(time));
 }
 
 export function startTimer() {
@@ -48,8 +52,17 @@ export function resetTimer() {
   time.secs = 0;
   time.secs = 0;
   updateTimer();
+  localStorage.removeItem(localStorageStopwatch);
 }
 
 export function saveTime() {
   return time;
 }
+
+window.addEventListener("load", () => {
+  updateTimer();
+});
+
+window.addEventListener("unload", () => {
+  stopTimer();
+});

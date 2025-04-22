@@ -42,3 +42,12 @@ export function dateFormatter(date, options) {
   } catch (error) {}
   return value;
 }
+
+export function toast({ title, type, message, duration, toasterElement }) {
+  const event = new CustomEvent("show-toast", {
+    bubbles: true,
+    composed: true,
+    detail: { title, message, type, duration },
+  });
+  toasterElement.dispatchEvent(event);
+}

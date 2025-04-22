@@ -1,17 +1,20 @@
 import { db } from "./app.js";
 import handleError from "./utils/handleError.js";
 
-function saveResultsCallback(err, data) {
-  if (err) {
-    throw new Error("Couldn't save data");
-  } else {
-    const raceID = this.lastID;
-    const runners = data.runners;
-    const sql = `INSERT INTO race_results (race_id, runner_id, finish_time, position) VALUES ${runners
-      .map(() => `(?, ?, ?, ?)`)
-      .join(", ")}`;
-    try {
-      // Save results in the db
+export async function saveResults(req, res) {
+  const data = req.body;
+  db.run(
+    `INSERT INTO races (race_name) VALUES (?)`,
+    [data.raceName],
+    function (err) {
+      if (err) return handleError(res, err, 400);
+
+      const raceID = this.lastID;
+      const runners = data.runners;
+      const sql = `INSERT INTO race_results (race_id, runner_id, finish_time, position) VALUES ${runners
+        .map(() => `(?, ?, ?, ?)`)
+        .join(", ")}`;
+
       db.run(
         sql,
         runners.flatMap((runner) => [
@@ -21,32 +24,12 @@ function saveResultsCallback(err, data) {
           runner.position,
         ]),
         (err) => {
-          if (err) throw new Error("Couldn't save data");
+          if (err) return handleError(res, err, 400);
+          res.status(201).json({ message: "Results saved", success: true });
         }
       );
-    } catch (error) {
-      handleError(res, error, 400);
     }
-  }
-}
-
-export async function saveResults(req, res) {
-  const data = req.body;
-  try {
-    // Create race
-    db.run(
-      `INSERT INTO races (race_name) VALUES (?)`,
-      [data.race_name],
-      function (err) {
-        saveResultsCallback.call(this, err, data);
-      }
-    );
-    res
-      .status(201)
-      .json({ message: "Post created successfuly", success: true });
-  } catch (error) {
-    handleError(res, error, 400);
-  }
+  );
 }
 
 export async function getRaces(req, res) {
@@ -66,11 +49,50 @@ export async function getRaces(req, res) {
 export async function getRaceResults(req, res) {
   const { id } = req.params;
   try {
-    db.all(`SELECT * from race_results WHERE race_id = ?`, id, (err, data) => {
+    db.all(
+      `SELECT * from race_results WHERE race_id = ?`,
+      id,
+      (err, runners) => {
+        if (err) {
+          throw new Error("Couldn't get race results");
+        } else {
+          db.get(
+            `SELECT * from races WHERE race_id = ?`,
+            id,
+            (err, raceDetails) => {
+              if (err) throw new Error("Couldn't get race results");
+              else {
+                return res.status(200).json({
+                  data: {
+                    runners,
+                    raceDetails,
+                  },
+                  success: true,
+                });
+              }
+            }
+          );
+        }
+      }
+    );
+  } catch (error) {
+    handleError(res, error, 400);
+  }
+}
+
+export async function deleteRace(req, res) {
+  const { id } = req.params;
+  try {
+    db.all(`DELETE FROM race_results WHERE race_id = ?`, id, (err) => {
       if (err) {
-        throw new Error("Couldn't get race results");
+        throw new Error("Couldn't find race results");
       } else {
-        return res.status(200).json({ data, success: true });
+        db.run(`DELETE FROM races WHERE race_id = ?`, id, (err) => {
+          if (err) throw new Error("Couldn't find race");
+          else {
+            return res.status(200).json({ success: true });
+          }
+        });
       }
     });
   } catch (error) {

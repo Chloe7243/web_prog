@@ -1,18 +1,52 @@
 import { ShadowElement } from "../../shadow-element.mjs";
 
 class RaceList extends ShadowElement {
+  races = [];
   async connectedCallback() {
     const templateURL = import.meta.url.replace(".mjs", ".html");
     await this.loadTemplate(templateURL);
     await this.fetchRaces();
+
     // // Listen for new messages added to refresh the list
-    // this.addEventListener("messageadded", this.fetchMessages);
+    this.addEventListener("filter", ({ detail }) => {
+      const { search = "", dateRange = {} } = detail;
+      const searchValue = search.trim().toLowerCase();
+      const { fromDate = "", toDate = "" } = dateRange;
+
+      const filteredRaces = this.races.filter(
+        (race) =>
+          this.isWithinDateRange(race.race_date, fromDate, toDate) &&
+          this.matchesSearch(race.race_name, searchValue)
+      );
+
+      this.renderItems(filteredRaces);
+    });
   }
 
-  /**
-   * Fetches messages from the server and updates the display
-   * If fetch fails, shows an error message
-   */
+  isWithinDateRange(raceDate, fromStr, toStr) {
+    if (!fromStr) return true;
+    const from = new Date(fromStr);
+    const to = toStr ? new Date(toStr) : new Date();
+    const date = new Date(raceDate);
+    return date >= from && date <= to;
+  }
+
+  matchesSearch(raceName, keyword) {
+    return keyword ? raceName?.toLowerCase().includes(keyword) : true;
+  }
+
+  renderItems(raceList) {
+    this.clearShadow();
+    raceList.forEach((race) => {
+      const clone = this.showTemplate("race");
+      if (clone) {
+        clone["race-id"] = race.race_id;
+        clone["race-name"] = race?.race_name || "";
+        clone["race-date"] = race?.race_date;
+      }
+    });
+  }
+
   async fetchRaces() {
     this.clearShadow();
     let races;
@@ -31,15 +65,8 @@ class RaceList extends ShadowElement {
 
     // Clear existing messages and display new ones
     if (races) {
-      races.forEach((race) => {
-        const clone = this.showTemplate("race");
-
-        if (clone) {
-          clone["race-id"] = race.race_id;
-          clone["race-name"] = race?.race_name || "";
-          clone["race-date"] = race?.race_date;
-        }
-      });
+      this["races"] = races;
+      this.renderItems(races);
     }
   }
 }

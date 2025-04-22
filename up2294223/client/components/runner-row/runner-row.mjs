@@ -41,7 +41,7 @@ class RunnerRow extends ShadowElement {
     const readTemplate = getTemplateID("read");
     this.showTemplate(readTemplate);
     this.shadow.querySelector(".runner-id").textContent =
-      this?.["runner-id"] || "";
+      this?.["runner-id"] || "-";
   }
 
   updateRunnerID(inputEvent) {
