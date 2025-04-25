@@ -1,5 +1,5 @@
 import { submitResults } from "../../api.js";
-import { formatTime, toast } from "../../utils/functions.js";
+import { formatTime, timeToMillis, toast } from "../../utils/functions.js";
 import {
   localStorageResults,
   localStorageStopwatch,
@@ -13,12 +13,11 @@ import {
 
 let isOn = false;
 const buttons = {};
-const dialog = document.getElementById("raceDialog");
-const dialogCancel = document.getElementById("cancelBtn");
-const dialogSubmit = document.getElementById("submitBtn");
+const dialogs = {};
 
 const toaster = document.querySelector("toast-message");
 const raceResults = document.querySelector("results-board");
+const dialogElements = document.querySelectorAll("dialog[id]");
 const buttonElements = document.querySelectorAll("button[id]");
 const resultButtons = document.querySelector("#result-buttons");
 
@@ -29,44 +28,44 @@ for (const button of buttonElements) {
   buttons[button.id] = button;
 }
 
+for (const dialog of dialogElements) {
+  dialogs[dialog.id] = dialog;
+}
+
+const confirmationDialogContinue =
+  dialogs.confirmationDialog.querySelector("#continueBtn");
+const raceDialogSubmit = dialogs.raceDialog.querySelector("#continueBtn");
+
 const runnersDataHandler = {
-  set(target, property, value) {
+  set(target, property, value, j, t) {
     target[property] = value;
-    const timeToMillis = (timeStr) => {
-      const [h, m, s] = timeStr.split(":");
-      const [sec, ms] = s.split(".");
-      return (
-        parseInt(h) * 3600000 +
-        parseInt(m) * 60000 +
-        parseInt(sec) * 1000 +
-        parseInt(ms)
-      );
-    };
 
-    target.sort((a, b) => timeToMillis(a.time) - timeToMillis(b.time));
-
-    target.forEach((runner, index) => {
-      runner.position = index + 1;
-    });
-
-    const event = new CustomEvent("show-results", {
-      bubbles: true,
-      composed: true,
-      detail: { runners: target },
-    });
-
-    resultButtons.classList.toggle("hidden", !target.length);
-
-    raceResults.dispatchEvent(event);
+    /*
+      Temporal solution to duplication issue
+    */
+    if ((property === "length" && value === 0) || !isNaN(property)) {
+      const event = new CustomEvent("show-results", {
+        bubbles: true,
+        composed: true,
+        detail: { runners: target, newValue: value },
+      });
+      raceResults.dispatchEvent(event);
+    }
     return true;
   },
 };
 
 const watchedRunnersData = new Proxy(runnersData, runnersDataHandler);
 
+const showResultsButtons = () => {
+  resultButtons.classList.toggle("hidden", isOn || !watchedRunnersData.length);
+};
+
 const clearResults = () => {
   watchedRunnersData.splice(0, watchedRunnersData.length);
   localStorage.removeItem(localStorageResults);
+  dialogs.confirmationDialog.close();
+  resultButtons.classList.add("hidden");
 };
 
 buttons.toggle.addEventListener("click", (e) => {
@@ -82,6 +81,7 @@ buttons.toggle.addEventListener("click", (e) => {
   iconElement.classList.toggle("fa-circle-stop", !isOn);
   iconElement.classList.toggle("fa-circle-play", isOn);
   isOn = !isOn;
+  showResultsButtons();
 });
 
 buttons.save.addEventListener("click", () => {
@@ -90,7 +90,7 @@ buttons.save.addEventListener("click", () => {
     watchedRunnersData.push({
       id: "",
       time: formatTime(time),
-      position: "",
+      position: watchedRunnersData.length + 1,
     });
   } else {
     toast({ message: "Please start the timer", toasterElement: toaster });
@@ -98,7 +98,13 @@ buttons.save.addEventListener("click", () => {
 });
 
 buttons.reset.addEventListener("click", () => {
-  if (!isOn) resetTimer();
+  if (!isOn) {
+    confirmationDialogContinue.addEventListener("click", () => {
+      clearResults();
+      resetTimer();
+    });
+    dialogs.confirmationDialog.showModal();
+  }
 });
 
 buttons.submit.addEventListener("click", async (e) => {
@@ -111,16 +117,32 @@ buttons.submit.addEventListener("click", async (e) => {
     return;
   }
 
-  dialog.showModal();
+  dialogs.raceDialog.showModal();
 });
 
-dialogCancel.addEventListener("click", () => {
-  dialog.close();
+Object.values(dialogs).forEach((dialog) => {
+  dialog.querySelector("#cancelBtn").addEventListener("click", () => {
+    dialog.close();
+  });
+  dialog.addEventListener("click", (e) => {
+    if (e.target === e.currentTarget) {
+      e.stopPropagation();
+      const dialogBox = e.target.getBoundingClientRect();
+      if (
+        dialogBox.left > e.clientX ||
+        dialogBox.right < e.clientX ||
+        dialogBox.top > e.clientY ||
+        dialogBox.bottom < e.clientY
+      ) {
+        dialog.close();
+      }
+    }
+  });
 });
 
-dialogSubmit.addEventListener("click", async () => {
-  dialog.close();
-  const raceNameInput = document.getElementById("raceName");
+raceDialogSubmit.addEventListener("click", async () => {
+  dialogs.raceDialog.close();
+  const raceNameInput = document.querySelector("#raceName");
   const raceName = raceNameInput.value;
 
   const body = JSON.stringify({ runners: runnersData, raceName });
@@ -151,18 +173,12 @@ dialogSubmit.addEventListener("click", async () => {
   await submitResults(body, onSubmitSuccess, onSubmitFailure);
 });
 
-buttons.clear.addEventListener("click", clearResults);
-
 document.addEventListener("update-runnerID", ({ detail }) => {
   const updateIndex = watchedRunnersData.findIndex(
     (value) => value.position === detail.key
   );
-
   if (updateIndex >= 0) {
-    watchedRunnersData[updateIndex] = {
-      ...watchedRunnersData[updateIndex],
-      id: detail.value,
-    };
+    watchedRunnersData[updateIndex].id = detail.value;
   }
 });
 
@@ -170,6 +186,7 @@ window.addEventListener("load", async () => {
   setTimeout(() => {
     if (resultsValue) {
       watchedRunnersData.push(...resultsValue);
+      showResultsButtons();
     }
   }, 100);
 });

@@ -10,6 +10,17 @@ export function formatTime(time) {
   return formattedTime;
 }
 
+export const timeToMillis = (timeStr) => {
+  const [h, m, s] = timeStr.split(":");
+  const [sec, ms] = s.split(".");
+  return (
+    parseInt(h) * 3600000 +
+    parseInt(m) * 60000 +
+    parseInt(sec) * 1000 +
+    parseInt(ms)
+  );
+};
+
 export function addPositionSuffix(position) {
   if (!position) return position;
   let formattedPosition = String(position);

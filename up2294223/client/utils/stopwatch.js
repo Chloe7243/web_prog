@@ -63,6 +63,6 @@ window.addEventListener("load", () => {
   updateTimer();
 });
 
-window.addEventListener("unload", () => {
+window.addEventListener("pagehide", () => {
   stopTimer();
 });

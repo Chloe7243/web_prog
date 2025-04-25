@@ -32,20 +32,33 @@
     </nav>
 
     <div class="content">
-      <h1 class="race-name"><span>Race</span> details</h1>
+      <div class="header">
+        <h1 class="race-name"><span>Race</span> details</h1>
+
+        <div>
+          <button class="share-btn">
+            <i class="fa-regular fa-share-from-square"></i> Share result
+          </button>
+          <dialog id="share-options">
+            <div>
+              <button class="pdf">Download as PDF</button>
+              <button class="csv">Download as Excel</button>
+            </div>
+          </dialog>
+        </div>
+      </div>
       <div class="separator"></div>
       <div class="result-container">
         <div class="filters">
           <fieldset class="">
             <legend>Filter by</legend>
             <span>
-              <label for="">Position:</label>
-              <input type="number" min="1" class="position" name="position" />
+              <label for="position">Position:</label>
+              <input type="number" min="1" id="position" name="position" />
             </span>
-            <p style="font-size: 1.5rem">Or</p>
             <span>
-              <label for="">Runner ID:</label>
-              <input type="text" class="id" name="id" />
+              <label for="id">Runner ID:</label>
+              <input type="text" id="id" name="id" />
             </span>
           </fieldset>
         </div>

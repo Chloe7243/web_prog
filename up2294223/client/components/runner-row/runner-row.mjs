@@ -14,18 +14,18 @@ class RunnerRow extends ShadowElement {
     } else {
       this.showEditMode();
     }
-    this.shadow.querySelector(".time").textContent = this["runner-time"] || "";
-    this.shadow.querySelector(".position").textContent = addPositionSuffix(
-      this["runner-position"] || ""
-    );
+    return true;
   }
 
   showEditMode() {
     this.clearShadow();
     const editTemplate = getTemplateID("edit");
-
     this.showTemplate(editTemplate);
 
+    this.shadow.querySelector(".time").textContent = this["runner-time"] || "";
+    this.shadow.querySelector(".position").textContent = addPositionSuffix(
+      this["runner-position"] || ""
+    );
     const runnerIDInputField = this.shadow.querySelector(".runner-id > input");
     if (runnerIDInputField) {
       runnerIDInputField.value = this?.["runner-id"] || "";
@@ -40,6 +40,10 @@ class RunnerRow extends ShadowElement {
     this.clearShadow();
     const readTemplate = getTemplateID("read");
     this.showTemplate(readTemplate);
+    this.shadow.querySelector(".time").textContent = this["runner-time"] || "";
+    this.shadow.querySelector(".position").textContent = addPositionSuffix(
+      this["runner-position"] || ""
+    );
     this.shadow.querySelector(".runner-id").textContent =
       this?.["runner-id"] || "-";
   }

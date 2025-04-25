@@ -11,7 +11,27 @@ class ResultsBoard extends ShadowElement {
     results.append(raceResults);
 
     this.addEventListener("show-results", ({ detail }) => {
-      const event = new CustomEvent("add-runner", {
+      const runnersNum = detail.runners.length;
+      if (!runnersNum) {
+        const event = new CustomEvent("clear-result", {
+          bubbles: true,
+          composed: true,
+        });
+        raceResults.dispatchEvent(event);
+      } else {
+        const newValue = detail.newValue;
+        const event = new CustomEvent("add-runner", {
+          bubbles: true,
+          composed: true,
+          detail: { runner: newValue },
+        });
+
+        raceResults.dispatchEvent(event);
+      }
+    });
+
+    this.addEventListener("show-bulk-results", ({ detail }) => {
+      const event = new CustomEvent("show-runners", {
         bubbles: true,
         composed: true,
         detail,

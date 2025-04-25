@@ -1,4 +1,3 @@
-import { validStatuses } from "../utils/constants.js";
 import handleError from "./utils/handleError.js";
 
 export function validateRaceBody(req, res, next) {
@@ -13,40 +12,28 @@ export function validateRaceBody(req, res, next) {
   ) {
     errors.push("Runners must exist and be a non-empty array.");
   } else {
-    // If runners is an areay validate each runner object
+    // If runners is an array validate each runner object
     const runnersIsValid = data.runners.every((runner) => {
       const { id, position, time, status } = runner;
 
-      // Runner ID must be a positive integer
+      // Runner ID must not be falsy
       const IDValidation =
         id !== undefined && id !== null && String(id).trim() !== "";
 
-      // Position must be a positive integer or null (null for DNF)
-      const positionValidation =
-        position === null || (Number.isInteger(position) && position > 0);
+      // Position must be a positive integer
+      const positionValidation = Number.isInteger(position) && position > 0;
 
-      // Time must be a string in HH:MM:SS:MS format or null (null for DNF)
+      // Time must be a string in HH:MM:SS.MS format
       const timeRegex = /^([0-9]{2}):([0-5][0-9]):([0-5][0-9])\.[0-9]{3}$/;
-      const timeValidation =
-        time === null || (typeof time === "string" && timeRegex.test(time));
+      const timeValidation = typeof time === "string" && timeRegex.test(time);
 
-      // Status must be 'Finished', 'DNF', or 'Disqualified' (optional)
-      const statusValidation =
-        !status ||
-        (typeof status === "string" && validStatuses.includes(status));
-
-      return (
-        IDValidation && positionValidation && timeValidation && statusValidation
-      );
+      return IDValidation && positionValidation && timeValidation;
     });
     if (!runnersIsValid) {
       errors.push(
         `Runner ID must not be empty`,
         `All runners position must either be a positive integer or null.`,
-        `All runners must have a valid time string in HH:MM:SS.MS format or null.`,
-        `Some runners have an invalid status. Allowed status: ${validStatuses.join(
-          ", "
-        )}`
+        `All runners must have a valid time string in HH:MM:SS.MS format or null.`
       );
     }
   }

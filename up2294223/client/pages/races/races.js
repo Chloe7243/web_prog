@@ -1,8 +1,8 @@
 import { dateFormatter, toast } from "../../utils/functions.js";
 
 const toastElement = document.querySelector("toast-message");
-const toDate = document.querySelector(".date_filter .toDate");
-const fromDate = document.querySelector(".date_filter .fromDate");
+const toDate = document.querySelector(".date_filter #toDate");
+const fromDate = document.querySelector(".date_filter #fromDate");
 const searchFilter = document.querySelector(".search_input > input");
 
 const raceList = document.querySelector("race-list");
@@ -80,6 +80,8 @@ fromDate.addEventListener("change", (e) => {
   };
 });
 
-searchFilter.addEventListener("change", (e) => {
-  watchedFilter.search = e.target.value;
+searchFilter.addEventListener("input", (e) => {
+  setTimeout(() => {
+    watchedFilter.search = e.target.value;
+  }, 1500);
 });

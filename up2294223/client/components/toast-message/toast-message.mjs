@@ -32,7 +32,7 @@ class ToastMessage extends ShadowElement {
   }
 
   showToast(type = "info", title = "", message = "", duration = 5000) {
-    const toast = this.shadow.getElementById("toast");
+    const toast = this.shadow.querySelector("#toast");
     const toastIcon = toast.querySelector(".icon");
     const toastTitle = toast.querySelector(".title");
     const toastMessage = toast.querySelector(".message");

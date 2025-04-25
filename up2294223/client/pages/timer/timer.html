@@ -40,7 +40,6 @@
           </button>
         </span>
         <span>
-          <!-- <button id="stop">Stop</button> -->
           <button id="reset">Reset</button>
         </span>
       </div>
@@ -55,7 +54,6 @@
     <div class="result">
       <results-board></results-board>
       <div id="result-buttons" class="hidden">
-        <button id="clear">Clear results</button>
         <button id="submit" type="button">Submit results</button>
       </div>
     </div>
@@ -70,13 +68,23 @@
           placeholder="Enter race name"
         />
 
-        <div class="form-buttons">
+        <div class="form-buttons buttons">
           <button type="button" class="cancel-btn" id="cancelBtn">
             Cancel
           </button>
-          <button type="button" id="submitBtn">Submit</button>
+          <button type="button" id="continueBtn">Submit</button>
         </div>
       </form>
+    </dialog>
+    <dialog id="confirmationDialog">
+      <p class="message">
+        This will clear results and reset the timer. <br />Are you sure you want
+        to continue?
+      </p>
+      <div class="confirmation-buttons buttons">
+        <button type="button" class="cancel-btn" id="cancelBtn">Cancel</button>
+        <button type="button" id="continueBtn">Reset</button>
+      </div>
     </dialog>
 
     <toast-message></toast-message>

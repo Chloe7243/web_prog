@@ -189,10 +189,6 @@ nav.home > .history > .history-icon > sub > i {
 
 /* TIMER PAGE Styles */
 
-/* .timer{
-  pa
-} */
-
 .timer-page,
 .race-page,
 .race-details-page {
@@ -227,7 +223,9 @@ nav.home > .history > .history-icon > sub > i {
 }
 
 .timer-clock #timer {
-  font-size: 4.5rem;
+  text-align: center;
+  font-size: clamp(1.5rem, 12vw, 4.5rem);
+  width: 100%;
 }
 
 .timer-clock #timer-buttons {
@@ -313,23 +311,20 @@ nav.home > .history > .history-icon > sub > i {
 .timer-page .result #result-buttons > button {
   padding: 1.2rem;
   flex: 1;
+  background: var(--primary);
+  color: whitesmoke;
 }
 
-.timer-page .result #result-buttons > #clear {
-  color: rgb(199, 5, 5);
-  background: rgb(230, 148, 148);
-}
-
-#raceDialog {
+.timer-page dialog {
   padding: 2rem;
   border-radius: 0.8rem;
   border: 1px solid #ddd;
   margin: auto;
   box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.1);
-  width: 30rem;
+  width: min(30rem, 100%);
 }
 
-#raceDialog::backdrop {
+.timer-page dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -346,6 +341,21 @@ nav.home > .history > .history-icon > sub > i {
 #raceDialog label {
   font-weight: bold;
   font-size: 1.3rem;
+  width: 100%;
+}
+
+#confirmationDialog {
+  padding: 2.5rem 2rem;
+  width: min(35rem, 100%);
+}
+
+#confirmationDialog > p {
+  font-weight: 500;
+  font-size: 1.3rem;
+  width: 100%;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-size: 1.5rem;
 }
 
 #raceDialog input {
@@ -355,13 +365,14 @@ nav.home > .history > .history-icon > sub > i {
   border-radius: 0.4rem;
 }
 
-#raceDialog .form-buttons {
+.timer-page dialog .buttons {
   display: flex;
+  width: 100%;
   justify-content: space-between;
   gap: 1rem;
 }
 
-#raceDialog .form-buttons > button {
+.timer-page dialog .buttons button {
   flex: 1;
   background: var(--primary);
   color: white;
@@ -371,6 +382,19 @@ nav.home > .history > .history-icon > sub > i {
   margin: 0;
   border-radius: 0.7rem;
   width: min(10rem, 100%);
+}
+
+#confirmationDialog .buttons > button {
+  width: min(10rem, 100%);
+}
+
+#confirmationDialog .buttons > button {
+  background: #000;
+  color: white;
+}
+
+#confirmationDialog .buttons #continueBtn {
+  background-color: rgb(199, 5, 5);
 }
 
 /* Race page */
@@ -460,9 +484,86 @@ nav.home > .history > .history-icon > sub > i {
   flex-direction: column;
 }
 
-.race-details-page > .content > .race-name {
+.race-details-page > .content > .header {
   padding: 2rem 1.5rem;
+  display: flex;
+  column-gap: 4rem;
+  row-gap: 2rem;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
   text-transform: capitalize;
+}
+
+.race-details-page > .content > .header > div {
+  flex: 1;
+  min-width: max-content;
+}
+
+.race-details-page .share-btn {
+  float: right;
+  outline: none;
+  border: none;
+  padding: 0.8rem 1.6rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.4rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+  cursor: pointer;
+  background-color: var(--primary);
+  color: white;
+  text-wrap-mode: nowrap;
+  overflow: hidden;
+}
+
+@media (max-width: 415px) {
+  .share-btn {
+    width: 100%;
+  }
+}
+
+.race-details-page .share-btn * {
+  font-weight: 600;
+  font-size: 1.4rem;
+}
+
+.race-details-page .share-btn:hover {
+  background-color: #0060df;
+}
+
+#share-options {
+  border: 0.1rem solid #e2e8f0;
+  border-radius: 0.6rem;
+  width: max-content;
+  z-index: 1000;
+}
+
+#share-options > div {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0;
+  border-radius: inherit;
+}
+
+#share-options::backdrop {
+  background: transparent;
+}
+
+#share-options button {
+  display: block;
+  width: 100%;
+  padding: 0.8rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+#share-options button:hover {
+  background-color: #dcebf7d3;
 }
 
 .race-details-page > .content .result-container {
