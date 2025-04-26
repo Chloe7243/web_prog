@@ -4,7 +4,7 @@ let raceId;
 let raceDetailRunners = [];
 
 const IdInput = document.querySelector("input#id");
-const shareBtn = document.querySelector(".share-btn");
+const shareBtn = document.querySelector(".share");
 const raceResults = document.querySelector("results-board");
 const shareOptions = document.querySelector("#share-options");
 const positionInput = document.querySelector("input#position");
@@ -115,8 +115,6 @@ function positionDialog() {
   const dialogLeft = Math.min(wrapperRect.left, maxLeft);
   const dialogTop = Math.min(wrapperRect.top, maxTop) + 50;
 
-  console.log(wrapperRect.width);
-
   shareOptions.style.width = `${wrapperRect.width}px`;
   shareOptions.style.left = `${dialogLeft}px`;
   shareOptions.style.top = `${dialogTop}px`;
@@ -222,12 +220,10 @@ shareOptions.querySelector(".pdf").addEventListener("click", async () => {
     table.appendChild(thead);
     table.appendChild(tbody);
 
-    newTab.addEventListener("load", () => {
-      doc.head.appendChild(styleEl);
-      doc.body.appendChild(heading);
-      doc.body.appendChild(table);
-      newTab.print();
-    });
+    doc.head.appendChild(styleEl);
+    doc.body.appendChild(heading);
+    doc.body.appendChild(table);
+    newTab.print();
   }
 });
 
@@ -241,17 +237,17 @@ shareOptions.querySelector(".csv").addEventListener("click", () => {
     );
   });
   const blob = new Blob([csvRows.join("\n")], { type: "text/csv" });
-  const url = URL.createObjectURL(blob);
 
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = `${raceId}-results.csv`;
-  a.click();
-  URL.revokeObjectURL(url);
-  a.remove();
+  const downloadLink = document.createElement("a");
+  downloadLink.href = URL.createObjectURL(blob);
+  downloadLink.download = `${raceId}-results.csv`;
+  downloadLink.click();
+  downloadLink.remove();
   shareOptions.close();
 });
 
 window.addEventListener("load", async () => {
-  loadRaceDetails();
+  setTimeout(() => {
+    loadRaceDetails();
+  }, 100);
 });

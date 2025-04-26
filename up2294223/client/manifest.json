@@ -2,13 +2,13 @@
   "name": "Timer application",
   "short_name": "Timer app",
   "description": "Application for timing races",
-  "start_url": "./",
+  "start_url": "./client",
   "background_color": "#4a90e2",
   "theme_color": "#000",
   "display": "standalone",
   "icons": [
     {
-      "src": "./logos/logo192.png",
+      "src": "./logos/logo.png",
       "sizes": "626x626",
       "type": "image/png"
     }

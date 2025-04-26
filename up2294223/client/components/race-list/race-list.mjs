@@ -37,6 +37,10 @@ class RaceList extends ShadowElement {
 
   renderItems(raceList) {
     this.clearShadow();
+    if (!raceList.length) {
+      this.showTemplate("empty");
+      return;
+    }
     raceList.forEach((race) => {
       const clone = this.showTemplate("race");
       if (clone) {

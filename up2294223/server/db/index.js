@@ -34,9 +34,7 @@ CREATE TABLE IF NOT EXISTS race_results (
   FOREIGN KEY (race_id) REFERENCES races (race_id) ON DELETE CASCADE
 );`;
 
-  db.exec(createTables, (err) => {
-    console.log({ err });
-  });
+  db.exec(createTables, (err) => {});
 
   return db;
 }

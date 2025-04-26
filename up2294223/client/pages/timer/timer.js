@@ -117,6 +117,11 @@ buttons.submit.addEventListener("click", async (e) => {
     return;
   }
 
+  if (!navigator.onLine) {
+    alert("You are offline! Connect to the internet and try again!");
+    return;
+  }
+
   dialogs.raceDialog.showModal();
 });
 
@@ -182,7 +187,8 @@ document.addEventListener("update-runnerID", ({ detail }) => {
   }
 });
 
-window.addEventListener("load", async () => {
+window.addEventListener("load", () => {
+  alert("Remember to turn on airplane mode to avoid disruptions during timing");
   setTimeout(() => {
     if (resultsValue) {
       watchedRunnersData.push(...resultsValue);

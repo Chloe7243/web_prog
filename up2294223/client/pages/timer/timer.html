@@ -31,32 +31,35 @@
     <nav class="page-nav">
       <a href="../.."> <i class="fa-solid fa-arrow-left"></i>Back to home</a>
     </nav>
-    <div class="timer-clock">
-      <div id="timer-buttons">
-        <span>
-          <button id="toggle" class="start">
-            <i class="fa-solid fa-circle-play"></i>
-            <p>Start</p>
+    <div class="content">
+      <div class="timer-clock">
+        <div id="timer-buttons">
+          <span>
+            <button id="toggle" class="start">
+              <i class="fa-solid fa-circle-play"></i>
+              <p>Start</p>
+            </button>
+          </span>
+          <span>
+            <button id="reset">Reset</button>
+          </span>
+        </div>
+        <h1 id="timer">00:00:00.000</h1>
+        <div id="timer-buttons">
+          <button id="save">
+            <i class="fa-solid fa-flag-checkered"></i>Mark time
           </button>
-        </span>
-        <span>
-          <button id="reset">Reset</button>
-        </span>
+        </div>
       </div>
-      <h1 id="timer">00:00:00.000</h1>
-      <div id="timer-buttons">
-        <button id="save">
-          <i class="fa-solid fa-flag-checkered"></i>Mark time
-        </button>
+      <div class="separator"></div>
+      <div class="result">
+        <results-board></results-board>
+        <div id="result-buttons" class="hidden">
+          <button id="submit" type="button">Submit results</button>
+        </div>
       </div>
     </div>
-    <div class="separator"></div>
-    <div class="result">
-      <results-board></results-board>
-      <div id="result-buttons" class="hidden">
-        <button id="submit" type="button">Submit results</button>
-      </div>
-    </div>
+
     <dialog id="raceDialog">
       <h2>Race Information</h2>
       <form method="dialog">
@@ -86,7 +89,6 @@
         <button type="button" id="continueBtn">Reset</button>
       </div>
     </dialog>
-
     <toast-message></toast-message>
   </body>
 </html>

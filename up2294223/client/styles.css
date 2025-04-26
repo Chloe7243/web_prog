@@ -12,8 +12,6 @@ html {
   box-sizing: border-box;
   scroll-behavior: smooth;
   font-family: "Inter", sans-serif;
-  overflow: hidden;
-  /* background: rgba(0, 0, 0, 0.263); */
 }
 
 button {
@@ -194,14 +192,12 @@ nav.home > .history > .history-icon > sub > i {
   font-size: 4rem;
 }
 
-/* TIMER PAGE Styles */
-
 .timer-page,
 .race-page,
 .race-details-page {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  overflow-y: hidden;
 }
 
 .page-nav {
@@ -217,6 +213,15 @@ nav.home > .history > .history-icon > sub > i {
   gap: 1rem;
   color: white;
   text-decoration: none;
+}
+
+/* TIMER PAGE Styles */
+
+.timer-page > .content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .timer-clock {
@@ -299,16 +304,18 @@ nav.home > .history > .history-icon > sub > i {
 .timer-page .result {
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  padding: 1.5rem;
+  gap: 1rem;
   flex: 1;
 }
 
 .timer-page .result results-board {
   flex: 1;
-  /* background: var(--primary); */
+  overflow: hidden;
 }
 
 .timer-page .result #result-buttons {
-  padding: 1.5rem;
   width: 100%;
   display: flex;
   gap: 1.5rem;
@@ -406,12 +413,13 @@ nav.home > .history > .history-icon > sub > i {
 
 /* Race page */
 
-.race-page > div {
+.race-page > .content {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 1.5rem;
   padding-top: 1.5rem;
+  overflow: hidden;
 }
 
 .race-page .content > h1 {
@@ -430,6 +438,7 @@ nav.home > .history > .history-icon > sub > i {
   flex: 1;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
 }
 
 .race-page > div race-list {
@@ -463,11 +472,11 @@ nav.home > .history > .history-icon > sub > i {
 
 .races > div span:first-of-type {
   text-align: left;
+  flex-grow: 0;
 }
 
 .races > div span:last-of-type {
   flex-grow: 0;
-  margin: 1rem;
 }
 
 .races > div > span {
@@ -480,7 +489,6 @@ nav.home > .history > .history-icon > sub > i {
   cursor: pointer;
   background: var(--bg-button);
   padding: 1.1rem 0.8rem;
-  /* font-size: 1.43em; */
   border-radius: 0.7rem;
   width: min(10rem, 100%);
 }
@@ -493,6 +501,7 @@ nav.home > .history > .history-icon > sub > i {
   flex: 1;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .race-details-page > .content > .header {
@@ -514,7 +523,7 @@ nav.home > .history > .history-icon > sub > i {
   min-width: max-content;
 }
 
-.race-details-page .share-btn {
+.race-details-page .share {
   float: right;
   outline: none;
   border: none;
@@ -530,22 +539,21 @@ nav.home > .history > .history-icon > sub > i {
   background-color: var(--primary);
   color: white;
   text-wrap-mode: nowrap;
-  overflow: hidden;
 }
 
-@media (max-width: 520px) {
-  .share-btn {
+@media (max-width: 420px) {
+  .race-details-page .share {
     width: 100%;
     padding: 1rem 1.6rem;
   }
 }
 
-.race-details-page .share-btn * {
+.race-details-page .share * {
   font-weight: 600;
   font-size: 1.4rem;
 }
 
-.race-details-page .share-btn:hover {
+.race-details-page .share:hover {
   background-color: #0060df;
 }
 
@@ -571,6 +579,7 @@ nav.home > .history > .history-icon > sub > i {
 #share-options button {
   display: block;
   width: 100%;
+  font-size: 1.1rem;
   padding: 0.8rem;
   background: none;
   border: none;
@@ -585,19 +594,26 @@ nav.home > .history > .history-icon > sub > i {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  overflow: hidden;
 }
 
 .race-details-page .filters {
-  padding: 1.5rem;
+  padding: 0.5rem 1rem;
+  overflow-x: scroll;
 }
 
 .race-details-page .filters > fieldset {
   padding: 0.5rem 1.5rem 1.7rem 0.8rem;
 }
 
+@media (max-width: 370px) {
+  .race-details-page .filters > fieldset {
+    padding: 0rem 1rem 1rem 0;
+  }
+}
+
 .race-details-page .filters > fieldset > span {
-  width: min(18rem, 100%);
+  width: min(24rem, 100%);
 }
 
 .race-details-page .filters > fieldset > span > label {
@@ -608,5 +624,6 @@ nav.home > .history > .history-icon > sub > i {
 
 .race-details-page > .content results-board {
   flex: 1;
-  padding-bottom: 1rem;
+  padding: 1rem;
+  overflow: hidden;
 }

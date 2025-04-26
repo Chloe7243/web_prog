@@ -83,5 +83,5 @@ fromDate.addEventListener("change", (e) => {
 searchFilter.addEventListener("input", (e) => {
   setTimeout(() => {
     watchedFilter.search = e.target.value;
-  }, 1500);
+  }, 1200);
 });
