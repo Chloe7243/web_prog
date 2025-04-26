@@ -3,7 +3,7 @@
 html {
   width: 100dvw;
   height: 100dvh;
-  font-size: 10px;
+  font-size: 13px;
 }
 
 * {
@@ -14,6 +14,10 @@ html {
   font-family: "Inter", sans-serif;
   overflow: hidden;
   /* background: rgba(0, 0, 0, 0.263); */
+}
+
+button {
+  font-size: 1.3rem;
 }
 
 ::-webkit-calendar-picker-indicator {
@@ -92,7 +96,7 @@ nav * {
   align-items: center;
   flex-wrap: wrap;
   column-gap: 2rem;
-  padding: 0 1rem;
+  padding: 0.5rem 1.5rem 1.7rem 0.8rem;
   width: 100%;
 }
 
@@ -101,8 +105,11 @@ nav * {
   align-items: center;
   width: min(25rem, 100%);
   flex-grow: 1;
-  margin: 1.5rem 0;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
+}
+
+.filters > fieldset > span + span {
+  margin-top: 1rem;
 }
 
 .filters > fieldset > span > input {
@@ -135,7 +142,7 @@ nav * {
   padding: 0;
   border: none;
   outline: none;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   padding: 0.8rem 1rem;
   color: wheat;
   color-scheme: dark;
@@ -199,7 +206,7 @@ nav.home > .history > .history-icon > sub > i {
 
 .page-nav {
   width: 100%;
-  font-size: 1.7rem;
+  font-size: 1.5rem;
   padding: 1.5rem;
   background: var(--primary);
 }
@@ -224,7 +231,7 @@ nav.home > .history > .history-icon > sub > i {
 
 .timer-clock #timer {
   text-align: center;
-  font-size: clamp(1.5rem, 12vw, 4.5rem);
+  font-size: clamp(1.5rem, 12vw, 4rem);
   width: 100%;
 }
 
@@ -271,7 +278,7 @@ nav.home > .history > .history-icon > sub > i {
   align-items: center;
   justify-content: center;
   padding: 1.5rem;
-  font-size: 2rem;
+  font-size: 1.7rem;
 }
 
 .timer-clock #timer-buttons #save > i {
@@ -411,6 +418,10 @@ nav.home > .history > .history-icon > sub > i {
   padding: 0 1.5rem;
 }
 
+.race-page .search_input {
+  padding: 0;
+}
+
 .race-page .filters > fieldset > span > label {
   width: 5.5rem;
 }
@@ -439,7 +450,7 @@ nav.home > .history > .history-icon > sub > i {
   flex: 1;
   font-weight: 600;
   padding: 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   text-wrap-mode: nowrap;
 }
 
@@ -487,12 +498,15 @@ nav.home > .history > .history-icon > sub > i {
 .race-details-page > .content > .header {
   padding: 2rem 1.5rem;
   display: flex;
-  column-gap: 4rem;
-  row-gap: 2rem;
+  gap: 2rem;
   align-items: center;
   flex-wrap: wrap;
   justify-content: space-between;
   text-transform: capitalize;
+}
+
+.race-details-page > .content > .header > h1 {
+  font-size: 1.8rem;
 }
 
 .race-details-page > .content > .header > div {
@@ -510,7 +524,7 @@ nav.home > .history > .history-icon > sub > i {
   align-items: center;
   justify-content: center;
   border-radius: 0.4rem;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   font-weight: 500;
   cursor: pointer;
   background-color: var(--primary);
@@ -519,9 +533,10 @@ nav.home > .history > .history-icon > sub > i {
   overflow: hidden;
 }
 
-@media (max-width: 415px) {
+@media (max-width: 520px) {
   .share-btn {
     width: 100%;
+    padding: 1rem 1.6rem;
   }
 }
 
@@ -577,8 +592,11 @@ nav.home > .history > .history-icon > sub > i {
   padding: 1.5rem;
 }
 
+.race-details-page .filters > fieldset {
+  padding: 0.5rem 1.5rem 1.7rem 0.8rem;
+}
+
 .race-details-page .filters > fieldset > span {
-  margin: 1.5rem 0;
   width: min(18rem, 100%);
 }
 
@@ -590,4 +608,5 @@ nav.home > .history > .history-icon > sub > i {
 
 .race-details-page > .content results-board {
   flex: 1;
+  padding-bottom: 1rem;
 }
