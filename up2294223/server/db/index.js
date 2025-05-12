@@ -5,7 +5,6 @@ const dbPath = resolve(import.meta.dirname, "data.db");
 
 function onConnect(err) {
   if (err) {
-    // console.log(err);
     return;
   }
 }

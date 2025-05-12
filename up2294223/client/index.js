@@ -6,3 +6,5 @@ if ("serviceWorker" in navigator) {
   }
 } else {
 }
+
+window.addEventListener("load", () => {});

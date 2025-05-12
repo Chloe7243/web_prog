@@ -31,22 +31,6 @@ async function putMessage(req, res) {
   res.json(message);
 }
 
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:5500");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, DELETE, OPTIONS"
-  );
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-
-  // Respond to preflight requests
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(204);
-  }
-
-  next();
-});
-
 app.get("/messages", getMessages);
 app.get("/messages/:id", getMessage);
 app.put("/messages/:id", express.json(), putMessage);

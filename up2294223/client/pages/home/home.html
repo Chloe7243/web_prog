@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/1925230fa1.js"
+      crossorigin="anonymous"
+    ></script>
+    <script defer type="module" src="./home.js"></script>
+    <link rel="stylesheet" href="../../styles.css" />
+    <title>Home</title>
+  </head>
+  <body>
+    <nav class="home">
+      <a class="timer new" href="./pages/timer/timer.html">
+        <i class="fa-solid fa-circle-plus"></i>Start a new race
+      </a>
+      <a class="timer existing" href="./pages/timer/timer.html"
+        ><i class="fa-solid fa-stopwatch-20"></i>Time existing race</a
+      >
+      <a class="history" href="./pages/races/races.html">
+        <div class="history-icon">
+          <i class="fa-solid fa-person-running"></i>
+          <sub><i class="fa-solid fa-clock-rotate-left"></i></sub>
+        </div>
+        Manage created races</a
+      >
+      <a class="spectate" href=""
+        ><i class="fa-solid fa-binoculars"></i>Spectate a race</a
+      >
+    </nav>
+    <dialog id="createRace">
+      <h2>Race Information</h2>
+      <form method="dialog">
+        <section>
+          <label for="raceName">Race Name (optional):</label>
+          <input
+            type="text"
+            id="raceName"
+            name="raceName"
+            placeholder="Enter race name"
+          />
+        </section>
+        <section>
+          <label for="raceName">Runner IDs (optional):</label>
+          <input
+            type="file"
+            id="runnerIds"
+            name="runnerIds"
+            placeholder="Upload csv for id's"
+          />
+        </section>
+
+        <div class="form-buttons buttons">
+          <button type="button" class="cancel-btn" id="cancelBtn">
+            Cancel
+          </button>
+          <button type="button" id="continueBtn">Submit</button>
+        </div>
+      </form>
+    </dialog>
+  </body>
+</html>
