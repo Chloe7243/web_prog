@@ -19,20 +19,34 @@ class ConflictItem extends ShadowElement {
     const confirmBtn = this.shadow.querySelector(".position-confirm");
 
     badge.textContent = `Position ${position}`;
-    timeOptionsContainer.innerHTML = "";
+
+    while (timeOptionsContainer.firstChild) {
+      timeOptionsContainer.removeChild(timeOptionsContainer.firstChild);
+    }
 
     times.forEach((time, index) => {
       const inputId = `position-${position}-time-${index}`;
+
       const wrapper = document.createElement("div");
       wrapper.className = "time-option";
-      wrapper.innerHTML = `
-            <input type="radio" name="position-${position}" id="${inputId}" value="${time}" ${
-        index === 0 ? "checked" : ""
-      }/>
-            <label for="${inputId}">
-              <span class="time-value">${time}</span>
-            </label>
-          `;
+
+      const input = document.createElement("input");
+      input.type = "radio";
+      input.name = `position-${position}`;
+      input.id = inputId;
+      input.value = time;
+      if (index === 0) input.checked = true;
+
+      const label = document.createElement("label");
+      label.setAttribute("for", inputId);
+
+      const span = document.createElement("span");
+      span.className = "time-value";
+      span.textContent = time;
+
+      label.appendChild(span);
+      wrapper.appendChild(input);
+      wrapper.appendChild(label);
       timeOptionsContainer.appendChild(wrapper);
     });
 

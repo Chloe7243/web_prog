@@ -103,11 +103,10 @@ export function init() {
     await viewRaceResults(
       id,
       ({ data }) => {
-        raceName.textContent =
-          data.raceDetails.race_name || `Race#${data.raceDetails.race_id}`;
-        raceDetailRunners = data.runners;
         raceId =
           data.raceDetails.race_name || `Race#${data.raceDetails.race_id}`;
+        raceName.textContent = raceId;
+        raceDetailRunners = data.runners;
         positionInput.setAttribute("max", data.runners.length);
         renderDetails(data.runners);
       },
@@ -117,7 +116,6 @@ export function init() {
     );
   }
 
-  // Example download handlers
   /**
    * Handles the download of race results as a PDF.
    */

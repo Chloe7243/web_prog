@@ -57,21 +57,6 @@ async function loadPageContent() {
 }
 
 /**
- * Shows a fallback error message in the main container.
- */
-function showErrorFallback() {
-  const container = document.getElementById("main-page");
-  if (container) {
-    container.innerHTML = `
-      <div style="padding:2rem;text-align:center;">
-        <h2>Oops! Something went wrong.</h2>
-        <p>Please try refreshing or going back to the <a href="/">home page</a>.</p>
-      </div>
-    `;
-  }
-}
-
-/**
  * Loads and applies a route-specific stylesheet.
  */
 async function loadStylesheet(href) {
