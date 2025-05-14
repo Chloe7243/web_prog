@@ -106,9 +106,7 @@ export async function init() {
           renderConflicts();
         }, 200);
       },
-      (error) => {
-        console.log(error);
-      }
+      (error) => {}
     );
   }
 

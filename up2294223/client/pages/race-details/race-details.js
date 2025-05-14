@@ -38,10 +38,8 @@ export function init() {
       },
     });
 
-    if (runners.length) {
-      raceResults.dispatchEvent(event);
-    } else {
-    }
+    raceResults.dispatchEvent(event);
+
     raceResults.classList.toggle("hidden", !runners.length);
     emptyResults.classList.toggle("hidden", runners.length);
   }
