@@ -141,7 +141,6 @@ export async function finalizeResults(req, res) {
  */
 export async function getTimeSubmissions(req, res) {
   const { raceId } = req.params;
-  const TIME_TOLERANCE_MS = 1000; // 1 second tolerance
 
   if (!raceId || String(raceId).trim() === "") {
     return handleError(res, "Race ID is missing or invalid.", 400);
@@ -162,9 +161,10 @@ export async function getTimeSubmissions(req, res) {
     });
 
     const results = [];
+    const conflicts = [];
     const groupedByPosition = {};
 
-    // Group all submissions by position
+    // Group submissions by position
     for (const submission of allSubmissions) {
       if (!groupedByPosition[submission.position]) {
         groupedByPosition[submission.position] = [];
@@ -172,53 +172,17 @@ export async function getTimeSubmissions(req, res) {
       groupedByPosition[submission.position].push(submission);
     }
 
-    const conflicts = [];
-
     for (const [position, submissions] of Object.entries(groupedByPosition)) {
-      const timekeeperSet = new Set(submissions.map((s) => s.timekeeper_id));
+      const uniqueTimes = new Set(submissions.map((s) => s.time));
 
-      // If only one timekeeper, accept the smallest time
-      if (timekeeperSet.size === 1) {
-        const smallest = submissions.reduce((a, b) =>
-          timeToMs(a.time) < timeToMs(b.time) ? a : b
-        );
+      if (uniqueTimes.size === 1) {
+        // All timekeepers submitted the exact same time
         results.push({
           position: Number(position),
-          time: smallest.time,
-        });
-        continue;
-      }
-
-      // Try to resolve similar times
-      let resolved = null;
-      for (let i = 0; i < submissions.length; i++) {
-        const a = submissions[i];
-        let group = [a];
-
-        for (let j = i + 1; j < submissions.length; j++) {
-          const b = submissions[j];
-          if (
-            Math.abs(timeToMs(a.time) - timeToMs(b.time)) <= TIME_TOLERANCE_MS
-          ) {
-            group.push(b);
-          }
-        }
-
-        if (group.length > 1) {
-          const smallest = group.reduce((a, b) =>
-            timeToMs(a.time) < timeToMs(b.time) ? a : b
-          );
-          resolved = smallest;
-          break;
-        }
-      }
-
-      if (resolved) {
-        results.push({
-          position: Number(position),
-          time: resolved.time,
+          time: submissions[0].time,
         });
       } else {
+        // Conflicting times at this position
         conflicts.push({ position: Number(position) });
       }
     }
