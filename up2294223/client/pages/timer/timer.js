@@ -12,6 +12,7 @@ import {
 import { handleCloseDialog } from "../../utils/closeDialog.js";
 
 let watchedRunnersData;
+let paramsRaceId;
 let timerElement;
 let isOn;
 
@@ -22,9 +23,12 @@ function updateTimer(time) {
 export const init = () => {
   const buttons = {};
   const dialogs = {};
+  const params = new URLSearchParams(window.location.search);
+  paramsRaceId = params.get("raceId");
 
   timerElement = document.querySelector("#timer");
   const raceResults = document.querySelector("results-board");
+  const timingRaceId = document.querySelector(".timing-race-id");
   const dialogElements = document.querySelectorAll("dialog[id]");
   const buttonElements = document.querySelectorAll("button[id]");
   const resultButtons = document.querySelector("#result-buttons");
@@ -32,6 +36,10 @@ export const init = () => {
   const localStorageData = JSON.parse(
     localStorage.getItem(localStorageResults)
   );
+
+  if (paramsRaceId) {
+    timingRaceId.textContent = `You are currently timing race of Race ID: ${paramsRaceId}`;
+  }
 
   isOn = getStopwatchState() || false;
 
@@ -76,6 +84,29 @@ export const init = () => {
     stopIcon.classList.toggle("hidden", !isOn);
     startIcon.classList.toggle("hidden", isOn);
   };
+
+  async function submitTimedResults(raceId) {
+    const data = { runners: runnersData, raceId };
+
+    const onSubmitSuccess = () => {
+      toast({
+        type: "success",
+        message: "Submitted successfully",
+      });
+      resetTimer(updateTimer);
+      dialogs.raceDialog.close();
+      clearResults();
+      raceIdInput.value = "";
+      return;
+    };
+
+    const onSubmitFailure = (err) => {
+      error.classList.remove("hidden");
+      error.textContent = err.error;
+    };
+
+    await uploadTimedResults(data, onSubmitSuccess, onSubmitFailure);
+  }
 
   const showResultsButtons = () => {
     resultButtons.classList.toggle(
@@ -135,7 +166,11 @@ export const init = () => {
       return;
     }
 
-    dialogs.raceDialog.showModal();
+    if (paramsRaceId) {
+      submitTimedResults(paramsRaceId);
+    } else {
+      dialogs.raceDialog.showModal();
+    }
   });
 
   // Handle Closing dialog
@@ -143,44 +178,23 @@ export const init = () => {
     handleCloseDialog(dialog, "#cancelBtn");
   });
 
-  raceDialogSubmit.addEventListener("click", async () => {
-    const raceIdInput = document.querySelector("#raceId");
+  const raceIdInput = document.querySelector("#raceId");
+  const error = dialogs.raceDialog.querySelector(".error");
+
+  raceIdInput.addEventListener("input", () => {
+    error.classList.add("hidden");
+  });
+
+  raceDialogSubmit.addEventListener("click", async (e) => {
     const raceId = raceIdInput.value;
 
     if (!raceId) {
-      toast({
-        title: "Couldn't submit result",
-        message: "Race Id must be a valid Id",
-        type: "Error",
-      });
+      error.classList.remove("hidden");
+      error.textContent = "Race ID is rqeuired";
+      return;
     }
 
-    const data = { runners: runnersData, raceId };
-
-    const onSubmitSuccess = () => {
-      toast({
-        type: "success",
-        message: "Submitted successfully",
-      });
-      resetTimer(updateTimer);
-      dialogs.raceDialog.close();
-      clearResults();
-      raceIdInput.value = "";
-      return;
-    };
-
-    const onSubmitFailure = (err) => {
-      toast({
-        type: "error",
-        title: err.error,
-        message:
-          err.messages[0] ||
-          "Couldn't submit results! Please, try again later.",
-      });
-      return;
-    };
-
-    await uploadTimedResults(data, onSubmitSuccess, onSubmitFailure);
+    submitTimedResults(raceId);
   });
 
   document.addEventListener("update-runnerID", ({ detail }) => {
@@ -203,8 +217,6 @@ export const init = () => {
   }, 100);
 };
 
-const params = new URLSearchParams(window.location.search);
-const raceId = params.get("raceId");
 export const destroy = () => {
   const currentTime = saveTime();
   if (
@@ -214,7 +226,6 @@ export const destroy = () => {
     localStorage.setItem(
       localStorageResults,
       JSON.stringify({
-        raceId,
         isOn,
         stopwatch: saveTime(),
         results: watchedRunnersData,

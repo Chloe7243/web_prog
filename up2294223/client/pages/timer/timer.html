@@ -6,11 +6,12 @@
         <back-button> </back-button>
       </nav>
       <div class="content">
+        <h2 class="timing-race-id"></h2>
         <section class="timer-clock">
           <div id="timer-buttons">
             <span>
               <button id="toggle" class="start">
-                <i class="start-icon hidden">
+                <i class="start-icon">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -85,16 +86,22 @@
       </div>
 
       <dialog id="raceDialog">
-        <h2>Race Information</h2>
+        <header>
+          <h2>Race Information</h2>
+          <p>
+            PS: If you're the creator of this race, enter race id assigned to
+            you else ask the creator of the race you just timed for the race ID
+          </p>
+        </header>
         <form method="dialog">
-          <p>PS: Ask the creator of the race you just timed for the race ID</p>
+          <label for="raceID">Race ID</label>
           <input
             type="text"
             id="raceId"
             name="raceName"
             placeholder="Enter race Id"
           />
-
+          <p class="error hidden"></p>
           <div class="form-buttons buttons">
             <button type="button" class="cancel-btn" id="cancelBtn">
               Cancel

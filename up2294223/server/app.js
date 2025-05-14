@@ -9,13 +9,14 @@ import {
   getRaceResults,
   getRaces,
   getTimeSubmissions,
-  saveResults,
+  uploadTimekeeperResults,
 } from "./controllers.js";
 import {
   validateDeleteId,
   validateRaceData,
   validateResultData,
   validateResultParams,
+  validateTimekeeperResults,
   validateUserId,
 } from "./middlewares.js";
 import { fileURLToPath } from "url";
@@ -48,7 +49,11 @@ app.get("/get-races/:userId", validateUserId, getRaces);
 app.delete("/delete-race/:id", validateDeleteId, deleteRace);
 
 app.post("/finalize-results/:raceId", validateResultData, finalizeResults);
-app.post("/upload-results/:raceId", saveResults);
+app.post(
+  "/upload-results/:raceId",
+  validateTimekeeperResults,
+  uploadTimekeeperResults
+);
 app.get("/get-time-submissions/:raceId", getTimeSubmissions);
 app.get("/get-race-details/:id", validateResultParams, getRaceResults);
 

@@ -241,8 +241,19 @@
   backdrop-filter: blur(4px);
 }
 
-#raceDialog h2 {
+#raceDialog header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   margin-bottom: 2rem;
+}
+
+#raceDialog header {
+  font-size: 1.1rem;
+  color: var(--gray-500);
+}
+
+#raceDialog h2 {
   font-size: 1.8rem;
   color: var(--neutral-dark);
 }
@@ -259,9 +270,12 @@
   color: var(--gray-500);
 }
 
+#raceDialog .error {
+  color: var(--danger);
+}
+
 #raceDialog input {
   padding: 1rem;
-  margin-bottom: 1.5rem;
   border: 1px solid var(--gray-300);
   border-radius: var(--radius);
   font-size: 1rem;
@@ -288,12 +302,17 @@
   color: var(--neutral-dark);
 }
 
+.timing-race-id {
+  padding: 1rem;
+}
+
 /* Dialog Buttons */
 .timer-page dialog .buttons {
   display: flex;
   width: 100%;
   justify-content: center;
   gap: 1rem;
+  margin-top: 2rem;
 }
 
 .timer-page dialog .buttons button {
@@ -327,11 +346,6 @@
 
 #raceDialog .buttons #continueBtn:hover {
   background-color: var(--primary-dark);
-}
-
-/* Utility Classes */
-.hidden {
-  display: none;
 }
 
 /* Responsive Adjustments */

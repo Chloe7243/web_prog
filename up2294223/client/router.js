@@ -13,7 +13,7 @@ const routes = {
   },
 };
 
-const notFoundRoute = { name: "not-found", path: "/pages/not-found" };
+const notFoundRoute = { name: "error", path: "/pages/error/error" };
 
 let currentModule = null;
 
@@ -34,7 +34,7 @@ async function loadPageContent() {
     // Scroll to top
     window.scrollTo(0, 0);
     // Load and apply stylesheet
-    if (route.name !== "not-found") await loadStylesheet(`${base}.css`);
+    await loadStylesheet(`${base}.css`);
 
     // Cleanup previous module
     if (currentModule?.destroy) currentModule.destroy();
@@ -42,7 +42,7 @@ async function loadPageContent() {
     container.replaceChildren(...content);
 
     // Load new JS module
-    if (route.name !== "not-found") {
+    if (route.name !== "error") {
       const module = await import(`${base}.js`);
       if (module?.init) module.init();
       currentModule = module;
@@ -79,8 +79,6 @@ async function loadStylesheet(href) {
 
 async function fetchHtml(url) {
   const res = await fetch(url);
-  console.log(res);
-
   if (!res.ok) throw new Error(`Failed to fetch ${url}`);
   const text = await res.text();
   return text;
@@ -109,8 +107,6 @@ export function handleChangeRoute(to) {
   const url = typeof to === "string" ? new URL(to, window.location.origin) : to;
   const current = window.location.pathname + window.location.search;
   const target = url.pathname + url.search;
-
-  console.log(url);
 
   if (target !== current) {
     window.history.pushState({}, "", url.href);

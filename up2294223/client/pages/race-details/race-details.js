@@ -81,18 +81,13 @@ export function init() {
   });
 
   async function loadRaceDetails() {
-    const pageContent = document.querySelector(".content");
     const raceName = document.querySelector(".race-name > span");
 
-    const { raceId: id } = Object.fromEntries(
-      window.location.search
-        .slice(1)
-        .split(",")
-        .map((param) => param.split("="))
-    );
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("raceId");
 
     if (!id) {
-      pageContent.textContent = "No details found";
+      handleChangeRoute("404");
       return;
     }
 
@@ -107,7 +102,7 @@ export function init() {
         positionInput.setAttribute("max", data.runners.length);
         renderDetails(data.runners);
       },
-      () => {
+      (err) => {
         handleChangeRoute("404");
       }
     );

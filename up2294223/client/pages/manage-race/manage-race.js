@@ -1,22 +1,14 @@
 import { getTimeSubmissions, saveResults, viewRaceResults } from "../../api.js";
 import { handleChangeRoute } from "../../router.js";
-import { toast } from "../../utils/functions.js";
+import { timeToMillis, toast } from "../../utils/functions.js";
 
 let runners = [];
 let conflicts = [];
 
-const RUNNERS_KEY = "race-runners";
-const CONFLICTS_KEY = "race-conflicts";
-
-function saveState() {
-  localStorage.setItem(RUNNERS_KEY, JSON.stringify(runners));
-  localStorage.setItem(CONFLICTS_KEY, JSON.stringify(conflicts));
-}
+const params = new URLSearchParams(window.location.search);
+const raceId = params.get("raceId");
 
 export async function init() {
-  const params = new URLSearchParams(window.location.search);
-  const raceId = params.get("raceId");
-
   const raceResults = document.querySelector("results-board");
   const finalizeButton = document.querySelector(".actions .finalize");
   const emptyResults = document.querySelector(".empty");
@@ -24,22 +16,6 @@ export async function init() {
     ".conflict-section .section-header .count"
   );
   const conflictsContainer = document.querySelector(".conflict-list");
-
-  function loadStateFromStorage() {
-    const savedRunners = localStorage.getItem(RUNNERS_KEY);
-    const savedConflicts = localStorage.getItem(CONFLICTS_KEY);
-
-    if (savedRunners && savedConflicts) {
-      try {
-        runners = JSON.parse(savedRunners);
-        conflicts = JSON.parse(savedConflicts);
-        return true;
-      } catch (e) {
-        console.warn("Failed to parse localStorage state:", e);
-      }
-    }
-    return false;
-  }
 
   function renderDetails() {
     const event = new CustomEvent("show-bulk-results", {
@@ -71,19 +47,15 @@ export async function init() {
   }
 
   async function loadRaceDetails() {
-    const pageContent = document.querySelector(".container");
-    const raceName = document.querySelector("header > .race-name");
+    const raceName = document.querySelector(".container > header .race-name");
 
     if (!raceId) {
-      pageContent.textContent = "No details found";
-      return;
+      handleChangeRoute("404");
     }
 
     await viewRaceResults(
       raceId,
       ({ data }) => {
-        console.log({ data });
-
         if (data.raceDetails.status !== "ongoing") {
           handleChangeRoute(`/race-details?raceId=${data.raceDetails.race_id}`);
           return;
@@ -101,7 +73,7 @@ export async function init() {
     await getTimeSubmissions(
       raceId,
       (data) => {
-        runners = data.duplicates.map((item) => ({
+        runners = data.results.map((item) => ({
           id: "",
           time: item.time,
           position: item.position,
@@ -114,8 +86,10 @@ export async function init() {
             .map((submission) => submission.time),
         }));
 
-        renderDetails();
-        renderConflicts();
+        setTimeout(() => {
+          renderDetails();
+          renderConflicts();
+        }, 200);
       },
       (error) => {
         console.log(error);
@@ -130,41 +104,70 @@ export async function init() {
     // Remove from conflicts
     conflicts = conflicts.filter((conflict) => conflict.position !== position);
 
-    // Add to runners
-    runners.splice(position - 1, 0, {
-      id: "",
+    // Remove any existing runner at the same position (if necessary)
+    runners = runners.filter((runner) => runner.position !== position);
+
+    // Add the confirmed result
+    runners.push({
+      id: "", // You can set a proper ID if needed later
       time: time,
-      position,
+      position: position,
     });
 
-    saveState();
+    // Sort runners by time
+    runners.sort((a, b) => timeToMillis(a.time) - timeToMillis(b.time));
+
+    if (!conflicts.length) {
+      // // Update positions after sorting
+      // runners.forEach((runner, index) => {
+      //   runner.position = index + 1;
+      // });
+    }
+
     renderDetails();
     conflictsCount.textContent = conflicts.length;
   });
 
   finalizeButton.addEventListener("click", async () => {
+    if (conflicts.length) {
+      toast({
+        title: "Couldn't submit result",
+        message: `You have ${conflicts.length} conflicts left to resolve`,
+        type: "error",
+      });
+      return;
+    }
+
     if (!raceId) {
       toast({
         title: "Couldn't submit result",
-        message: "Race Id must be a valid Id",
-        type: "Error",
+        message: "Race ID is required",
+        type: "error",
       });
+      return;
     }
 
     const data = { runners, raceId };
+
+    if (!data.runners.every((item) => !!item.id)) {
+      toast({
+        title: "Couldn't submit result",
+        message: "Runner Id's must not be empty",
+        type: "error",
+      });
+      return;
+    }
 
     const onSubmitSuccess = () => {
       toast({
         type: "success",
         message: "Race finalized successfully",
       });
-      handleChangeRoute(`/race-details/${raceId}`);
+      handleChangeRoute(`/race-details?raceId=${raceId}`);
       return;
     };
 
     const onSubmitFailure = (err) => {
-      console.log({ err });
-
       toast({
         type: "error",
         title: err.error,
@@ -184,17 +187,8 @@ export async function init() {
     if (updateIndex >= 0) {
       runners[updateIndex].id = detail.value;
     }
-    saveState();
   });
 
-  const restored = loadStateFromStorage();
-  if (restored) {
-    setTimeout(() => {
-      renderDetails();
-    }, 200);
-    renderConflicts();
-  } else {
-    await loadRaceTimers();
-  }
-  loadRaceDetails();
+  await loadRaceTimers();
+  await loadRaceDetails();
 }

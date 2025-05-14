@@ -1,6 +1,6 @@
 import { deleteRace } from "../../api.js";
 import { ShadowElement } from "../shadow-element.mjs";
-import { dateFormatter } from "../../utils/functions.js";
+import { dateFormatter, toast } from "../../utils/functions.js";
 import { handleChangeRoute } from "../../router.js";
 
 class RaceItem extends ShadowElement {
@@ -27,9 +27,6 @@ class RaceItem extends ShadowElement {
 
     this.shadow
       .querySelector(".view-result-button")
-      .classList.toggle("hidden", raceisOngoing);
-    this.shadow
-      .querySelector(".delete-item-button")
       .classList.toggle("hidden", raceisOngoing);
     this.shadow
       .querySelector(".manage-timer")
@@ -90,10 +87,20 @@ class RaceItem extends ShadowElement {
   }
 
   async deleteItem() {
-    await deleteRace(this["race-id"], () => {
-      this.dialog.close();
-      this.remove();
-    });
+    await deleteRace(
+      this["race-id"],
+      () => {
+        this.dialog.close();
+        this.remove();
+      },
+      (error) => {
+        toast({
+          type: "error",
+          title: "Couldn't delete race",
+          message: error.error || error,
+        });
+      }
+    );
   }
 }
 

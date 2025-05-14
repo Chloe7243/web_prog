@@ -122,6 +122,7 @@
               name="raceName"
               placeholder="Enter race name"
             />
+            <p class="error hidden"></p>
           </div>
           <!-- <div>
             <label for="raceName">Runner IDs (optional):</label>
@@ -143,11 +144,14 @@
       </form>
     </dialog>
     <dialog id="getRaceId">
-      <h2>Race Information</h2>
+      <header>
+        <h2>Race Information</h2>
+        <p>PS: Ask an offical or the organizer of the race for the race ID</p>
+      </header>
       <form method="dialog">
         <section class="form-inputs">
           <div>
-            <label for="raceId"></label>
+            <label for="raceId">Race ID</label>
             <input
               type="text"
               id="raceId"
@@ -155,6 +159,7 @@
               placeholder="Enter race ID"
             />
           </div>
+          <p class="error"></p>
         </section>
 
         <section class="form-buttons buttons">

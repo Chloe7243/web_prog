@@ -190,6 +190,14 @@ dialog::backdrop {
   backdrop-filter: blur(4px);
 }
 
+dialog .error {
+  color: var(--danger);
+}
+
+dialog header {
+  margin-bottom: 1.5rem;
+}
+
 dialog h2 {
   margin-bottom: 1.5rem;
   font-size: 1.75rem;

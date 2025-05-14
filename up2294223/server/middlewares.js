@@ -4,7 +4,6 @@ export function validateRaceData(req, res, next) {
   const data = req.body;
   const errors = [];
 
-  // Validate race_name (required, non-empty string)
   if (
     !data?.raceName ||
     typeof data.raceName !== "string" ||
@@ -49,8 +48,6 @@ export function validateResultData(req, res, next) {
   const { userId, runners } = data;
   const errors = [];
 
-  console.log({ b: req.body, p: req.params });
-
   // Validate raceId
   if (!raceId || String(raceId).trim() === "") {
     errors.push("Race ID is missing or invalid.");
@@ -75,7 +72,6 @@ export function validateResultData(req, res, next) {
 
       const timeRegex = /^([0-9]{2}):([0-5][0-9]):([0-5][0-9])\.[0-9]{3}$/;
       const timeValidation = typeof time === "string" && timeRegex.test(time);
-      console.log(IDValidation, positionValidation, timeValidation);
 
       return IDValidation && positionValidation && timeValidation;
     });
@@ -89,7 +85,57 @@ export function validateResultData(req, res, next) {
     }
   }
 
-  console.log({ errors });
+  if (errors.length > 0) {
+    handleError(res, "Invalid data", 400, { messages: errors });
+  } else {
+    next();
+  }
+}
+
+export function validateTimekeeperResults(req, res, next) {
+  const data = req.body;
+  const { raceId } = req.params;
+  const { timekeeperId, runners } = data;
+  const errors = [];
+
+  // Validate raceId
+  if (!raceId || String(raceId).trim() === "") {
+    errors.push("Race ID is missing or invalid.");
+  }
+
+  // Validate timekeeperId
+  if (
+    timekeeperId === undefined ||
+    timekeeperId === null ||
+    String(timekeeperId).trim() === ""
+  ) {
+    errors.push("Timekeeper ID is required.");
+  }
+
+  // Validate runners array
+  if (!runners || !Array.isArray(runners) || runners.length === 0) {
+    errors.push("Runners must exist and be a non-empty array.");
+  } else {
+    const runnersIsValid = runners.every((runner) => {
+      const { position, time } = runner;
+
+      // Validate position
+      const positionValidation = Number.isInteger(position) && position > 0;
+
+      // Validate time format (HH:MM:SS.MS)
+      const timeRegex = /^([0-9]{2}):([0-5][0-9]):([0-5][0-9])\.[0-9]{3}$/;
+      const timeValidation = typeof time === "string" && timeRegex.test(time);
+
+      return positionValidation && timeValidation;
+    });
+
+    if (!runnersIsValid) {
+      errors.push(
+        "All runners must have a valid positive integer position.",
+        "All runners must have a valid time string in HH:MM:SS.MS format."
+      );
+    }
+  }
 
   if (errors.length > 0) {
     handleError(res, "Invalid data", 400, { messages: errors });

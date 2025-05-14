@@ -2,8 +2,6 @@ import { userID } from "./utils/constants.js";
 
 export async function saveResults(body, onSuccess, onFailure) {
   const { raceId, ...dto } = body;
-  console.log({ dto });
-
   try {
     const response = await fetch(`/finalize-results/${raceId}`, {
       method: "POST",
@@ -56,6 +54,7 @@ export async function uploadTimedResults(body, onSuccess, onFailure) {
 
     if (!response.ok || !data.success) {
       onFailure?.(data);
+      throw Error(data.error);
     } else {
       onSuccess?.(data);
     }
@@ -119,7 +118,7 @@ export async function deleteRace(id, onSuccess, onFailure) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ user_id: userID }),
+      body: JSON.stringify({ userId: userID }),
     });
 
     const data = await response.json();

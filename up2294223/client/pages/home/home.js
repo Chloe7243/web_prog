@@ -1,11 +1,7 @@
-import { createRace, viewRaceResults } from "../../api.js";
+import { createRace } from "../../api.js";
 import { handleChangeRoute } from "../../router.js";
 import { handleCloseDialog } from "../../utils/closeDialog.js";
-import {
-  localStorageIsOn,
-  localStorageResults,
-  userID,
-} from "../../utils/constants.js";
+import { localStorageResults, userID } from "../../utils/constants.js";
 import { toast } from "../../utils/functions.js";
 
 export function init() {
@@ -57,7 +53,6 @@ export function init() {
   confirmationDialog
     .querySelector("#continueBtn")
     .addEventListener("click", () => {
-      localStorage.removeItem(localStorageIsOn);
       localStorage.removeItem(localStorageResults);
       confirmationDialog.close();
       createRaceDialog.showModal();
@@ -66,8 +61,19 @@ export function init() {
   getRaceIdDialog
     .querySelector("#continueBtn")
     .addEventListener("click", () => {
-      const raceNameInput = document.querySelector("#raceId");
-      const raceId = raceNameInput.value;
+      const raceIdInput = document.querySelector("#raceId");
+      raceIdInput.addEventListener("input", () => {
+        error.classList.add("hidden");
+      });
+      const error = getRaceIdDialog.querySelector(".error");
+      const raceId = raceIdInput.value;
+
+      if (!raceId) {
+        error.classList.remove("hidden");
+        error.textContent = "Race Id is required";
+        return;
+      }
+
       if (getIdDialogTrigger === "spectate") {
         handleChangeRoute(`/race-details?raceId=${raceId}`);
       } else {
@@ -75,12 +81,23 @@ export function init() {
       getRaceIdDialog.close();
     });
 
+  const raceNameInput = document.querySelector("#raceName");
+  const createRaceError = createRaceDialog.querySelector(".error");
+  raceNameInput.addEventListener("input", () => {
+    createRaceError.classList.add("hidden");
+  });
+
   createRaceDialog
     .querySelector("#continueBtn")
     .addEventListener("click", async () => {
-      const raceNameInput = document.querySelector("#raceName");
       let runnerIds;
       const raceName = raceNameInput.value;
+
+      if (!raceName) {
+        createRaceError.classList.remove("hidden");
+        createRaceError.textContent = "Race name is required";
+        return;
+      }
 
       const onSubmitSuccess = (data) => {
         toast({
@@ -89,19 +106,14 @@ export function init() {
         });
         createRaceDialog.close();
         raceNameInput.value = "";
-        handleChangeRoute(`/timer`);
+
+        handleChangeRoute(`/timer?raceId=${data.data.raceId}`);
         return;
       };
 
       const onSubmitFailure = (err) => {
-        toast({
-          type: "error",
-          title: err.error,
-          message:
-            err?.messages?.[0] ||
-            "Couldn't create race! Please, try again later.",
-        });
-        return;
+        createRaceError.classList.remove("hidden");
+        createRaceError.textContent = err.error;
       };
 
       await createRace(
@@ -114,8 +126,4 @@ export function init() {
   handleCloseDialog(getRaceIdDialog, "#cancelBtn", resetTrigger);
   handleCloseDialog(createRaceDialog, "#cancelBtn", resetTrigger);
   handleCloseDialog(confirmationDialog, "#cancelBtn", resetTrigger);
-}
-
-export function destroy() {
-  console.log("Timer page cleaned up");
 }

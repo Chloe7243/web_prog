@@ -1,4 +1,6 @@
 export const localStorageUserID = "userID";
 export const localStorageResults = "raceResult";
-export const localStorageIsOn = "stopwatchIsOn";
-export const userID = localStorage.getItem(localStorageUserID);
+export const userID =
+  localStorage.getItem(localStorageUserID) || crypto.randomUUID();
+
+localStorage.setItem(localStorageUserID, userID);

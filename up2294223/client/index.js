@@ -1,20 +1,9 @@
-// if ("serviceWorker" in navigator) {
-//   try {
-//     navigator.serviceWorker.register("./sw.js");
-//   } catch (error) {
-//     console.error("Caching failed:", error);
-//   }
-// } else {
-// }
-
 import {
-  localStorageIsOn,
   localStorageResults,
   localStorageUserID,
   userID,
 } from "./utils/constants.js";
 import { startTimer } from "./utils/stopwatch.js";
-// import { startTimer } from "./utils/stopwatch.js";
 
 const loadedComponentScripts = new Set();
 
@@ -43,12 +32,14 @@ const loadComponents = async () => {
   }
 };
 
-window.addEventListener("load", () => {
+function init() {
   const isOn = JSON.parse(localStorage.getItem(localStorageResults))?.isOn;
   if (isOn === "true") startTimer();
-  if (!userID) {
-    const userId = crypto.randomUUID();
-    localStorage.setItem(localStorageUserID, userId);
-  }
   loadComponents();
+}
+
+window.addEventListener("load", () => {
+  init();
 });
+
+init();

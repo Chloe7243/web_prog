@@ -46,7 +46,7 @@ class ConflictItem extends ShadowElement {
           composed: true,
         })
       );
-      this.clearShadow();
+      this.remove();
     });
   }
 }

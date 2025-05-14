@@ -1,4 +1,5 @@
 import { db } from "./app.js";
+import { timeToMs } from "./utils/functions.js";
 import handleError from "./utils/handleError.js";
 
 export async function createRace(req, res) {
@@ -32,18 +33,22 @@ export async function createRace(req, res) {
   );
 }
 
-export async function saveResults(req, res) {
+export async function uploadTimekeeperResults(req, res) {
   const { raceId } = req.params;
   const { timekeeperId, runners } = req.body;
 
-  // Check if the race status is 'ended'
   const raceStatusQuery = `SELECT status FROM races WHERE race_id = ?`;
 
   db.get(raceStatusQuery, [raceId], (err, row) => {
     if (err) return handleError(res, err, 400);
 
-    // If race status is 'ended', return an error
-    if (row && row.status === "ended") {
+    // Check if race exists
+    if (!row) {
+      return handleError(res, "Race not found.", 404);
+    }
+
+    // Check if race has already ended
+    if (row.status === "ended") {
       return handleError(
         res,
         "Cannot submit results: Race has already ended.",
@@ -51,7 +56,7 @@ export async function saveResults(req, res) {
       );
     }
 
-    // Proceed with saving the results if the race is not ended
+    // Proceed with saving the results
     const stmt = db.prepare(
       "INSERT INTO race_submissions (race_id, timekeeper_id, position, time) VALUES (?, ?, ?, ?)"
     );
@@ -64,9 +69,9 @@ export async function saveResults(req, res) {
 
     stmt.finalize((err) => {
       if (err) return handleError(res, err, 400);
-    });
 
-    res.status(200).json({ success: true });
+      res.status(200).json({ success: true });
+    });
   });
 }
 
@@ -80,8 +85,6 @@ export async function finalizeResults(req, res) {
     `SELECT organizer_id FROM races WHERE race_id = ?`,
     [raceId],
     (err, row) => {
-      console.log(this, err, row);
-
       if (err) return handleError(res, err, 500);
       if (!row) return handleError(res, "Race not found", 404);
 
@@ -126,9 +129,13 @@ export async function finalizeResults(req, res) {
 
 export async function getTimeSubmissions(req, res) {
   const { raceId } = req.params;
+  const TIME_TOLERANCE_MS = 1000; // 1 second tolerance
+
+  if (!raceId || String(raceId).trim() === "") {
+    return handleError(res, "Race ID is missing or invalid.", 400);
+  }
 
   try {
-    // Get all time submissions for the race
     const allSubmissions = await new Promise((resolve, reject) => {
       db.all(
         `SELECT position, time, timekeeper_id
@@ -142,44 +149,73 @@ export async function getTimeSubmissions(req, res) {
       );
     });
 
-    // Get duplicate time submissions based on position and time
-    const raw = await new Promise((resolve, reject) => {
-      db.all(
-        `SELECT position, time, COUNT(*) as count
-         FROM race_submissions
-         WHERE race_id = ?
-         GROUP BY position, time
-         HAVING count > 1`,
-        [raceId],
-        (err, rows) => {
-          if (err) reject(err);
-          else resolve(rows);
-        }
-      );
-    });
+    const results = [];
+    const groupedByPosition = {};
 
-    // Get conflicts where multiple times are recorded for the same position
-    const conflicts = await new Promise((resolve, reject) => {
-      db.all(
-        `SELECT position
-         FROM race_submissions
-         WHERE race_id = ?
-         GROUP BY position
-         HAVING COUNT(DISTINCT time) > 1`,
-        [raceId],
-        (err, rows) => {
-          if (err) reject(err);
-          else resolve(rows);
-        }
-      );
-    });
+    // Group all submissions by position
+    for (const submission of allSubmissions) {
+      if (!groupedByPosition[submission.position]) {
+        groupedByPosition[submission.position] = [];
+      }
+      groupedByPosition[submission.position].push(submission);
+    }
 
-    // Send the response with all submissions, conflicts, and duplicates
+    const conflicts = [];
+
+    for (const [position, submissions] of Object.entries(groupedByPosition)) {
+      const timekeeperSet = new Set(submissions.map((s) => s.timekeeper_id));
+
+      // If only one timekeeper, accept the smallest time
+      if (timekeeperSet.size === 1) {
+        const smallest = submissions.reduce((a, b) =>
+          timeToMs(a.time) < timeToMs(b.time) ? a : b
+        );
+        results.push({
+          position: Number(position),
+          time: smallest.time,
+        });
+        continue;
+      }
+
+      // Try to resolve similar times
+      let resolved = null;
+      for (let i = 0; i < submissions.length; i++) {
+        const a = submissions[i];
+        let group = [a];
+
+        for (let j = i + 1; j < submissions.length; j++) {
+          const b = submissions[j];
+          if (
+            Math.abs(timeToMs(a.time) - timeToMs(b.time)) <= TIME_TOLERANCE_MS
+          ) {
+            group.push(b);
+          }
+        }
+
+        if (group.length > 1) {
+          const smallest = group.reduce((a, b) =>
+            timeToMs(a.time) < timeToMs(b.time) ? a : b
+          );
+          resolved = smallest;
+          break;
+        }
+      }
+
+      if (resolved) {
+        results.push({
+          position: Number(position),
+          time: resolved.time,
+        });
+      } else {
+        conflicts.push({ position: Number(position) });
+      }
+    }
+
     res.status(200).json({
       success: true,
-      allSubmissions, // All time submissions
-      conflicts, // Conflicts where different times exist for the same position
-      duplicates: raw, // Duplicate submissions for the same position and time
+      allSubmissions,
+      results,
+      conflicts,
     });
   } catch (error) {
     handleError(res, error, 400);
@@ -210,26 +246,35 @@ export async function getRaceResults(req, res) {
 
   try {
     db.all(
-      `SELECT * from final_results WHERE race_id = ?`,
+      `SELECT * FROM final_results WHERE race_id = ?`,
       id,
       (err, runners) => {
         if (err) {
           return handleError(res, new Error("Couldn't get race results"), 400);
         } else {
           db.get(
-            `SELECT * from races WHERE race_id = ?`,
+            `SELECT * FROM races WHERE race_id = ?`,
             id,
             (err, raceDetails) => {
-              if (err) throw new Error("Couldn't get race results");
-              else {
-                return res.status(200).json({
-                  data: {
-                    runners,
-                    raceDetails,
-                  },
-                  success: true,
-                });
+              if (err) {
+                return handleError(
+                  res,
+                  new Error("Couldn't fetch race details"),
+                  400
+                );
               }
+
+              if (!raceDetails) {
+                return handleError(res, new Error("Race not found"), 404);
+              }
+
+              return res.status(200).json({
+                success: true,
+                data: {
+                  runners,
+                  raceDetails,
+                },
+              });
             }
           );
         }
@@ -242,19 +287,33 @@ export async function getRaceResults(req, res) {
 
 export async function deleteRace(req, res) {
   const { id } = req.params;
+  const { userId } = req.body;
+
+  if (!userId) {
+    return handleError(res, "User ID is required", 400);
+  }
+
   try {
-    db.all(`DELETE FROM race_results WHERE race_id = ?`, id, (err) => {
-      if (err) {
-        throw new Error("Couldn't find race results");
-      } else {
-        db.run(`DELETE FROM races WHERE race_id = ?`, id, (err) => {
-          if (err) throw new Error("Couldn't find race");
-          else {
-            return res.status(200).json({ success: true });
-          }
+    // First, check if the race exists and get the organizer ID
+    db.get(
+      `SELECT organizer_id FROM races WHERE race_id = ?`,
+      [id],
+      (err, row) => {
+        if (err) return handleError(res, err, 500);
+        if (!row) return handleError(res, "Race not found", 404);
+
+        // Check if the user is the organizer
+        if (row.organizer_id !== userId) {
+          return handleError(res, "Unauthorized: not the race organizer", 403);
+        }
+
+        // Delete race
+        db.run(`DELETE FROM races WHERE race_id = ?`, [id], (err) => {
+          if (err) return handleError(res, "Couldn't delete race", 500);
+          return res.status(200).json({ success: true });
         });
       }
-    });
+    );
   } catch (error) {
     handleError(res, error, 400);
   }
