@@ -103,10 +103,6 @@ body {
   overflow: hidden;
 }
 
-nav * {
-  font-family: "Times New Roman", Times, serif;
-}
-
 .hidden {
   display: none !important;
 }

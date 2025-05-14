@@ -31,10 +31,6 @@ export function init() {
   newTimer.addEventListener("click", (e) => {
     e.preventDefault();
     createRaceDialog.showModal();
-    // if (storageResults) {
-    //   confirmationDialog.showModal();
-    // } else {
-    // }
   });
 
   existingTimer.addEventListener("click", (e) => {
@@ -79,7 +75,6 @@ export function init() {
 
       if (getIdDialogTrigger === "spectate") {
         handleChangeRoute(`/race-details?raceId=${raceId}`);
-      } else {
       }
       getRaceIdDialog.close();
     });

@@ -1,8 +1,4 @@
-import {
-  localStorageResults,
-  localStorageUserID,
-  userID,
-} from "./utils/constants.js";
+import { localStorageResults } from "./utils/constants.js";
 import { startTimer } from "./utils/stopwatch.js";
 
 const loadedComponentScripts = new Set();

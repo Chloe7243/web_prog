@@ -110,7 +110,7 @@ export function init() {
         positionInput.setAttribute("max", data.runners.length);
         renderDetails(data.runners);
       },
-      (err) => {
+      () => {
         handleChangeRoute("404");
       }
     );
