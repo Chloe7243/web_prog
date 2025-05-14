@@ -70,7 +70,7 @@
       font-weight: 600;
       border-radius: inherit;
       padding: 0.7rem;
-      background: var(--e);
+      background: var(--primary);
     }
 
     #actions-dialog > div > button:last-of-type {
@@ -82,11 +82,13 @@
     <div>
       <span class="race-id"></span>
       <span class="race-name"></span>
+      <span class="race-status"></span>
       <span class="race-date"></span>
       <div class="actions">
         <dialog id="actions-dialog">
-          <div>
-            <button class="view-result-button">View result</button>
+          <div class="buttons">
+            <button class="view-result-button hidden">View result</button>
+            <button class="manage-timer hidden">Manage timer</button>
             <button class="delete-item-button">Delete</button>
           </div>
         </dialog>

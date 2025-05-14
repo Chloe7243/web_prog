@@ -1,64 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script
-      src="https://kit.fontawesome.com/1925230fa1.js"
-      crossorigin="anonymous"
-    ></script>
-    <script defer type="module" src="./home.js"></script>
-    <link rel="stylesheet" href="../../styles.css" />
-    <title>Home</title>
-  </head>
   <body>
     <nav class="home">
-      <a class="timer new" href="./pages/timer/timer.html">
-        <i class="fa-solid fa-circle-plus"></i>Start a new race
-      </a>
-      <a class="timer existing" href="./pages/timer/timer.html"
-        ><i class="fa-solid fa-stopwatch-20"></i>Time existing race</a
-      >
-      <a class="history" href="./pages/races/races.html">
-        <div class="history-icon">
+      <button class="timer new">
+        <i class="fa-solid fa-circle-plus"></i>
+        <p>Start a new race</p>
+      </button>
+      <button class="timer existing">
+        <i class="fa-solid fa-stopwatch-20"></i>
+        <p>Time existing race</p>
+      </button>
+      <button class="history">
+        <span class="history-icon">
           <i class="fa-solid fa-person-running"></i>
           <sub><i class="fa-solid fa-clock-rotate-left"></i></sub>
-        </div>
-        Manage created races</a
-      >
-      <a class="spectate" href=""
-        ><i class="fa-solid fa-binoculars"></i>Spectate a race</a
-      >
+        </span>
+        <p>Manage created races</p>
+      </button>
+      <button class="spectate" href="">
+        <i class="fa-solid fa-binoculars"></i>Spectate a race
+      </button>
     </nav>
     <dialog id="createRace">
       <h2>Race Information</h2>
       <form method="dialog">
-        <section>
-          <label for="raceName">Race Name (optional):</label>
-          <input
-            type="text"
-            id="raceName"
-            name="raceName"
-            placeholder="Enter race name"
-          />
-        </section>
-        <section>
-          <label for="raceName">Runner IDs (optional):</label>
-          <input
-            type="file"
-            id="runnerIds"
-            name="runnerIds"
-            placeholder="Upload csv for id's"
-          />
+        <section class="form-inputs">
+          <div>
+            <label for="raceName">Race Name</label>
+            <input
+              type="text"
+              id="raceName"
+              name="raceName"
+              placeholder="Enter race name"
+            />
+          </div>
+          <!-- <div>
+            <label for="raceName">Runner IDs (optional):</label>
+            <input
+              type="file"
+              id="runnerIds"
+              name="runnerIds"
+              placeholder="Upload csv for id's"
+            />
+          </div> -->
         </section>
 
-        <div class="form-buttons buttons">
+        <section class="form-buttons buttons">
           <button type="button" class="cancel-btn" id="cancelBtn">
             Cancel
           </button>
           <button type="button" id="continueBtn">Submit</button>
-        </div>
+        </section>
       </form>
+    </dialog>
+    <dialog id="getRaceId">
+      <h2>Race Information</h2>
+      <form method="dialog">
+        <section class="form-inputs">
+          <div>
+            <label for="raceId"></label>
+            <input
+              type="text"
+              id="raceId"
+              name="raceId"
+              placeholder="Enter race ID"
+            />
+          </div>
+        </section>
+
+        <section class="form-buttons buttons">
+          <button type="button" class="cancel-btn" id="cancelBtn">
+            Cancel
+          </button>
+          <button type="button" id="continueBtn">Submit</button>
+        </section>
+      </form>
+    </dialog>
+    <dialog id="confirmAction">
+      <h2>Are you sure you want to continue?</h2>
+
+      <div>
+        This will reset the the timer and clear any previously existing results
+        that haven't been saved.
+      </div>
+
+      <section class="form-buttons buttons">
+        <button type="button" class="cancel-btn" id="cancelBtn">Cancel</button>
+        <button type="button" id="continueBtn">Continue</button>
+      </section>
     </dialog>
   </body>
 </html>

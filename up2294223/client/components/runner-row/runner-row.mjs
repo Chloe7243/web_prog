@@ -1,4 +1,4 @@
-import { ShadowElement } from "../../shadow-element.mjs";
+import { ShadowElement } from "../shadow-element.mjs";
 import { addPositionSuffix } from "../../utils/functions.js";
 
 const getTemplateID = (type) => {

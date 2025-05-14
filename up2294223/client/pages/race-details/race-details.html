@@ -1,79 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script
-      type="module"
-      src="../../components/results-board/results-board.mjs"
-    ></script>
-    <script
-      type="module"
-      src="../../components/runner-row/runner-row.mjs"
-    ></script>
-    <script
-      type="module"
-      src="../../components/race-results/race-results.mjs"
-    ></script>
-    <script
-      src="https://kit.fontawesome.com/1925230fa1.js"
-      crossorigin="anonymous"
-    ></script>
-    <script defer type="module" src="./race-details.js"></script>
-    <link rel="stylesheet" href="../../styles.css" />
+  <body>
+    <div class="race-details-page">
+      <nav class="page-nav">
+        <back-button> </back-button>
+      </nav>
 
-    <title>Race details</title>
-  </head>
-  <body class="race-details-page">
-    <nav class="page-nav">
-      <a href="../races/races.html">
-        <i class="fa-solid fa-arrow-left"></i>Back to races</a
-      >
-    </nav>
+      <div class="content">
+        <div class="header">
+          <h1 class="race-name"><span>Race</span> Results</h1>
 
-    <div class="content">
-      <div class="header">
-        <h1 class="race-name"><span>Race</span> details</h1>
-
-        <div>
-          <button class="share">
-            <i class="fa-regular fa-share-from-square"></i> Share result
-          </button>
-          <dialog id="share-options">
-            <div>
-              <button class="pdf">Download as PDF</button>
-              <button class="csv">Download as Excel</button>
-            </div>
-          </dialog>
+          <div>
+            <button class="share">
+              <i class="fa-regular fa-share-from-square"></i> Share result
+            </button>
+            <dialog id="share-options">
+              <div>
+                <button class="pdf">Download PDF file</button>
+                <button class="csv">Download Excel file</button>
+              </div>
+            </dialog>
+          </div>
         </div>
-      </div>
-      <div class="separator"></div>
-      <div class="result-container">
-        <div class="filters">
-          <fieldset class="">
-            <legend>Filter by</legend>
-            <span>
-              <label for="position">Position:</label>
-              <input
-                type="number"
-                min="1"
-                id="position"
-                name="position"
-                placeholder="Search by position"
-              />
-            </span>
-            <span>
-              <label for="id">Runner ID:</label>
-              <input
-                type="text"
-                id="id"
-                name="id"
-                placeholder="Or Search by runner's ID"
-              />
-            </span>
-          </fieldset>
+        <div class="separator"></div>
+        <div class="result-container">
+          <div class="filters">
+            <fieldset class="">
+              <legend>Filter by</legend>
+              <span>
+                <label for="position">Position:</label>
+                <input
+                  type="number"
+                  min="1"
+                  id="position"
+                  name="position"
+                  placeholder="Search by position"
+                />
+              </span>
+              <span>
+                <label for="id">Runner ID:</label>
+                <input
+                  type="text"
+                  id="id"
+                  name="id"
+                  placeholder="Or Search by runner's ID"
+                />
+              </span>
+            </fieldset>
+          </div>
+          <results-board class="result"></results-board>
         </div>
-        <results-board class="result"></results-board>
       </div>
     </div>
   </body>

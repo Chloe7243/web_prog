@@ -14,7 +14,7 @@ self.addEventListener("install", (e) => {
           "./pages/timer/timer.html",
           "./pages/timer/timer.js",
           "./styles.css",
-          "./logos/logo.png",
+          "./images/logo.png",
         ]);
       })
       .catch((err) => console.error("Caching failed:", err))

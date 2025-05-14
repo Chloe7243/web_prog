@@ -1,0 +1,88 @@
+.race-page {
+  width: 100%;
+  height: 100%;
+}
+
+.race-page > .content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-top: 1.5rem;
+  overflow: hidden;
+}
+
+.race-page .content > h1 {
+  padding: 0 1.5rem;
+}
+
+.race-page .search_input {
+  padding: 0;
+}
+
+.race-page .filters > fieldset > span > label {
+  width: 5.5rem;
+}
+
+.race-page > div .races {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.race-page > div race-list {
+  flex: 1;
+  display: flex;
+  overflow-y: auto;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.races .head {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.races .head > * {
+  flex: 1;
+  font-weight: 600;
+  padding: 1rem;
+  font-size: 1.2rem;
+  text-wrap-mode: nowrap;
+}
+
+.races .body {
+  flex: 1;
+  display: flex;
+  overflow-y: auto;
+  flex-direction: column;
+}
+
+.races > section span:first-of-type {
+  text-align: left;
+  flex-grow: 0;
+}
+
+.races > section span:last-of-type {
+  flex-grow: 0;
+}
+
+.races > section > span {
+  text-align: center;
+}
+
+.races button {
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--bg-button);
+  padding: 1.1rem 0.8rem;
+  border-radius: 0.7rem;
+  width: min(10rem, 100%);
+}
+
+.races {
+  padding: 0 1.5rem;
+}

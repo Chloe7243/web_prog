@@ -6,14 +6,20 @@
     <link rel="stylesheet" href="./styles.css" />
     <link rel="manifest" href="./manifest.json" />
     <meta name="theme-color" content="#000" />
-    <script defer src="./index.js"></script>
-    <link rel="apple-touch-icon" href="./logos/logo.png" />
+    <link rel="apple-touch-icon" href="./images/logo.png" />
     <script
       defer
       src="https://kit.fontawesome.com/1925230fa1.js"
       crossorigin="anonymous"
     ></script>
+
+    <script defer type="module" src="./index.js"></script>
+    <script type="module" src="./router.js"></script>
+
     <title>Timer app</title>
   </head>
-  <body></body>
+  <body>
+    <main id="main-page"></main>
+    <toast-message></toast-message>
+  </body>
 </html>

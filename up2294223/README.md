@@ -147,7 +147,7 @@ The response helped me realize that events must bubble correctly and the custom 
 
 > How do I cache files manually without using Workbox? Can I use wildcards?
 
-I learned that `cache.addAll()` doesn't accept wildcards like `./logos/*`. This led me to explicitly list out every static asset during the install phase, ensuring reliable offline functionality.
+I learned that `cache.addAll()` doesn't accept wildcards like `./images/*`. This led me to explicitly list out every static asset during the install phase, ensuring reliable offline functionality.
 
 ### Prompts to design Share Button (Manual PDF/CSV Export)
 

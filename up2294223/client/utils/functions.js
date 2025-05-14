@@ -54,11 +54,12 @@ export function dateFormatter(date, options) {
   return value;
 }
 
-export function toast({ title, type, message, duration, toasterElement }) {
+const toaster = document.querySelector("toast-message");
+export function toast({ title, type, message, duration }) {
   const event = new CustomEvent("show-toast", {
     bubbles: true,
     composed: true,
     detail: { title, message, type, duration },
   });
-  toasterElement.dispatchEvent(event);
+  toaster.dispatchEvent(event);
 }

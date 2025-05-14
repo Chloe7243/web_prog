@@ -1,9 +1,8 @@
-import { localStorageStopwatch } from "./constants.js";
-import { formatTime } from "./functions.js";
+import { localStorageResults } from "./constants.js";
 
-const timePrevValue = JSON.parse(localStorage.getItem(localStorageStopwatch));
+const localStorageData = JSON.parse(localStorage.getItem(localStorageResults));
 
-const time = timePrevValue || {
+const time = localStorageData?.stopwatch || {
   ms: 0,
   secs: 0,
   mins: 0,
@@ -11,14 +10,9 @@ const time = timePrevValue || {
 };
 
 let interval;
+let isOn = localStorageData?.isOn;
 
-const timer = document.querySelector("#timer");
-
-function updateTimer() {
-  if (timer) timer.textContent = formatTime(time);
-}
-
-export function setTime() {
+export function setTime(updateTimer) {
   time.ms += 10;
   if (time.ms >= 1000) {
     time.secs++;
@@ -32,37 +26,35 @@ export function setTime() {
     time.hours++;
     time.mins = 0;
   }
-  updateTimer();
+  updateTimer(time);
 }
 
 export function stopTimer() {
   clearInterval(interval);
-  localStorage.setItem(localStorageStopwatch, JSON.stringify(time));
 }
 
-export function startTimer() {
+export function startTimer(update) {
   clearInterval(interval);
-  interval = setInterval(setTime, 10);
+  interval = setInterval(() => setTime(update), 10);
 }
 
-export function resetTimer() {
+export function resetTimer(update) {
   stopTimer();
   time.ms = 0;
   time.mins = 0;
   time.secs = 0;
   time.secs = 0;
-  updateTimer();
-  localStorage.removeItem(localStorageStopwatch);
+  update(time);
 }
 
 export function saveTime() {
   return time;
 }
 
-window.addEventListener("load", () => {
-  updateTimer();
-});
+export function setStopwatchState(value) {
+  return (isOn = value);
+}
 
-window.addEventListener("pagehide", () => {
-  stopTimer();
-});
+export function getStopwatchState() {
+  return isOn;
+}

@@ -1,6 +1,7 @@
-import { deleteRaceItem } from "../../api.js";
-import { ShadowElement } from "../../shadow-element.mjs";
+import { deleteRace } from "../../api.js";
+import { ShadowElement } from "../shadow-element.mjs";
 import { dateFormatter } from "../../utils/functions.js";
+import { handleChangeRoute } from "../../router.js";
 
 class RaceItem extends ShadowElement {
   async connectedCallback() {
@@ -8,9 +9,13 @@ class RaceItem extends ShadowElement {
     await this.loadTemplate(templateURL);
     this.showTemplate("race-item-template");
 
+    const raceisOngoing = this["race-status"] === "ongoing";
+
     this.shadow.querySelector(".race-id").textContent = this["race-id"];
     this.shadow.querySelector(".race-name").textContent =
       this["race-name"] || "-";
+    this.shadow.querySelector(".race-status").textContent =
+      this["race-status"] || "-";
     this.shadow.querySelector(".race-date").textContent = dateFormatter(
       this["race-date"],
       { dateStyle: "medium", timeStyle: "short" }
@@ -19,7 +24,21 @@ class RaceItem extends ShadowElement {
 
     this.shadow
       .querySelector(".view-result-button")
+      .classList.toggle("hidden", raceisOngoing);
+    this.shadow
+      .querySelector(".delete-item-button")
+      .classList.toggle("hidden", raceisOngoing);
+    this.shadow
+      .querySelector(".manage-timer")
+      .classList.toggle("hidden", !raceisOngoing);
+
+    this.shadow
+      .querySelector(".view-result-button")
       .addEventListener("click", this.showResult.bind(this));
+
+    this.shadow
+      .querySelector(".manage-timer")
+      .addEventListener("click", this.showTimer.bind(this));
 
     this.shadow
       .querySelector(".delete-item-button")
@@ -59,17 +78,16 @@ class RaceItem extends ShadowElement {
   }
 
   async showResult() {
-    const path = window.location.pathname.split("/");
-    const url = `${path
-      .slice(0, path.length - 2)
-      .join("/")}/race-details/race-details.html?id=${this["race-id"]}`;
-
+    handleChangeRoute(`/race-details?raceId=${this["race-id"]}`);
     this.dialog.close();
-    window.location.assign(url);
+  }
+  async showTimer() {
+    handleChangeRoute(`/timer?raceId=${this["race-id"]}`);
+    this.dialog.close();
   }
 
   async deleteItem() {
-    await deleteRaceItem(this["race-id"], () => {
+    await deleteRace(this["race-id"], () => {
       this.dialog.close();
       this.remove();
     });

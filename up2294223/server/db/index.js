@@ -18,20 +18,31 @@ const db = new sql.Database(
 
 function initDb() {
   const createTables = `
-CREATE TABLE IF NOT EXISTS races (
-  race_id INTEGER PRIMARY KEY AUTOINCREMENT,
-  race_name TEXT,
-  race_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+  CREATE TABLE IF NOT EXISTS races (
+    race_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    organizer_id INTEGER NOT NULL,
+    race_name TEXT NOT NULL,
+    status TEXT CHECK (status IN ('ongoing', 'ended')) DEFAULT 'ongoing',
+    race_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  );
 
-CREATE TABLE IF NOT EXISTS race_results (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  race_id INTEGER NOT NULL,
-  runner_id INTEGER NOT NULL,
-  finish_time TEXT,
-  position INTEGER,
-  FOREIGN KEY (race_id) REFERENCES races (race_id) ON DELETE CASCADE
-);`;
+  CREATE TABLE IF NOT EXISTS race_runners (
+    race_id INTEGER NOT NULL,
+    runner_id TEXT NOT NULL,
+    PRIMARY KEY (race_id, runner_id),
+    FOREIGN KEY (race_id) REFERENCES races (race_id) ON DELETE CASCADE
+  );
+  
+  CREATE TABLE IF NOT EXISTS race_results (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    race_id INTEGER NOT NULL,
+    runner_id INTEGER NOT NULL,
+    submitted_by_user_id INTEGER NOT NULL,
+    finish_time TEXT,
+    position INTEGER,
+    is_organizer BOOLEAN DEFAULT 0,
+    FOREIGN KEY (race_id) REFERENCES races (race_id) ON DELETE CASCADE
+  );`;
 
   db.exec(createTables, (err) => {});
 

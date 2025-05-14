@@ -1,0 +1,173 @@
+nav.home {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  overflow-x: hidden;
+}
+
+nav.home > button {
+  flex: 1;
+  width: min(25rem, 100%);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  justify-content: center;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+  padding: 2rem 3rem;
+  font-size: 3rem;
+  background: var(--background);
+}
+
+nav.home > button > i {
+  font-size: 15rem;
+}
+nav.home .timer.new {
+  background: green;
+}
+
+nav.home .timer.new > i,
+nav.home .spectate > i {
+  font-size: 13.5rem;
+}
+
+nav.home .spectate {
+  border-top: 0.5rem solid var(--background);
+}
+
+nav.home > :nth-child(even) {
+  background: var(--primary);
+}
+
+nav.home > .history .history-icon {
+  position: relative;
+}
+
+nav.home > .history > .history-icon > i:first-of-type {
+  font-size: 15rem;
+  position: relative;
+  z-index: 10;
+}
+
+nav.home > .history > .history-icon > sub > i {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: rotate(45deg);
+  font-size: 4rem;
+}
+
+dialog {
+  padding: 2rem;
+  border-radius: 0.8rem;
+  border: 1px solid #ddd;
+  margin: auto;
+  box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.1);
+  width: min(30rem, 100%);
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+dialog h2 {
+  margin-bottom: 1rem;
+}
+
+dialog form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+dialog form > section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+dialog form > section > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+dialog form > section label {
+  font-size: 1.2rem;
+  font-weight: 500;
+  width: 100%;
+}
+
+dialog form > section input {
+  width: 100%;
+  background: transparent;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  border-radius: 0.5rem;
+  border: 0.15rem solid var(--primary);
+  padding: 0.8rem 1rem;
+}
+
+dialog form > section input#runnerIds {
+  cursor: pointer;
+}
+
+dialog form > section label {
+  font-size: 1.2rem;
+  font-weight: 500;
+  width: 100%;
+}
+
+dialog .form-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+dialog .form-buttons > button {
+  border: none;
+  flex: 1;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--primary);
+  color: white;
+  padding: 1.1rem 0.8rem;
+  border-radius: 0.7rem;
+  flex: 1;
+}
+
+dialog .form-buttons > #cancelBtn {
+  color: red;
+  background-color: rgba(255, 0, 0, 0.1);
+}
+
+dialog#confirmation {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+dialog#confirmation h2 {
+  margin: 0;
+}
+
+dialog#confirmation .form-buttons button {
+  padding: 0.8rem;
+}
+
+dialog#confirmation .form-buttons #cancelBtn {
+  background: var(--primary);
+  color: white;
+}
+
+dialog#confirmation .form-buttons #continueBtn {
+  color: red;
+  background-color: rgba(255, 0, 0, 0.1);
+}

@@ -1,64 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script
-      type="module"
-      src="../../components/race-list/race-list.mjs"
-    ></script>
-    <script
-      type="module"
-      src="../../components/toast-message/toast-message.mjs"
-    ></script>
-    <script
-      type="module"
-      src="../../components/race-item/race-item.mjs"
-    ></script>
-    <script
-      src="https://kit.fontawesome.com/1925230fa1.js"
-      crossorigin="anonymous"
-    ></script>
-    <script defer type="module" src="./races.js"></script>
-    <link rel="stylesheet" href="../../styles.css" />
-    <title>Races</title>
-  </head>
-  <body class="race-page">
-    <nav class="page-nav">
-      <a href="../../index.html">
-        <i class="fa-solid fa-arrow-left"></i>Back to home</a
-      >
-    </nav>
-    <div class="content">
-      <h1>Race history</h1>
-      <div class="filters">
-        <fieldset class="search_input">
-          <legend>Search</legend>
-          <input type="search" name="search" placeholder="Search for a race" />
-        </fieldset>
-        <fieldset class="date_filter">
-          <legend>Filter by date</legend>
-          <span>
-            <label for="fromDate">From:</label>
-            <input type="datetime-local" id="fromDate" name="fromDate" />
-          </span>
-          <span>
-            <label for="toDate">To:</label>
-            <input type="datetime-local" id="toDate" name="toDate" />
-          </span>
-        </fieldset>
-      </div>
-
-      <div class="races">
-        <div class="head">
-          <span>ID</span>
-          <span>Race name</span>
-          <span>Date</span>
-          <span></span>
+  <body>
+    <div class="race-page">
+      <nav class="page-nav">
+        <back-button> </back-button>
+      </nav>
+      <div class="content">
+        <h1>Race history</h1>
+        <div class="filters">
+          <fieldset class="search_input">
+            <legend>Search</legend>
+            <input
+              type="search"
+              name="search"
+              placeholder="Search for a race"
+            />
+          </fieldset>
+          <fieldset class="date_filter">
+            <legend>Filter by date</legend>
+            <span>
+              <label for="fromDate">From:</label>
+              <input type="datetime-local" id="fromDate" name="fromDate" />
+            </span>
+            <span>
+              <label for="toDate">To:</label>
+              <input type="datetime-local" id="toDate" name="toDate" />
+            </span>
+          </fieldset>
         </div>
-        <race-list> </race-list>
+
+        <div class="races">
+          <div class="head">
+            <span>ID</span>
+            <span>Race name</span>
+            <span>Date</span>
+            <span></span>
+          </div>
+          <race-list> </race-list>
+        </div>
       </div>
     </div>
-    <toast-message></toast-message>
   </body>
 </html>

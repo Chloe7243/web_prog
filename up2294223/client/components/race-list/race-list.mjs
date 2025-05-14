@@ -1,4 +1,7 @@
-import { ShadowElement } from "../../shadow-element.mjs";
+import { getUserRaces } from "../../api.js";
+import { userID } from "../../utils/constants.js";
+import { toast } from "../../utils/functions.js";
+import { ShadowElement } from "../shadow-element.mjs";
 
 class RaceList extends ShadowElement {
   races = [];
@@ -7,7 +10,7 @@ class RaceList extends ShadowElement {
     await this.loadTemplate(templateURL);
     await this.fetchRaces();
 
-    // // Listen for new messages added to refresh the list
+    // Listen for new messages added to refresh the list
     this.addEventListener("filter", ({ detail }) => {
       const { search = "", dateRange = {} } = detail;
       const searchValue = search.trim().toLowerCase();
@@ -55,20 +58,23 @@ class RaceList extends ShadowElement {
     this.clearShadow();
     let races;
 
-    try {
-      const response = await fetch(`http://localhost:8080/get-races`);
-      const { data } = await response.json();
-      if (response.ok) {
-        races = data;
-      } else {
-        throw Error(data.error.message);
+    await getUserRaces(
+      (data) => {
+        races = data.data;
+      },
+      (error) => {
+        toast({
+          title: "",
+          message: "",
+          type: "error",
+        });
       }
-    } catch (error) {
-      // console.log({ error });
-    }
+    );
 
     // Clear existing messages and display new ones
     if (races) {
+      console.log({ races });
+
       this["races"] = races;
       this.renderItems(races);
     }

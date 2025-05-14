@@ -1,0 +1,200 @@
+.timer-page {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.timer-page > .content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.timer-clock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  min-height: 7rem;
+  padding: 1.5rem;
+}
+
+.timer-clock #timer {
+  text-align: center;
+  font-size: clamp(1.5rem, 12vw, 4rem);
+  width: 100%;
+}
+
+.timer-clock #timer-buttons {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.timer-clock #timer-buttons > span {
+  flex: 1;
+  display: flex;
+  gap: 1rem;
+  width: max-content;
+}
+
+.timer-clock #timer-buttons > span:last-of-type {
+  justify-content: end;
+}
+
+.timer-clock #timer-buttons #toggle {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: center;
+  color: white;
+}
+
+.timer-clock #timer-buttons #toggle.start {
+  background: rgb(16, 130, 16);
+}
+
+.timer-clock #timer-buttons #toggle.stop {
+  background: rgb(255, 37, 37);
+}
+
+.timer-clock #timer-buttons #save {
+  gap: 2rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  font-size: 1.7rem;
+}
+
+.timer-clock #timer-buttons #save > i {
+  font-size: 2.5rem;
+}
+
+.timer-page button {
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--bg-button);
+  padding: 1.1rem 0.8rem;
+  border-radius: 0.7rem;
+  margin: 0.5rem;
+  width: min(10rem, 100%);
+}
+
+.timer-page .result {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 1.5rem;
+  gap: 1rem;
+  flex: 1;
+}
+
+.timer-page .result results-board {
+  flex: 1;
+  overflow: hidden;
+}
+
+.timer-page .result #result-buttons {
+  width: 100%;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.timer-page .result #result-buttons > button {
+  padding: 1.2rem;
+  flex: 1;
+  background: var(--primary);
+  color: whitesmoke;
+}
+
+.timer-page dialog {
+  padding: 2rem;
+  border-radius: 0.8rem;
+  border: 1px solid #ddd;
+  margin: auto;
+  box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.1);
+  width: min(30rem, 100%);
+}
+
+.timer-page dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+#raceDialog h2 {
+  margin-bottom: 2rem;
+}
+
+#raceDialog form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+#raceDialog label {
+  font-weight: bold;
+  font-size: 1.3rem;
+  width: 100%;
+}
+
+#confirmationDialog {
+  padding: 2.5rem 2rem 1.5rem;
+  width: min(35rem, 100%);
+}
+
+#confirmationDialog > p {
+  font-weight: 500;
+  font-size: 1.3rem;
+  width: 100%;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+#raceDialog input {
+  padding: 1rem 0.8rem;
+  margin-bottom: 2rem;
+  border: 1px solid #ddd;
+  border-radius: 0.4rem;
+}
+
+.timer-page dialog .buttons {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.timer-page dialog .buttons button {
+  flex: 1;
+  background: var(--primary);
+  color: white;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 0;
+  border-radius: 0.7rem;
+  width: min(10rem, 100%);
+}
+
+#confirmationDialog .buttons > button {
+  width: min(10rem, 100%);
+}
+
+#confirmationDialog .buttons > button {
+  background: #000;
+  color: white;
+}
+
+#confirmationDialog .buttons #continueBtn {
+  background-color: rgb(199, 5, 5);
+}

@@ -16,6 +16,8 @@ html {
 
 button {
   font-size: 1.3rem;
+  outline: none;
+  border: none;
 }
 
 :root {
@@ -47,6 +49,12 @@ body {
   display: none;
 }
 
+#main-page {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
 nav * {
   font-family: "Times New Roman", Times, serif;
 }
@@ -60,6 +68,21 @@ nav * {
   height: 0.2rem;
   background: gray;
   width: 100%;
+}
+
+.page-nav {
+  width: 100%;
+  font-size: 1.5rem;
+  padding: 1.5rem;
+  background: var(--primary);
+}
+
+.page-nav > * {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: white;
+  text-decoration: none;
 }
 
 .filters {
@@ -147,503 +170,10 @@ nav * {
   margin-bottom: 0.5rem;
 }
 
-/* HOME PAGE Styles */
-
-nav.home {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  overflow-x: hidden;
-}
-
-nav.home > * {
-  flex: 1;
-  width: min(25rem, 100%);
-  text-align: center;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 2.5rem;
-  justify-content: center;
-  text-decoration: none;
-  color: white;
-  font-size: 3rem;
-  padding: 3rem 2rem;
-}
-
-nav.home .timer.new {
-  background: green;
-}
-
-nav.home .timer.new > i,
-nav.home .spectate > i {
-  font-size: 13rem;
-  margin-bottom: 2rem;
-}
-
-nav.home .spectate {
-  border-top: 0.5rem solid var(--background);
-}
-
-nav.home > :nth-child(even) {
-  background: var(--primary);
-}
-
-nav.home > a > i {
-  font-size: 15rem;
-}
-
-nav.home > .history .history-icon {
-  position: relative;
-}
-
-nav.home > .history > .history-icon > i:first-of-type {
-  font-size: 15rem;
-  position: relative;
-  z-index: 10;
-}
-
-nav.home > .history > .history-icon > sub > i {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  transform: rotate(45deg);
-  font-size: 4rem;
-}
-
 .timer-page,
 .race-page,
 .race-details-page {
   display: flex;
   flex-direction: column;
   overflow-y: hidden;
-}
-
-.page-nav {
-  width: 100%;
-  font-size: 1.5rem;
-  padding: 1.5rem;
-  background: var(--primary);
-}
-
-.page-nav > * {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  color: white;
-  text-decoration: none;
-}
-
-/* TIMER PAGE Styles */
-
-.timer-page > .content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.timer-clock {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2.5rem;
-  min-height: 7rem;
-  padding: 1.5rem;
-}
-
-.timer-clock #timer {
-  text-align: center;
-  font-size: clamp(1.5rem, 12vw, 4rem);
-  width: 100%;
-}
-
-.timer-clock #timer-buttons {
-  flex: 1;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-}
-
-.timer-clock #timer-buttons > span {
-  flex: 1;
-  display: flex;
-  gap: 1rem;
-  width: max-content;
-}
-
-.timer-clock #timer-buttons > span:last-of-type {
-  justify-content: end;
-}
-
-.timer-clock #timer-buttons #toggle {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  justify-content: center;
-  color: white;
-}
-
-.timer-clock #timer-buttons #toggle.start {
-  background: rgb(16, 130, 16);
-}
-
-.timer-clock #timer-buttons #toggle.stop {
-  background: rgb(255, 37, 37);
-}
-
-.timer-clock #timer-buttons #save {
-  gap: 2rem;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1.5rem;
-  font-size: 1.7rem;
-}
-
-.timer-clock #timer-buttons #save > i {
-  font-size: 2.5rem;
-}
-
-.timer-page button {
-  border: none;
-  font-weight: 600;
-  cursor: pointer;
-  background: var(--bg-button);
-  padding: 1.1rem 0.8rem;
-  border-radius: 0.7rem;
-  margin: 0.5rem;
-  width: min(10rem, 100%);
-}
-
-.timer-page .result {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  padding: 1.5rem;
-  gap: 1rem;
-  flex: 1;
-}
-
-.timer-page .result results-board {
-  flex: 1;
-  overflow: hidden;
-}
-
-.timer-page .result #result-buttons {
-  width: 100%;
-  display: flex;
-  gap: 1.5rem;
-  align-items: center;
-}
-
-.timer-page .result #result-buttons > button {
-  padding: 1.2rem;
-  flex: 1;
-  background: var(--primary);
-  color: whitesmoke;
-}
-
-.timer-page dialog {
-  padding: 2rem;
-  border-radius: 0.8rem;
-  border: 1px solid #ddd;
-  margin: auto;
-  box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.1);
-  width: min(30rem, 100%);
-}
-
-.timer-page dialog::backdrop {
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-#raceDialog h2 {
-  margin-bottom: 2rem;
-}
-
-#raceDialog form {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-#raceDialog label {
-  font-weight: bold;
-  font-size: 1.3rem;
-  width: 100%;
-}
-
-#confirmationDialog {
-  padding: 2.5rem 2rem;
-  width: min(35rem, 100%);
-}
-
-#confirmationDialog > p {
-  font-weight: 500;
-  font-size: 1.3rem;
-  width: 100%;
-  margin-bottom: 2rem;
-  text-align: center;
-  font-size: 1.5rem;
-}
-
-#raceDialog input {
-  padding: 1rem 0.8rem;
-  margin-bottom: 2rem;
-  border: 1px solid #ddd;
-  border-radius: 0.4rem;
-}
-
-.timer-page dialog .buttons {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.timer-page dialog .buttons button {
-  flex: 1;
-  background: var(--primary);
-  color: white;
-  border: none;
-  font-weight: 600;
-  cursor: pointer;
-  margin: 0;
-  border-radius: 0.7rem;
-  width: min(10rem, 100%);
-}
-
-#confirmationDialog .buttons > button {
-  width: min(10rem, 100%);
-}
-
-#confirmationDialog .buttons > button {
-  background: #000;
-  color: white;
-}
-
-#confirmationDialog .buttons #continueBtn {
-  background-color: rgb(199, 5, 5);
-}
-
-/* Race page */
-
-.race-page > .content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  padding-top: 1.5rem;
-  overflow: hidden;
-}
-
-.race-page .content > h1 {
-  padding: 0 1.5rem;
-}
-
-.race-page .search_input {
-  padding: 0;
-}
-
-.race-page .filters > fieldset > span > label {
-  width: 5.5rem;
-}
-
-.race-page > div .races {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-}
-
-.race-page > div race-list {
-  flex: 1;
-  display: flex;
-  overflow-y: auto;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.races .head {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.races .head > * {
-  flex: 1;
-  font-weight: 600;
-  padding: 1rem;
-  font-size: 1.2rem;
-  text-wrap-mode: nowrap;
-}
-
-.races .body {
-  flex: 1;
-  display: flex;
-  overflow-y: auto;
-  flex-direction: column;
-}
-
-.races > div span:first-of-type {
-  text-align: left;
-  flex-grow: 0;
-}
-
-.races > div span:last-of-type {
-  flex-grow: 0;
-}
-
-.races > div > span {
-  text-align: center;
-}
-
-.races button {
-  border: none;
-  font-weight: 600;
-  cursor: pointer;
-  background: var(--bg-button);
-  padding: 1.1rem 0.8rem;
-  border-radius: 0.7rem;
-  width: min(10rem, 100%);
-}
-
-.races {
-  padding: 0 1.5rem;
-}
-
-.race-details-page > .content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.race-details-page > .content > .header {
-  padding: 2rem 1.5rem;
-  display: flex;
-  gap: 2rem;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  text-transform: capitalize;
-}
-
-.race-details-page > .content > .header > h1 {
-  font-size: 1.8rem;
-}
-
-.race-details-page > .content > .header > div {
-  flex: 1;
-  min-width: max-content;
-}
-
-.race-details-page .share {
-  float: right;
-  outline: none;
-  border: none;
-  padding: 0.8rem 1.6rem;
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0.4rem;
-  font-size: 1.2rem;
-  font-weight: 500;
-  cursor: pointer;
-  background-color: var(--primary);
-  color: white;
-  text-wrap-mode: nowrap;
-}
-
-@media (max-width: 420px) {
-  .race-details-page .share {
-    width: 100%;
-    padding: 1rem 1.6rem;
-  }
-}
-
-.race-details-page .share * {
-  font-weight: 600;
-  font-size: 1.4rem;
-}
-
-.race-details-page .share:hover {
-  background-color: #0060df;
-}
-
-#share-options {
-  border: 0.1rem solid #e2e8f0;
-  border-radius: 0.6rem;
-  width: max-content;
-  z-index: 1000;
-}
-
-#share-options > div {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding: 0;
-  border-radius: inherit;
-}
-
-#share-options::backdrop {
-  background: transparent;
-}
-
-#share-options button {
-  display: block;
-  width: 100%;
-  font-size: 1.1rem;
-  padding: 0.8rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-#share-options button:hover {
-  background-color: #dcebf7d3;
-}
-
-.race-details-page > .content .result-container {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.race-details-page .filters {
-  padding: 0.5rem 1rem;
-  overflow-x: scroll;
-}
-
-.race-details-page .filters > fieldset {
-  padding: 0.5rem 1.5rem 1.7rem 0.8rem;
-}
-
-@media (max-width: 370px) {
-  .race-details-page .filters > fieldset {
-    padding: 0rem 1rem 1rem 0;
-  }
-}
-
-.race-details-page .filters > fieldset > span {
-  width: min(24rem, 100%);
-}
-
-.race-details-page .filters > fieldset > span > label {
-  width: 10rem;
-  min-width: max-content;
-  text-wrap-mode: nowrap;
-}
-
-.race-details-page > .content results-board {
-  flex: 1;
-  padding: 1rem;
-  overflow: hidden;
 }

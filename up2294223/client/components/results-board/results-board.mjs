@@ -1,4 +1,4 @@
-import { ShadowElement } from "../../shadow-element.mjs";
+import { ShadowElement } from "../shadow-element.mjs";
 
 class ResultsBoard extends ShadowElement {
   async connectedCallback() {
