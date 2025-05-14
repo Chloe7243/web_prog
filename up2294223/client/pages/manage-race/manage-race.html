@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <div class="manage-race-page">
+      <nav class="page-nav">
+        <back-button> </back-button>
+      </nav>
+
+      <div class="container">
+        <header>
+          <h1><span class="race-name">Race</span> Management</h1>
+          <p class="subtitle">
+            Resolve conflicts, Finalize race results, Save and End race
+          </p>
+        </header>
+
+        <section class="conflict-section">
+          <div class="section-header">
+            <span>Time / Position Conflicts</span>
+            <span class="count">4</span>
+          </div>
+          <div class="conflict-list"></div>
+        </section>
+
+        <section class="summary-section">
+          <div class="section-header">
+            <span>Race Results Summary</span>
+          </div>
+
+          <results-board></results-board>
+          <div class="empty">
+            <p>No results</p>
+          </div>
+        </section>
+
+        <div class="actions">
+          <button class="btn btn-primary finalize">
+            Save & Finalize Results
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -4,8 +4,6 @@ export function validateRaceData(req, res, next) {
   const data = req.body;
   const errors = [];
 
-  console.log({ data });
-
   // Validate race_name (required, non-empty string)
   if (
     !data?.raceName ||
@@ -47,43 +45,52 @@ export function validateRaceData(req, res, next) {
 
 export function validateResultData(req, res, next) {
   const data = req.body;
+  const { raceId } = req.params;
+  const { userId, runners } = data;
   const errors = [];
 
-  // Check if runners is an array and not empty
-  if (
-    !data?.runners ||
-    !Array.isArray(data?.runners) ||
-    data?.runners.length === 0
-  ) {
+  console.log({ b: req.body, p: req.params });
+
+  // Validate raceId
+  if (!raceId || String(raceId).trim() === "") {
+    errors.push("Race ID is missing or invalid.");
+  }
+
+  // Validate userId
+  if (userId === undefined || userId === null || String(userId).trim() === "") {
+    errors.push("User ID is required.");
+  }
+
+  // Validate runners array
+  if (!runners || !Array.isArray(runners) || runners.length === 0) {
     errors.push("Runners must exist and be a non-empty array.");
   } else {
-    // If runners is an array validate each runner object
     const runnersIsValid = data.runners.every((runner) => {
-      const { id, position, time, status } = runner;
+      const { id, position, time } = runner;
 
-      // Runner ID must not be falsy
       const IDValidation =
         id !== undefined && id !== null && String(id).trim() !== "";
 
-      // Position must be a positive integer
       const positionValidation = Number.isInteger(position) && position > 0;
 
-      // Time must be a string in HH:MM:SS.MS format
       const timeRegex = /^([0-9]{2}):([0-5][0-9]):([0-5][0-9])\.[0-9]{3}$/;
       const timeValidation = typeof time === "string" && timeRegex.test(time);
+      console.log(IDValidation, positionValidation, timeValidation);
 
       return IDValidation && positionValidation && timeValidation;
     });
+
     if (!runnersIsValid) {
       errors.push(
-        `Runner ID must not be empty`,
-        `All runners position must either be a positive integer or null.`,
-        `All runners must have a valid time string in HH:MM:SS.MS format or null.`
+        "Runner ID must not be empty.",
+        "All runners' positions must be positive integers.",
+        "All runners must have a valid time string in HH:MM:SS.MS format."
       );
     }
   }
 
-  // If errors exist, stop and return a 400 response
+  console.log({ errors });
+
   if (errors.length > 0) {
     handleError(res, "Invalid data", 400, { messages: errors });
   } else {
@@ -111,13 +118,9 @@ export function validateUserId(req, res, next) {
   const data = req.params;
   const errors = [];
 
-  console.log({ data });
-
   if (!data?.userId || ["null", undefined].includes(!data?.userId)) {
     errors.push(`ID is required`);
   }
-
-  console.log({ errors });
 
   // If errors exist, stop and return a 400 response
   if (errors.length > 0) {

@@ -16,6 +16,9 @@ class RaceItem extends ShadowElement {
       this["race-name"] || "-";
     this.shadow.querySelector(".race-status").textContent =
       this["race-status"] || "-";
+    this.shadow
+      .querySelector(".race-status")
+      .classList.add(this["race-status"]);
     this.shadow.querySelector(".race-date").textContent = dateFormatter(
       this["race-date"],
       { dateStyle: "medium", timeStyle: "short" }
@@ -82,7 +85,7 @@ class RaceItem extends ShadowElement {
     this.dialog.close();
   }
   async showTimer() {
-    handleChangeRoute(`/timer?raceId=${this["race-id"]}`);
+    handleChangeRoute(`/manage-race?raceId=${this["race-id"]}`);
     this.dialog.close();
   }
 

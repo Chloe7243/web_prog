@@ -9,7 +9,9 @@ class RunnerRow extends ShadowElement {
   async connectedCallback() {
     const templateURL = import.meta.url.replace(".mjs", ".html");
     await this.loadTemplate(templateURL);
-    if (this["mode"] === "read") {
+    if (this["mode"] === "no-runner") {
+      this.showNoRunnerMode();
+    } else if (this["mode"] === "read") {
       this.showReadMode();
     } else {
       this.showEditMode();
@@ -30,7 +32,7 @@ class RunnerRow extends ShadowElement {
     if (runnerIDInputField) {
       runnerIDInputField.value = this?.["runner-id"] || "";
       runnerIDInputField.addEventListener(
-        "change",
+        "input",
         this.updateRunnerID.bind(this)
       );
     }
@@ -46,6 +48,16 @@ class RunnerRow extends ShadowElement {
     );
     this.shadow.querySelector(".runner-id").textContent =
       this?.["runner-id"] || "-";
+  }
+
+  showNoRunnerMode() {
+    this.clearShadow();
+    const readTemplate = getTemplateID("no-runner");
+    this.showTemplate(readTemplate);
+    this.shadow.querySelector(".time").textContent = this["runner-time"] || "";
+    this.shadow.querySelector(".position").textContent = addPositionSuffix(
+      this["runner-position"] || ""
+    );
   }
 
   updateRunnerID(inputEvent) {

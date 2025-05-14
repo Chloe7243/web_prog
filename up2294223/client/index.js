@@ -28,6 +28,7 @@ const loadComponents = async () => {
     "results-board/results-board.mjs",
     "runner-row/runner-row.mjs",
     "toast-message/toast-message.mjs",
+    "conflict-item/conflict-item.mjs",
   ];
 
   const componentPath = "./components/";

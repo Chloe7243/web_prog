@@ -2,25 +2,114 @@
 <html lang="en">
   <body>
     <nav class="home">
-      <button class="timer new">
-        <i class="fa-solid fa-circle-plus"></i>
-        <p>Start a new race</p>
+      <button class="card timer new emerald">
+        <div class="card-content">
+          <div class="icon-container">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="40"
+              height="40"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M12 5v14"></path>
+              <path d="M5 12h14"></path>
+            </svg>
+          </div>
+          <h2>Start a new race</h2>
+          <p>Create a new race event</p>
+        </div>
       </button>
-      <button class="timer existing">
-        <i class="fa-solid fa-stopwatch-20"></i>
-        <p>Time existing race</p>
+
+      <button class="card timer existing sky">
+        <div class="card-content">
+          <div class="icon-container">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-timer-icon lucide-timer"
+            >
+              <line x1="10" x2="14" y1="2" y2="2" />
+              <line x1="12" x2="15" y1="14" y2="11" />
+              <circle cx="12" cy="14" r="8" />
+            </svg>
+          </div>
+          <h2>Time existing race</h2>
+          <p>Record times for an ongoing race</p>
+        </div>
       </button>
-      <button class="history">
-        <span class="history-icon">
-          <i class="fa-solid fa-person-running"></i>
-          <sub><i class="fa-solid fa-clock-rotate-left"></i></sub>
-        </span>
-        <p>Manage created races</p>
+
+      <button class="card history slate">
+        <div class="card-content">
+          <div class="icon-container">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-folder-clock-icon lucide-folder-clock"
+            >
+              <circle cx="16" cy="16" r="6" />
+              <path
+                d="M7 20H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H20a2 2 0 0 1 2 2"
+              />
+              <path d="M16 14v2l1 1" />
+            </svg>
+          </div>
+          <h2>Manage races</h2>
+          <p>View and edit your created races</p>
+        </div>
       </button>
-      <button class="spectate" href="">
-        <i class="fa-solid fa-binoculars"></i>Spectate a race
+
+      <button class="card spectate blue">
+        <div class="card-content">
+          <div class="icon-container">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-binoculars-icon lucide-binoculars"
+            >
+              <path d="M10 10h4" />
+              <path d="M19 7V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v3" />
+              <path
+                d="M20 21a2 2 0 0 0 2-2v-3.851c0-1.39-2-2.962-2-4.829V8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v11a2 2 0 0 0 2 2z"
+              />
+              <path d="M 22 16 L 2 16" />
+              <path
+                d="M4 21a2 2 0 0 1-2-2v-3.851c0-1.39 2-2.962 2-4.829V8a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v11a2 2 0 0 1-2 2z"
+              />
+              <path d="M9 7V4a1 1 0 0 0-1-1H6a1 1 0 0 0-1 1v3" />
+            </svg>
+          </div>
+          <h2>Spectate a race</h2>
+          <p>View live race progress and results</p>
+        </div>
       </button>
     </nav>
+
     <dialog id="createRace">
       <h2>Race Information</h2>
       <form method="dialog">
@@ -80,14 +169,18 @@
       <h2>Are you sure you want to continue?</h2>
 
       <div>
-        This will reset the the timer and clear any previously existing results
-        that haven't been saved.
-      </div>
+        <p>
+          This will reset the the timer and clear any previously existing
+          results that haven't been saved.
+        </p>
 
-      <section class="form-buttons buttons">
-        <button type="button" class="cancel-btn" id="cancelBtn">Cancel</button>
-        <button type="button" id="continueBtn">Continue</button>
-      </section>
+        <section class="form-buttons buttons">
+          <button type="button" class="cancel-btn" id="cancelBtn">
+            Cancel
+          </button>
+          <button type="button" id="continueBtn">Continue</button>
+        </section>
+      </div>
     </dialog>
   </body>
 </html>

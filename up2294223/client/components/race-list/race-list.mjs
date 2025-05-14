@@ -1,5 +1,4 @@
 import { getUserRaces } from "../../api.js";
-import { userID } from "../../utils/constants.js";
 import { toast } from "../../utils/functions.js";
 import { ShadowElement } from "../shadow-element.mjs";
 
@@ -49,6 +48,7 @@ class RaceList extends ShadowElement {
       if (clone) {
         clone["race-id"] = race.race_id;
         clone["race-name"] = race?.race_name || "";
+        clone["race-status"] = race?.status || "";
         clone["race-date"] = race?.race_date;
       }
     });
@@ -73,8 +73,6 @@ class RaceList extends ShadowElement {
 
     // Clear existing messages and display new ones
     if (races) {
-      console.log({ races });
-
       this["races"] = races;
       this.renderItems(races);
     }

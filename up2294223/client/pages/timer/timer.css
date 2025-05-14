@@ -1,8 +1,45 @@
+:root {
+  --primary: #3b82f6;
+  --primary-dark: #2563eb;
+  --success: #10b981;
+  --success-dark: #059669;
+  --danger: #ef4444;
+  --danger-dark: #dc2626;
+  --neutral: #1e293b;
+  --neutral-light: #f8fafc;
+  --neutral-dark: #0f172a;
+  --gray-100: #f1f5f9;
+  --gray-200: #e2e8f0;
+  --gray-300: #cbd5e1;
+  --gray-400: #94a3b8;
+  --gray-500: #64748b;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --radius: 0.75rem;
+  --transition: all 0.2s ease;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+/* Timer Page Layout */
 .timer-page {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
+  margin: 0 auto;
+  font-family: var(--font-sans);
+  color: var(--neutral);
+  background-color: var(--neutral-light);
+}
+
+.page-nav {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
 }
 
 .timer-page > .content {
@@ -10,191 +47,329 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  padding: 0 1rem;
 }
 
+/* Timer Clock Section */
 .timer-clock {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2.5rem;
-  min-height: 7rem;
-  padding: 1.5rem;
+  gap: 2rem;
+  padding: 2rem 1rem;
+  background-color: white;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 1.5rem;
 }
 
 .timer-clock #timer {
   text-align: center;
-  font-size: clamp(1.5rem, 12vw, 4rem);
+  font-size: clamp(2.5rem, 12vw, 5rem);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  color: var(--neutral-dark);
   width: 100%;
+  padding: 1rem 0;
+  border-radius: var(--radius);
+  background-color: var(--gray-100);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .timer-clock #timer-buttons {
-  flex: 1;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 .timer-clock #timer-buttons > span {
   flex: 1;
   display: flex;
   gap: 1rem;
-  width: max-content;
 }
 
 .timer-clock #timer-buttons > span:last-of-type {
-  justify-content: end;
+  justify-content: flex-end;
 }
 
-.timer-clock #timer-buttons #toggle {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  justify-content: center;
-  color: white;
-}
-
-.timer-clock #timer-buttons #toggle.start {
-  background: rgb(16, 130, 16);
-}
-
-.timer-clock #timer-buttons #toggle.stop {
-  background: rgb(255, 37, 37);
-}
-
-.timer-clock #timer-buttons #save {
-  gap: 2rem;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1.5rem;
-  font-size: 1.7rem;
-}
-
-.timer-clock #timer-buttons #save > i {
-  font-size: 2.5rem;
-}
-
+/* Button Styling */
 .timer-page button {
   border: none;
   font-weight: 600;
   cursor: pointer;
-  background: var(--bg-button);
-  padding: 1.1rem 0.8rem;
-  border-radius: 0.7rem;
-  margin: 0.5rem;
-  width: min(10rem, 100%);
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
+.timer-page button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.timer-page button:active {
+  transform: translateY(0);
+}
+
+.timer-clock #timer-buttons #toggle {
+  flex: 1;
+  font-size: 1.1rem;
+  padding: 1.2rem;
+  display: flex;
+  align-items: center;
+}
+
+.timer-clock #timer-buttons #toggle.start {
+  background: var(--success);
+  color: white;
+}
+
+.timer-clock #timer-buttons #toggle.start:hover {
+  background: var(--success-dark);
+}
+
+.timer-clock #timer-buttons #toggle.stop {
+  background: var(--danger);
+  color: white;
+}
+
+.timer-clock #timer-buttons #toggle.stop:hover {
+  background: var(--danger-dark);
+}
+
+.timer-clock #timer-buttons #reset {
+  background-color: var(--gray-200);
+  color: var(--neutral);
+}
+
+.timer-clock #timer-buttons #reset:hover {
+  background-color: var(--gray-300);
+}
+
+.timer-clock #timer-buttons #save {
+  width: 100%;
+  padding: 1.2rem;
+  font-size: 1.1rem;
+  background-color: var(--primary);
+  color: white;
+}
+
+.timer-clock #timer-buttons #save:hover {
+  background-color: var(--primary-dark);
+}
+
+.timer-clock #timer-buttons #save > i {
+  font-size: 1.2rem;
+}
+
+/* Separator */
+.separator {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--gray-300),
+    transparent
+  );
+  margin: 0.5rem 0 1.5rem;
+}
+
+/* Results Section */
 .timer-page .result {
   display: flex;
   flex-direction: column;
   overflow: hidden;
   padding: 1.5rem;
-  gap: 1rem;
+  gap: 1.5rem;
   flex: 1;
+  background-color: white;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
 }
 
 .timer-page .result results-board {
   flex: 1;
-  overflow: hidden;
+  overflow: auto;
+  padding: 0.5rem;
+  background-color: var(--gray-100);
+  border-radius: var(--radius);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .timer-page .result #result-buttons {
   width: 100%;
   display: flex;
-  gap: 1.5rem;
+  gap: 1rem;
   align-items: center;
 }
 
 .timer-page .result #result-buttons > button {
-  padding: 1.2rem;
   flex: 1;
+  padding: 1.2rem;
   background: var(--primary);
-  color: whitesmoke;
+  color: white;
+  font-size: 1.1rem;
 }
 
+.timer-page .result #result-buttons > button:hover {
+  background: var(--primary-dark);
+}
+
+/* Dialog Styling */
 .timer-page dialog {
-  padding: 2rem;
-  border-radius: 0.8rem;
-  border: 1px solid #ddd;
+  padding: 2.5rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--gray-200);
   margin: auto;
-  box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.1);
-  width: min(30rem, 100%);
+  box-shadow: var(--shadow-lg);
+  width: min(500px, 90vw);
+  background-color: white;
 }
 
 .timer-page dialog::backdrop {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
 }
 
 #raceDialog h2 {
   margin-bottom: 2rem;
+  font-size: 1.8rem;
+  color: var(--neutral-dark);
 }
 
 #raceDialog form {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1rem;
 }
 
 #raceDialog label {
-  font-weight: bold;
-  font-size: 1.3rem;
-  width: 100%;
-}
-
-#confirmationDialog {
-  padding: 2.5rem 2rem 1.5rem;
-  width: min(35rem, 100%);
-}
-
-#confirmationDialog > p {
-  font-weight: 500;
-  font-size: 1.3rem;
-  width: 100%;
-  margin-bottom: 2rem;
-  text-align: center;
-  font-size: 1.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--gray-500);
 }
 
 #raceDialog input {
-  padding: 1rem 0.8rem;
-  margin-bottom: 2rem;
-  border: 1px solid #ddd;
-  border-radius: 0.4rem;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  transition: var(--transition);
 }
 
+#raceDialog input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+#confirmationDialog {
+  padding: 2.5rem;
+  width: min(450px, 90vw);
+  text-align: center;
+}
+
+#confirmationDialog > p.message {
+  font-weight: 500;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  color: var(--neutral-dark);
+}
+
+/* Dialog Buttons */
 .timer-page dialog .buttons {
   display: flex;
   width: 100%;
-  justify-content: space-between;
+  justify-content: center;
   gap: 1rem;
 }
 
 .timer-page dialog .buttons button {
   flex: 1;
-  background: var(--primary);
-  color: white;
-  border: none;
-  font-weight: 600;
-  cursor: pointer;
-  margin: 0;
-  border-radius: 0.7rem;
-  width: min(10rem, 100%);
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
 }
 
-#confirmationDialog .buttons > button {
-  width: min(10rem, 100%);
+.timer-page dialog .cancel-btn {
+  background-color: var(--gray-200);
+  color: var(--neutral);
 }
 
-#confirmationDialog .buttons > button {
-  background: #000;
-  color: white;
+.timer-page dialog .cancel-btn:hover {
+  background-color: var(--gray-300);
 }
 
 #confirmationDialog .buttons #continueBtn {
-  background-color: rgb(199, 5, 5);
+  background-color: var(--danger);
+  color: white;
+}
+
+#confirmationDialog .buttons #continueBtn:hover {
+  background-color: var(--danger-dark);
+}
+
+#raceDialog .buttons #continueBtn {
+  background-color: var(--primary);
+  color: white;
+}
+
+#raceDialog .buttons #continueBtn:hover {
+  background-color: var(--primary-dark);
+}
+
+/* Utility Classes */
+.hidden {
+  display: none;
+}
+
+/* Responsive Adjustments */
+@media (min-width: 900px) {
+  .timer-page > .content {
+    flex-direction: row;
+    gap: 1.5rem;
+  }
+
+  .timer-clock {
+    flex: 1;
+    margin-bottom: 0;
+  }
+
+  .separator {
+    display: none;
+  }
+
+  .timer-page .result {
+    flex: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .timer-clock {
+    padding: 1.5rem 1rem;
+    gap: 1.5rem;
+  }
+
+  .timer-clock #timer {
+    font-size: clamp(2rem, 10vw, 3rem);
+  }
+
+  .timer-page button {
+    padding: 0.8rem 1.2rem;
+  }
+
+  .timer-page dialog {
+    padding: 1.5rem;
+  }
 }

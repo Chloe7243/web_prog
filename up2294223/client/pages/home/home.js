@@ -31,21 +31,16 @@ export function init() {
 
   newTimer.addEventListener("click", (e) => {
     e.preventDefault();
-    if (storageResults) {
-      confirmationDialog.showModal();
-    } else {
-      createRaceDialog.showModal();
-    }
+    createRaceDialog.showModal();
+    // if (storageResults) {
+    //   confirmationDialog.showModal();
+    // } else {
+    // }
   });
 
   existingTimer.addEventListener("click", (e) => {
     e.preventDefault();
-    if (storageResults && resultsIsObject) {
-      handleChangeRoute(`/timer?raceId=${storageResults?.raceId}`);
-    } else {
-      getRaceIdDialog.showModal();
-      getIdDialogTrigger = "timer";
-    }
+    handleChangeRoute(`/timer`);
   });
 
   manageRaces.addEventListener("click", (e) => {
@@ -76,28 +71,6 @@ export function init() {
       if (getIdDialogTrigger === "spectate") {
         handleChangeRoute(`/race-details?raceId=${raceId}`);
       } else {
-        viewRaceResults(
-          raceId,
-          ({ data }) => {
-            const raceStatus = data?.raceDetails?.status;
-            if (raceStatus && raceStatus !== "ongoing") {
-              toast({
-                title: "Can't time race",
-                message: "Race has ended and can't be timed anymore",
-                type: "error",
-              });
-            } else {
-              handleChangeRoute(`/timer?raceId=${raceId}`);
-            }
-          },
-          () => {
-            toast({
-              title: "Can't time race",
-              message: "Couldn't find race",
-              type: "error",
-            });
-          }
-        );
       }
       getRaceIdDialog.close();
     });
@@ -116,13 +89,11 @@ export function init() {
         });
         createRaceDialog.close();
         raceNameInput.value = "";
-        handleChangeRoute(`/timer?raceId=${data.data.raceId}`);
+        handleChangeRoute(`/timer`);
         return;
       };
 
       const onSubmitFailure = (err) => {
-        console.log(err);
-
         toast({
           type: "error",
           title: err.error,

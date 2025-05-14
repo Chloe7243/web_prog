@@ -1,4 +1,4 @@
-import { saveResults } from "../../api.js";
+import { saveResults, uploadTimedResults } from "../../api.js";
 import { formatTime, toast } from "../../utils/functions.js";
 import { localStorageResults } from "../../utils/constants.js";
 import {
@@ -44,7 +44,7 @@ export const init = () => {
         const event = new CustomEvent("show-results", {
           bubbles: true,
           composed: true,
-          detail: { runners: target, newValue: value },
+          detail: { runners: target, newValue: value, mode: "no-runner" },
         });
         raceResults.dispatchEvent(event);
       }
@@ -66,15 +66,15 @@ export const init = () => {
   const raceDialogSubmit = dialogs.raceDialog.querySelector("#continueBtn");
 
   const renderToggleButton = (element) => {
-    console.log({ button: isOn });
     const textElement = element.querySelector("p");
-    const iconElement = element.querySelector("i");
+    const startIcon = element.querySelector(".start-icon");
+    const stopIcon = element.querySelector(".stop-icon");
     textElement.textContent = isOn ? "Stop" : "Start";
     element.classList.toggle("stop", isOn);
     element.classList.toggle("start", !isOn);
     buttons.reset.classList.toggle("hidden", isOn);
-    iconElement.classList.toggle("fa-circle-stop", isOn);
-    iconElement.classList.toggle("fa-circle-play", !isOn);
+    stopIcon.classList.toggle("hidden", !isOn);
+    startIcon.classList.toggle("hidden", isOn);
   };
 
   const showResultsButtons = () => {
@@ -103,7 +103,6 @@ export const init = () => {
     if (isOn) {
       const time = saveTime();
       watchedRunnersData.push({
-        id: "",
         time: formatTime(time),
         position: watchedRunnersData.length + 1,
       });
@@ -145,20 +144,28 @@ export const init = () => {
   });
 
   raceDialogSubmit.addEventListener("click", async () => {
-    dialogs.raceDialog.close();
-    const raceNameInput = document.querySelector("#raceName");
-    const raceName = raceNameInput.value;
+    const raceIdInput = document.querySelector("#raceId");
+    const raceId = raceIdInput.value;
 
-    const body = JSON.stringify({ runners: runnersData, raceName });
+    if (!raceId) {
+      toast({
+        title: "Couldn't submit result",
+        message: "Race Id must be a valid Id",
+        type: "Error",
+      });
+    }
+
+    const data = { runners: runnersData, raceId };
 
     const onSubmitSuccess = () => {
       toast({
         type: "success",
         message: "Submitted successfully",
       });
-      resetTimer();
+      resetTimer(updateTimer);
+      dialogs.raceDialog.close();
       clearResults();
-      raceNameInput.value = "";
+      raceIdInput.value = "";
       return;
     };
 
@@ -173,7 +180,7 @@ export const init = () => {
       return;
     };
 
-    await saveResults(body, onSubmitSuccess, onSubmitFailure);
+    await uploadTimedResults(data, onSubmitSuccess, onSubmitFailure);
   });
 
   document.addEventListener("update-runnerID", ({ detail }) => {
@@ -201,9 +208,8 @@ const raceId = params.get("raceId");
 export const destroy = () => {
   const currentTime = saveTime();
   if (
-    raceId &&
-    (Object.values(currentTime).some((val) => val !== 0) ||
-      watchedRunnersData.length)
+    Object.values(currentTime).some((val) => val !== 0) ||
+    watchedRunnersData.length
   ) {
     localStorage.setItem(
       localStorageResults,
@@ -218,6 +224,5 @@ export const destroy = () => {
 };
 
 window.addEventListener("beforeunload", (e) => {
-  console.log(e);
   destroy();
 });

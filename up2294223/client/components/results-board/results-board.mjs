@@ -9,6 +9,9 @@ class ResultsBoard extends ShadowElement {
 
     const results = this.shadow.querySelector("#results-table > .body");
     results.append(raceResults);
+    const headChildren = this.shadow.querySelectorAll(
+      "#results-table .head > *"
+    );
 
     this.addEventListener("show-results", ({ detail }) => {
       const runnersNum = detail.runners.length;
@@ -23,9 +26,22 @@ class ResultsBoard extends ShadowElement {
         const event = new CustomEvent("add-runner", {
           bubbles: true,
           composed: true,
-          detail: { runner: newValue },
+          detail: { runner: newValue, mode: detail.mode },
         });
 
+        const last = headChildren[headChildren.length - 1];
+
+        if (last.classList.contains("hidden")) {
+        }
+
+        this.shadow
+          .querySelector("#results-table > .head")
+          .lastElementChild.classList.toggle(
+            "hidden",
+            detail.mode === "no-runner"
+          );
+        const secondLast = headChildren[headChildren.length - 2];
+        secondLast.classList.toggle("last", detail.mode === "no-runner");
         raceResults.dispatchEvent(event);
       }
     });

@@ -37,10 +37,12 @@
     #results-table > div span:first-of-type {
       text-align: left;
     }
-    #results-table > div span:last-of-type {
-      text-align: right;
-    }
 
+    #results-table > div span:last-of-type,
+    .last {
+      text-align: right !important;
+      margin-right: 1rem;
+    }
     #results-table > div span {
       text-align: center;
     }
@@ -48,6 +50,10 @@
     #results-table span {
       font-size: 1.3rem;
       padding: 1rem;
+    }
+
+    .hidden {
+      display: none;
     }
   </style>
 

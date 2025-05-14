@@ -33,16 +33,23 @@ function initDb() {
     FOREIGN KEY (race_id) REFERENCES races (race_id) ON DELETE CASCADE
   );
   
-  CREATE TABLE IF NOT EXISTS race_results (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    race_id INTEGER NOT NULL,
-    runner_id INTEGER NOT NULL,
-    submitted_by_user_id INTEGER NOT NULL,
-    finish_time TEXT,
-    position INTEGER,
-    is_organizer BOOLEAN DEFAULT 0,
-    FOREIGN KEY (race_id) REFERENCES races (race_id) ON DELETE CASCADE
-  );`;
+ CREATE TABLE IF NOT EXISTS race_submissions (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  race_id INTEGER NOT NULL,
+  timekeeper_id TEXT NOT NULL,
+  position INTEGER NOT NULL,
+  time TEXT NOT NULL,
+  FOREIGN KEY (race_id) REFERENCES races (race_id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS final_results (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  race_id INTEGER NOT NULL,
+  runner_id TEXT NOT NULL,
+  position INTEGER NOT NULL,
+  time TEXT NOT NULL,
+  FOREIGN KEY (race_id) REFERENCES races (race_id) ON DELETE CASCADE
+);`;
 
   db.exec(createTables, (err) => {});
 

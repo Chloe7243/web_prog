@@ -7,7 +7,11 @@ class BackButton extends ShadowElement {
     await this.loadTemplate(templateURL);
 
     this.addEventListener("click", (e) => {
-      handleChangeRoute("/");
+      if (window.history.length <= 1) {
+        handleChangeRoute("/"); // No history to go back to, go to home
+      } else {
+        window.history.back(); // Otherwise, go back
+      }
     });
   }
 }

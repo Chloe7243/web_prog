@@ -8,6 +8,7 @@ export function init() {
 
   const IdInput = document.querySelector("input#id");
   const shareBtn = document.querySelector(".share");
+  const emptyResults = document.querySelector(".empty");
   const raceResults = document.querySelector("results-board");
   const shareOptions = document.querySelector("#share-options");
   const positionInput = document.querySelector("input#position");
@@ -25,13 +26,18 @@ export function init() {
         mode: "read",
         runners: runners.map((item) => ({
           id: item.runner_id,
-          time: item.finish_time,
+          time: item.time,
           position: item.position,
         })),
       },
     });
 
-    raceResults.dispatchEvent(event);
+    if (runners.length) {
+      raceResults.dispatchEvent(event);
+    } else {
+    }
+    raceResults.classList.toggle("hidden", !runners.length);
+    emptyResults.classList.toggle("hidden", runners.length);
   }
 
   const filterChangeHandler = {
@@ -215,7 +221,7 @@ export function init() {
         tr.appendChild(tdName);
 
         const tdTime = doc.createElement("td");
-        tdTime.textContent = row.finish_time;
+        tdTime.textContent = row.time;
         tr.appendChild(tdTime);
 
         tbody.appendChild(tr);
@@ -235,7 +241,7 @@ export function init() {
     const csvRows = ["Runner ID,Time,Positon"];
     raceDetailRunners.forEach((detail) => {
       csvRows.push(
-        `${detail.runner_id},${detail.finish_time},${addPositionSuffix(
+        `${detail.runner_id},${detail.time},${addPositionSuffix(
           detail.position
         )}`
       );

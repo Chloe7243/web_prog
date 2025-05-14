@@ -1,6 +1,54 @@
+/* Modern Race Page Styling */
+
+:root {
+  --primary: #3b82f6;
+  --primary-hover: #2563eb;
+  --primary-light: #dbeafe;
+  --secondary: #10b981;
+  --secondary-hover: #059669;
+  --neutral-50: #f8fafc;
+  --neutral-100: #f1f5f9;
+  --neutral-200: #e2e8f0;
+  --neutral-300: #cbd5e1;
+  --neutral-400: #94a3b8;
+  --neutral-500: #64748b;
+  --neutral-600: #475569;
+  --neutral-700: #334155;
+  --neutral-800: #1e293b;
+  --neutral-900: #0f172a;
+  --danger: #ef4444;
+  --danger-hover: #dc2626;
+  --success: #22c55e;
+  --success-hover: #16a34a;
+  --warning: #f59e0b;
+  --warning-hover: #d97706;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --radius-sm: 0.25rem;
+  --radius: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --transition: all 0.2s ease;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+/* Race Page Layout */
 .race-page {
+  font-family: var(--font-sans);
+  color: var(--neutral-800);
+  background-color: var(--neutral-50);
+  line-height: 1.5;
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
 }
 
 .race-page > .content {
@@ -8,27 +56,121 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  padding-top: 1.5rem;
+  padding: 1.5rem;
   overflow: hidden;
 }
 
 .race-page .content > h1 {
-  padding: 0 1.5rem;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--neutral-900);
+  margin-bottom: 0.5rem;
+  position: relative;
 }
 
+.race-page .content > h1::after {
+  content: "";
+  position: absolute;
+  bottom: -0.5rem;
+  left: 0;
+  width: 3rem;
+  height: 0.25rem;
+  background-color: var(--primary);
+  border-radius: var(--radius);
+}
+
+/* Search Input */
 .race-page .search_input {
   padding: 0;
+  margin-bottom: 0.5rem;
+}
+
+.race-page .search_input input {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border: 1px solid var(--neutral-300);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  background-color: white;
+  transition: var(--transition);
+}
+
+.race-page .search_input input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.race-page .search_input input::placeholder {
+  color: var(--neutral-400);
+}
+
+/* Filters */
+.race-page .filters {
+  margin-bottom: 1rem;
+}
+
+.race-page .filters > fieldset {
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  background-color: white;
+  box-shadow: var(--shadow-sm);
+}
+
+.race-page .filters > fieldset > legend {
+  padding: 0 0.5rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--neutral-600);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.race-page .filters > fieldset > span {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.race-page .filters > fieldset > span:last-child {
+  margin-bottom: 0;
 }
 
 .race-page .filters > fieldset > span > label {
   width: 5.5rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: var(--neutral-700);
 }
 
+.race-page .filters > fieldset > span > input,
+.race-page .filters > fieldset > span > select {
+  flex: 1;
+  padding: 0.625rem 0.875rem;
+  border: 1px solid var(--neutral-300);
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  transition: var(--transition);
+}
+
+.race-page .filters > fieldset > span > input:focus,
+.race-page .filters > fieldset > span > select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+/* Races Container */
 .race-page > div .races {
   flex: 1;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
+  overflow: hidden;
+  background-color: white;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
 }
 
 .race-page > div race-list {
@@ -36,23 +178,57 @@
   display: flex;
   overflow-y: auto;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--neutral-400) var(--neutral-100);
 }
 
+.race-page > div race-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.race-page > div race-list::-webkit-scrollbar-track {
+  background: var(--neutral-100);
+}
+
+.race-page > div race-list::-webkit-scrollbar-thumb {
+  background-color: var(--neutral-400);
+  border-radius: 20px;
+}
+
+/* Races Header */
 .races .head {
   display: flex;
   flex-direction: row;
   align-items: center;
+  background-color: var(--neutral-800);
+  color: white;
+  border-radius: var(--radius) var(--radius) 0 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .races .head > * {
   flex: 1;
   font-weight: 600;
-  padding: 1rem;
-  font-size: 1.2rem;
-  text-wrap-mode: nowrap;
+  padding: 1rem 1.25rem;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
+.races .head > *:first-child {
+  text-align: left;
+  padding-left: 1.5rem;
+}
+
+.races .head > *:last-child {
+  text-align: right;
+  padding-right: 1.5rem;
+}
+
+/* Races Body */
 .races .body {
   flex: 1;
   display: flex;
@@ -60,29 +236,224 @@
   flex-direction: column;
 }
 
+.races .body > div {
+  display: flex;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--neutral-200);
+  transition: var(--transition);
+}
+
+.races .body > div:hover {
+  background-color: var(--neutral-100);
+}
+
+.races .body > div:last-child {
+  border-bottom: none;
+}
+
+.races .body > div > span {
+  flex: 1;
+  padding: 0 1.25rem;
+  font-size: 1rem;
+}
+
+.races .body > div > span:first-child {
+  padding-left: 1.5rem;
+  font-weight: 500;
+}
+
+.races .body > div > span:last-child {
+  padding-right: 1.5rem;
+  text-align: right;
+}
+
 .races > section span:first-of-type {
   text-align: left;
   flex-grow: 0;
+  min-width: 4rem;
 }
 
 .races > section span:last-of-type {
   flex-grow: 0;
+  min-width: 8rem;
 }
 
 .races > section > span {
   text-align: center;
 }
 
+/* Button Styling */
 .races button {
   border: none;
   font-weight: 600;
   cursor: pointer;
-  background: var(--bg-button);
-  padding: 1.1rem 0.8rem;
-  border-radius: 0.7rem;
-  width: min(10rem, 100%);
+  background-color: var(--primary);
+  color: white;
+  padding: 0.625rem 1rem;
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+  width: auto;
+  min-width: 6rem;
+}
+
+.races button:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+
+.races button:active {
+  transform: translateY(0);
+}
+
+.races button.view {
+  background-color: var(--neutral-700);
+}
+
+.races button.view:hover {
+  background-color: var(--neutral-800);
+}
+
+.races button.edit {
+  background-color: var(--secondary);
+}
+
+.races button.edit:hover {
+  background-color: var(--secondary-hover);
+}
+
+.races button.delete {
+  background-color: var(--danger);
+}
+
+.races button.delete:hover {
+  background-color: var(--danger-hover);
 }
 
 .races {
-  padding: 0 1.5rem;
+  padding: 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+/* Empty State */
+.races .empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+  text-align: center;
+  color: var(--neutral-500);
+}
+
+.races .empty-state svg {
+  width: 4rem;
+  height: 4rem;
+  margin-bottom: 1.5rem;
+  color: var(--neutral-400);
+}
+
+.races .empty-state h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--neutral-700);
+}
+
+.races .empty-state p {
+  max-width: 24rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Responsive Adjustments */
+@media (min-width: 768px) {
+  .race-page .content > h1 {
+    font-size: 2.25rem;
+  }
+
+  .races .head > * {
+    font-size: 1rem;
+  }
+
+  .races .body > div {
+    padding: 1.25rem 0;
+  }
+
+  .races button {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.9375rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .race-page > .content {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .races .head {
+    display: none;
+  }
+
+  .races .body > div {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.25rem;
+    gap: 0.75rem;
+  }
+
+  .races .body > div > span {
+    padding: 0;
+    width: 100%;
+  }
+
+  .races .body > div > span:before {
+    content: attr(data-label);
+    font-weight: 600;
+    margin-right: 0.5rem;
+    color: var(--neutral-600);
+  }
+
+  .races .body > div > span:last-child {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .races button {
+    width: auto;
+    flex: 1;
+    min-width: 0;
+    text-align: center;
+    padding: 0.625rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .race-page .content > h1 {
+    font-size: 1.75rem;
+  }
+
+  .race-page .filters > fieldset {
+    padding: 1rem;
+  }
+
+  .race-page .filters > fieldset > span {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .race-page .filters > fieldset > span > label {
+    width: 100%;
+  }
+
+  .race-page .filters > fieldset > span > input,
+  .race-page .filters > fieldset > span > select {
+    width: 100%;
+  }
 }

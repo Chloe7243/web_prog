@@ -5,8 +5,10 @@ import initDb from "./db/index.js";
 import {
   createRace,
   deleteRace,
+  finalizeResults,
   getRaceResults,
   getRaces,
+  getTimeSubmissions,
   saveResults,
 } from "./controllers.js";
 import {
@@ -45,8 +47,9 @@ app.post("/create-race", validateRaceData, createRace);
 app.get("/get-races/:userId", validateUserId, getRaces);
 app.delete("/delete-race/:id", validateDeleteId, deleteRace);
 
-app.post("/save-results/:id", validateResultData, saveResults);
-app.post("/upload-results/:id", validateResultData, saveResults);
+app.post("/finalize-results/:raceId", validateResultData, finalizeResults);
+app.post("/upload-results/:raceId", saveResults);
+app.get("/get-time-submissions/:raceId", getTimeSubmissions);
 app.get("/get-race-details/:id", validateResultParams, getRaceResults);
 
 app.listen(PORT, (error) => {

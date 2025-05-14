@@ -1,173 +1,430 @@
+/* Modern Navigation and Dialog Styling */
+
+:root {
+  --primary: #3b82f6;
+  --primary-hover: #2563eb;
+  --primary-light: #dbeafe;
+  --secondary: #10b981;
+  --secondary-hover: #059669;
+  --secondary-light: #d1fae5;
+  --accent: #8b5cf6;
+  --accent-hover: #7c3aed;
+  --accent-light: #ede9fe;
+  --neutral-50: #f8fafc;
+  --neutral-100: #f1f5f9;
+  --neutral-200: #e2e8f0;
+  --neutral-300: #cbd5e1;
+  --neutral-400: #94a3b8;
+  --neutral-500: #64748b;
+  --neutral-600: #475569;
+  --neutral-700: #334155;
+  --neutral-800: #1e293b;
+  --neutral-900: #0f172a;
+  --danger: #ef4444;
+  --danger-hover: #dc2626;
+  --danger-light: #fee2e2;
+  --success: #22c55e;
+  --success-hover: #16a34a;
+  --warning: #f59e0b;
+  --warning-hover: #d97706;
+  --background: #f8fafc;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --radius-sm: 0.25rem;
+  --radius: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+/* Home Navigation */
 nav.home {
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  overflow-x: hidden;
+  font-family: var(--font-sans);
+  color: var(--neutral-800);
+  background-color: var(--background);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  overflow-y: auto;
 }
 
-nav.home > button {
-  flex: 1;
-  width: min(25rem, 100%);
+/* Card Styling */
+nav.home .card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  z-index: 1;
+  min-height: 22rem;
   text-align: center;
+}
+
+nav.home .card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  z-index: -1;
+}
+
+nav.home .card:hover::before {
+  opacity: 1;
+}
+
+nav.home .card:active {
+  transform: scale(0.98);
+}
+
+/* Card Content */
+nav.home .card .card-content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
   justify-content: center;
-  text-decoration: none;
+  padding: 3rem 2rem;
   color: white;
-  cursor: pointer;
-  padding: 2rem 3rem;
-  font-size: 3rem;
-  background: var(--background);
+  width: 100%;
+  height: 100%;
 }
 
-nav.home > button > i {
-  font-size: 15rem;
-}
-nav.home .timer.new {
-  background: green;
+/* Icon Container */
+nav.home .card .icon-container {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
 }
 
-nav.home .timer.new > i,
-nav.home .spectate > i {
-  font-size: 13.5rem;
+nav.home .card:hover .icon-container {
+  transform: translateY(-5px);
+  background-color: rgba(255, 255, 255, 0.3);
 }
 
+/* SVG Icons */
+nav.home .card .icon-container svg {
+  width: 60px;
+  height: 60px;
+  stroke-width: 1.5;
+}
+
+/* Card Typography */
+nav.home .card h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+nav.home .card p {
+  font-size: 1.125rem;
+  opacity: 0.9;
+  max-width: 250px;
+}
+
+/* Card Color Variations */
+nav.home .emerald {
+  background: linear-gradient(135deg, #10b981, #059669);
+}
+
+nav.home .sky {
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
+}
+
+nav.home .slate {
+  background: linear-gradient(135deg, #334155, #1e293b);
+}
+
+nav.home .blue {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+}
+
+/* Spectate Card Border */
 nav.home .spectate {
-  border-top: 0.5rem solid var(--background);
-}
-
-nav.home > :nth-child(even) {
-  background: var(--primary);
-}
-
-nav.home > .history .history-icon {
   position: relative;
 }
 
-nav.home > .history > .history-icon > i:first-of-type {
-  font-size: 15rem;
-  position: relative;
-  z-index: 10;
-}
-
-nav.home > .history > .history-icon > sub > i {
+nav.home .spectate::after {
+  content: "";
   position: absolute;
-  bottom: 0;
-  right: 0;
-  transform: rotate(45deg);
-  font-size: 4rem;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0.25rem;
+  background-color: rgba(255, 255, 255, 0.3);
 }
 
+/* Dialog Styling */
 dialog {
-  padding: 2rem;
-  border-radius: 0.8rem;
-  border: 1px solid #ddd;
+  padding: 2.5rem;
+  border-radius: var(--radius-lg);
+  border: none;
   margin: auto;
-  box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.1);
-  width: min(30rem, 100%);
+  box-shadow: var(--shadow-lg);
+  width: min(500px, 90vw);
+  background-color: white;
+  color: var(--neutral-800);
+  transition: var(--transition);
+  overflow: visible;
 }
 
 dialog::backdrop {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(4px);
 }
 
 dialog h2 {
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--neutral-900);
+  position: relative;
+}
+
+dialog h2::after {
+  content: "";
+  position: absolute;
+  bottom: -0.5rem;
+  left: 0;
+  width: 3rem;
+  height: 0.25rem;
+  background-color: var(--primary);
+  border-radius: var(--radius);
 }
 
 dialog form {
   display: flex;
   flex-direction: column;
+  gap: 2rem;
+}
+
+/* Form Inputs Section */
+dialog .form-inputs {
+  display: flex;
+  flex-direction: column;
   gap: 1.5rem;
 }
 
-dialog form > section {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-dialog form > section > div {
+dialog .form-inputs > div {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
-dialog form > section label {
-  font-size: 1.2rem;
-  font-weight: 500;
-  width: 100%;
+dialog .form-inputs label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--neutral-700);
 }
 
-dialog form > section input {
+dialog .form-inputs input {
   width: 100%;
-  background: transparent;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  border: none;
+  background-color: var(--neutral-50);
+  border: 1px solid var(--neutral-300);
+  border-radius: var(--radius);
+  padding: 0.875rem 1rem;
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+dialog .form-inputs input:focus {
   outline: none;
-  border-radius: 0.5rem;
-  border: 0.15rem solid var(--primary);
-  padding: 0.8rem 1rem;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
-dialog form > section input#runnerIds {
+dialog .form-inputs input::placeholder {
+  color: var(--neutral-400);
+}
+
+/* File Input Styling */
+dialog .form-inputs input[type="file"] {
+  padding: 0.75rem;
   cursor: pointer;
 }
 
-dialog form > section label {
-  font-size: 1.2rem;
-  font-weight: 500;
-  width: 100%;
+dialog .form-inputs input[type="file"]::file-selector-button {
+  border: none;
+  background-color: var(--primary);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  margin-right: 1rem;
+  cursor: pointer;
+  transition: var(--transition);
 }
 
+dialog .form-inputs input[type="file"]::file-selector-button:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Dialog Buttons */
 dialog .form-buttons {
   display: flex;
-  flex-direction: row;
   gap: 1rem;
+  margin-top: 0.5rem;
 }
 
 dialog .form-buttons > button {
-  border: none;
   flex: 1;
+  border: none;
   font-weight: 600;
   cursor: pointer;
-  background: var(--primary);
+  padding: 0.875rem 1.25rem;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+dialog .form-buttons > button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+dialog .form-buttons > button:active {
+  transform: translateY(0);
+}
+
+/* Cancel Button */
+dialog .form-buttons > .cancel-btn {
+  background-color: var(--neutral-200);
+  color: var(--neutral-700);
+}
+
+dialog .form-buttons > .cancel-btn:hover {
+  background-color: var(--neutral-300);
+}
+
+/* Continue/Submit Button */
+dialog .form-buttons > #continueBtn {
+  background-color: var(--primary);
   color: white;
-  padding: 1.1rem 0.8rem;
-  border-radius: 0.7rem;
-  flex: 1;
 }
 
-dialog .form-buttons > #cancelBtn {
-  color: red;
-  background-color: rgba(255, 0, 0, 0.1);
+dialog .form-buttons > #continueBtn:hover {
+  background-color: var(--primary-hover);
 }
 
-dialog#confirmation {
+/* Confirmation Dialog */
+#confirmAction {
+  padding: 2rem;
+  max-width: 450px;
+}
+
+#confirmAction > div {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
 
-dialog#confirmation h2 {
-  margin: 0;
+#confirmAction h2 {
+  margin-bottom: 2rem;
+  text-align: center;
 }
 
-dialog#confirmation .form-buttons button {
-  padding: 0.8rem;
+#confirmAction > div > p {
+  text-align: center;
+  font-size: 1.125rem;
+  color: var(--neutral-600);
+  line-height: 1.6;
 }
 
-dialog#confirmation .form-buttons #cancelBtn {
-  background: var(--primary);
+#confirmAction .form-buttons button {
+  padding: 0.75rem 1.25rem;
+}
+
+#confirmAction .form-buttons .cancel-btn {
+  background-color: var(--neutral-200);
+  color: var(--neutral-700);
+}
+
+#confirmAction .form-buttons .cancel-btn:hover {
+  background-color: var(--neutral-300);
+}
+
+#confirmAction .form-buttons #continueBtn {
+  background-color: var(--danger);
   color: white;
 }
 
-dialog#confirmation .form-buttons #continueBtn {
-  color: red;
-  background-color: rgba(255, 0, 0, 0.1);
+#confirmAction .form-buttons #continueBtn:hover {
+  background-color: var(--danger-hover);
+}
+
+/* Get Race ID Dialog */
+#getRaceId {
+  max-width: 400px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  nav.home {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  nav.home .card .card-content {
+    padding: 2.5rem 1.5rem;
+  }
+
+  nav.home .card .icon-container {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 1.25rem;
+  }
+
+  nav.home .card .icon-container svg {
+    width: 50px;
+    height: 50px;
+  }
+
+  nav.home .card h2 {
+    font-size: 1.5rem;
+  }
+
+  nav.home .card p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  nav.home {
+    grid-template-columns: 1fr;
+  }
+
+  nav.home .card .card-content {
+    padding: 3rem 1.5rem;
+  }
+
+  dialog {
+    padding: 1.5rem;
+  }
+
+  dialog h2 {
+    font-size: 1.5rem;
+  }
+
+  dialog .form-buttons {
+    flex-direction: column;
+  }
+
+  dialog .form-buttons > button {
+    width: 100%;
+  }
 }

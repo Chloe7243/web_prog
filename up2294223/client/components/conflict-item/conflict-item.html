@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <style>
+    .conflict-card + .conflict-card {
+      padding-top: 0;
+    }
+
+    .conflict-card {
+      border: 1px solid var(--neutral-200);
+      border-radius: var(--radius);
+    }
+
+    .conflict-card:last-child {
+      margin-bottom: 0;
+    }
+
+    .conflict-header {
+      background-color: var(--neutral-100);
+      padding: 1rem 1.5rem;
+      font-weight: 600;
+      color: var(--neutral-800);
+      border-bottom: 1px solid var(--neutral-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .position-badge,
+    .position-confirm {
+      background-color: var(--primary-light);
+      color: var(--primary);
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .position-confirm {
+      cursor: pointer;
+      background-color: var(--primary);
+      color: var(--primary-light);
+    }
+
+    .conflict-body {
+      padding: 1.5rem;
+    }
+
+    /* Time Options */
+
+    .time-option {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      border: 1px solid var(--neutral-200);
+      border-radius: var(--radius);
+      margin-bottom: 0.75rem;
+      transition: var(--transition);
+    }
+
+    .time-option:hover {
+      background-color: var(--neutral-50);
+    }
+
+    .time-option:last-child {
+      margin-bottom: 0;
+    }
+
+    .time-option input[type="radio"] {
+      width: 1.25rem;
+      height: 1.25rem;
+      margin-right: 1rem;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    .time-option label {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .time-value {
+      font-family: monospace;
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--neutral-900);
+      margin-right: 1rem;
+    }
+  </style>
+
+  <template id="conflict-item-template">
+    <div class="conflict-card">
+      <div class="conflict-header">
+        <span class="position-badge">Position 1</span>
+        <button class="position-confirm">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="17"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-check-check-icon lucide-check-check"
+          >
+            <path d="M18 6 7 17l-5-5" />
+            <path d="m22 10-7.5 7.5L13 16" />
+          </svg>
+        </button>
+      </div>
+      <div class="conflict-body">
+        <div class="time-options">
+          <div class="time-option">
+            <input
+              type="radio"
+              name="position-1"
+              id="position-1-time-1"
+              checked
+            />
+            <label for="position-1-time-1">
+              <span class="time-value">00:00:00.810</span>
+            </label>
+          </div>
+          <div class="time-option">
+            <input
+              type="radio"
+              name="position-1"
+              id="position-1-time-1"
+              checked
+            />
+            <label for="position-1-time-1">
+              <span class="time-value">00:00:00.810</span>
+            </label>
+          </div>
+          <div class="time-option">
+            <input
+              type="radio"
+              name="position-1"
+              id="position-1-time-1"
+              checked
+            />
+            <label for="position-1-time-1">
+              <span class="time-value">00:00:00.810</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+</html>

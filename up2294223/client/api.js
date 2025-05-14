@@ -1,20 +1,22 @@
 import { userID } from "./utils/constants.js";
 
 export async function saveResults(body, onSuccess, onFailure) {
+  const { raceId, ...dto } = body;
+  console.log({ dto });
+
   try {
-    const response = await fetch("/save-results", {
+    const response = await fetch(`/finalize-results/${raceId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body,
+      body: JSON.stringify({ userId: userID, ...dto }),
     });
 
     const data = await response.json();
 
     if (!response.ok || !data.success) {
       onFailure?.(data);
-      throw Error(data.error);
     } else {
       onSuccess?.(data);
     }
@@ -32,7 +34,6 @@ export async function viewRaceResults(id, onSuccess, onFailure) {
     const data = await response.json();
     if (!response.ok || !data.success) {
       onFailure?.(data);
-      throw Error(data.error);
     } else {
       onSuccess?.(data);
     }
@@ -41,24 +42,40 @@ export async function viewRaceResults(id, onSuccess, onFailure) {
 
 export async function uploadTimedResults(body, onSuccess, onFailure) {
   const { raceId, ...dto } = body;
+
   try {
     const response = await fetch(`/upload-results/${raceId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      dto,
+      body: JSON.stringify({ timekeeperId: userID, ...dto }),
     });
 
     const data = await response.json();
 
     if (!response.ok || !data.success) {
       onFailure?.(data);
-      throw Error(data.error);
     } else {
       onSuccess?.(data);
     }
   } catch (error) {}
+}
+
+export async function getTimeSubmissions(raceId, onSuccess, onFailure) {
+  try {
+    const response = await fetch(`/get-time-submissions/${raceId}`);
+
+    const data = await response.json();
+
+    if (!response.ok || !data.success) {
+      throw Error(data.error);
+    } else {
+      onSuccess?.(data);
+    }
+  } catch (error) {
+    onFailure?.(error);
+  }
 }
 
 export async function createRace(dto, onSuccess, onFailure) {
@@ -85,8 +102,6 @@ export async function getUserRaces(onSuccess, onFailure) {
   try {
     const response = await fetch(`/get-races/${userID}`);
     const data = await response.json();
-    console.log(data);
-
     if (!response.ok || !data.success) {
       throw Error(data.error);
     } else {

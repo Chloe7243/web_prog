@@ -10,7 +10,41 @@
           <div id="timer-buttons">
             <span>
               <button id="toggle" class="start">
-                <i class="fa-solid fa-circle-play"></i>
+                <i class="start-icon hidden">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-circle-play-icon lucide-circle-play"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <polygon points="10 8 16 12 10 16 10 8" />
+                  </svg>
+                </i>
+                <i class="stop-icon hidden">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-circle-stop-icon lucide-circle-stop"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <rect x="9" y="9" width="6" height="6" rx="1" />
+                  </svg>
+                </i>
+
                 <p>Start</p>
               </button>
             </span>
@@ -21,7 +55,23 @@
           <h1 id="timer">00:00:00.000</h1>
           <div id="timer-buttons">
             <button id="save">
-              <i class="fa-solid fa-flag-checkered"></i>Mark time
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-goal-icon lucide-goal"
+              >
+                <path d="M12 13V2l8 4-8 4" />
+                <path d="M20.561 10.222a9 9 0 1 1-12.55-5.29" />
+                <path d="M8.002 9.997a5 5 0 1 0 8.9 2.02" />
+              </svg>
+              Mark time
             </button>
           </div>
         </section>
@@ -37,12 +87,12 @@
       <dialog id="raceDialog">
         <h2>Race Information</h2>
         <form method="dialog">
-          <label for="raceName">Race Name (optional):</label>
+          <p>PS: Ask the creator of the race you just timed for the race ID</p>
           <input
             type="text"
-            id="raceName"
+            id="raceId"
             name="raceName"
-            placeholder="Enter race name"
+            placeholder="Enter race Id"
           />
 
           <div class="form-buttons buttons">
