@@ -1,3 +1,6 @@
+/**
+ * Converts a time string "HH:MM:SS.MS" to milliseconds.
+ */
 export function timeToMs(hhmmssMs) {
   const [hh, mm, ssMs] = hhmmssMs.split(":");
   const [ss, ms] = ssMs.split(".");

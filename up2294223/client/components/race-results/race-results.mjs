@@ -1,6 +1,12 @@
 import { ShadowElement } from "../shadow-element.mjs";
 
+/**
+ * Custom element for displaying race results in a table.
+ */
 class RaceResults extends ShadowElement {
+  /**
+   * Loads the template and sets up event listeners for results.
+   */
   async connectedCallback() {
     const templateURL = import.meta.url.replace(".mjs", ".html");
     await this.loadTemplate(templateURL);

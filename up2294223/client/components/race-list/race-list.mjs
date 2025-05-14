@@ -2,8 +2,15 @@ import { getUserRaces } from "../../api.js";
 import { toast } from "../../utils/functions.js";
 import { ShadowElement } from "../shadow-element.mjs";
 
+/**
+ * Custom element for displaying a list of races.
+ */
 class RaceList extends ShadowElement {
   races = [];
+
+  /**
+   * Loads the template and fetches races.
+   */
   async connectedCallback() {
     const templateURL = import.meta.url.replace(".mjs", ".html");
     await this.loadTemplate(templateURL);
@@ -25,6 +32,9 @@ class RaceList extends ShadowElement {
     });
   }
 
+  /**
+   * Checks if a race date is within the given range.
+   */
   isWithinDateRange(raceDate, fromStr, toStr) {
     if (!fromStr) return true;
     const from = new Date(fromStr);
@@ -33,10 +43,16 @@ class RaceList extends ShadowElement {
     return date >= from && date <= to;
   }
 
+  /**
+   * Checks if a race name matches the search keyword.
+   */
   matchesSearch(raceName, keyword) {
     return keyword ? raceName?.toLowerCase().includes(keyword) : true;
   }
 
+  /**
+   * Renders the list of race items.
+   */
   renderItems(raceList) {
     this.clearShadow();
     if (!raceList.length) {
@@ -54,6 +70,9 @@ class RaceList extends ShadowElement {
     });
   }
 
+  /**
+   * Fetches races from the API.
+   */
   async fetchRaces() {
     this.clearShadow();
     let races;

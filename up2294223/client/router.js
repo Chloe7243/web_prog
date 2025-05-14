@@ -17,6 +17,9 @@ const notFoundRoute = { name: "error", path: "/pages/error/error" };
 
 let currentModule = null;
 
+/**
+ * Loads and renders the current page content based on the route.
+ */
 async function loadPageContent() {
   const pathname = window.location.pathname;
   const route = routes[pathname] || notFoundRoute;
@@ -53,6 +56,9 @@ async function loadPageContent() {
   }
 }
 
+/**
+ * Shows a fallback error message in the main container.
+ */
 function showErrorFallback() {
   const container = document.getElementById("main-page");
   if (container) {
@@ -65,7 +71,9 @@ function showErrorFallback() {
   }
 }
 
-// Load and replace route-specific CSS
+/**
+ * Loads and applies a route-specific stylesheet.
+ */
 async function loadStylesheet(href) {
   const oldLink = document.querySelector("link[data-route-style]");
   if (oldLink) oldLink.remove();
@@ -77,6 +85,9 @@ async function loadStylesheet(href) {
   document.head.appendChild(link);
 }
 
+/**
+ * Fetches HTML content from a URL.
+ */
 async function fetchHtml(url) {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`Failed to fetch ${url}`);
@@ -84,7 +95,9 @@ async function fetchHtml(url) {
   return text;
 }
 
-// Intercepts link navigation
+/**
+ * Handles SPA navigation for anchor links.
+ */
 export function handleNavigation(event) {
   const anchor = event.target.closest("a");
 
@@ -102,7 +115,9 @@ export function handleNavigation(event) {
   }
 }
 
-// Manually change route eg. on click of a button
+/**
+ * Programmatically changes the route.
+ */
 export function handleChangeRoute(to) {
   const url = typeof to === "string" ? new URL(to, window.location.origin) : to;
   const current = window.location.pathname + window.location.search;

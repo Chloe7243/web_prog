@@ -11,7 +11,7 @@
           <h1 class="race-name"><span>Race</span> Results</h1>
 
           <div>
-            <button class="share">
+            <button class="share" popovertarget="share-options">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -30,12 +30,12 @@
               </svg>
               Share result
             </button>
-            <dialog id="share-options">
+            <div id="share-options" popover>
               <div>
                 <button class="pdf">Download PDF file</button>
-                <button class="csv">Download Excel file</button>
+                <button class="csv">Download CSV file</button>
               </div>
-            </dialog>
+            </div>
           </div>
         </div>
         <div class="separator"></div>

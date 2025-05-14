@@ -1,49 +1,3 @@
-/* Modern Navigation and Dialog Styling */
-
-:root {
-  --primary: #3b82f6;
-  --primary-hover: #2563eb;
-  --primary-light: #dbeafe;
-  --secondary: #10b981;
-  --secondary-hover: #059669;
-  --secondary-light: #d1fae5;
-  --accent: #8b5cf6;
-  --accent-hover: #7c3aed;
-  --accent-light: #ede9fe;
-  --neutral-50: #f8fafc;
-  --neutral-100: #f1f5f9;
-  --neutral-200: #e2e8f0;
-  --neutral-300: #cbd5e1;
-  --neutral-400: #94a3b8;
-  --neutral-500: #64748b;
-  --neutral-600: #475569;
-  --neutral-700: #334155;
-  --neutral-800: #1e293b;
-  --neutral-900: #0f172a;
-  --danger: #ef4444;
-  --danger-hover: #dc2626;
-  --danger-light: #fee2e2;
-  --success: #22c55e;
-  --success-hover: #16a34a;
-  --warning: #f59e0b;
-  --warning-hover: #d97706;
-  --background: #f8fafc;
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-    0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
-    0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  --radius-sm: 0.25rem;
-  --radius: 0.5rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 1rem;
-  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-}
-
 /* Home Navigation */
 nav.home {
   width: 100%;
@@ -52,7 +6,7 @@ nav.home {
   color: var(--neutral-800);
   background-color: var(--background);
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(23.077rem, 1fr));
   overflow-y: auto;
 }
 
@@ -66,7 +20,7 @@ nav.home .card {
   cursor: pointer;
   overflow: hidden;
   z-index: 1;
-  min-height: 22rem;
+  min-height: 16.923rem;
   text-align: center;
 }
 
@@ -96,7 +50,7 @@ nav.home .card .card-content {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 3rem 2rem;
+  padding: 2.308rem 1.538rem;
   color: white;
   width: 100%;
   height: 100%;
@@ -106,37 +60,37 @@ nav.home .card .card-content {
 nav.home .card .icon-container {
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 50%;
-  width: 120px;
-  height: 120px;
+  width: 9.231rem;
+  height: 9.231rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.154rem;
 }
 
 nav.home .card:hover .icon-container {
-  transform: translateY(-5px);
+  transform: translateY(-0.385rem);
   background-color: rgba(255, 255, 255, 0.3);
 }
 
 /* SVG Icons */
 nav.home .card .icon-container svg {
-  width: 60px;
-  height: 60px;
+  width: 4.615rem;
+  height: 4.615rem;
   stroke-width: 1.5;
 }
 
 /* Card Typography */
 nav.home .card h2 {
-  font-size: 1.75rem;
+  font-size: 1.346rem;
   font-weight: 700;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.577rem;
 }
 
 nav.home .card p {
-  font-size: 1.125rem;
+  font-size: 1rem;
   opacity: 0.9;
-  max-width: 250px;
+  max-width: 19.231rem;
 }
 
 /* Card Color Variations */
@@ -167,27 +121,26 @@ nav.home .spectate::after {
   top: 0;
   left: 0;
   width: 100%;
-  height: 0.25rem;
+  height: 0.192rem;
   background-color: rgba(255, 255, 255, 0.3);
 }
 
 /* Dialog Styling */
 dialog {
-  padding: 2.5rem;
+  padding: 1.923rem;
   border-radius: var(--radius-lg);
   border: none;
   margin: auto;
   box-shadow: var(--shadow-lg);
-  width: min(500px, 90vw);
+  width: min(38.462rem, 69.231vw);
   background-color: white;
   color: var(--neutral-800);
-  transition: var(--transition);
   overflow: visible;
 }
 
 dialog::backdrop {
   background-color: rgba(15, 23, 42, 0.7);
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(0.308rem);
 }
 
 dialog .error {
@@ -195,12 +148,12 @@ dialog .error {
 }
 
 dialog header {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.154rem;
 }
 
 dialog h2 {
-  margin-bottom: 1.5rem;
-  font-size: 1.75rem;
+  margin-bottom: 1.154rem;
+  font-size: 1.346rem;
   font-weight: 700;
   color: var(--neutral-900);
   position: relative;
@@ -209,10 +162,10 @@ dialog h2 {
 dialog h2::after {
   content: "";
   position: absolute;
-  bottom: -0.5rem;
+  bottom: -0.385rem;
   left: 0;
-  width: 3rem;
-  height: 0.25rem;
+  width: 2.308rem;
+  height: 0.192rem;
   background-color: var(--primary);
   border-radius: var(--radius);
 }
@@ -220,20 +173,20 @@ dialog h2::after {
 dialog form {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.538rem;
 }
 
 /* Form Inputs Section */
 dialog .form-inputs {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.154rem;
 }
 
 dialog .form-inputs > div {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.385rem;
 }
 
 dialog .form-inputs label {
@@ -245,17 +198,16 @@ dialog .form-inputs label {
 dialog .form-inputs input {
   width: 100%;
   background-color: var(--neutral-50);
-  border: 1px solid var(--neutral-300);
+  border: 0.077rem solid var(--neutral-300);
   border-radius: var(--radius);
-  padding: 0.875rem 1rem;
+  padding: 0.673rem 0.769rem;
   font-size: 1rem;
-  transition: var(--transition);
 }
 
 dialog .form-inputs input:focus {
   outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+  box-shadow: 0 0 0 0.231rem rgba(59, 130, 246, 0.2);
 }
 
 dialog .form-inputs input::placeholder {
@@ -264,7 +216,7 @@ dialog .form-inputs input::placeholder {
 
 /* File Input Styling */
 dialog .form-inputs input[type="file"] {
-  padding: 0.75rem;
+  padding: 0.577rem;
   cursor: pointer;
 }
 
@@ -272,11 +224,10 @@ dialog .form-inputs input[type="file"]::file-selector-button {
   border: none;
   background-color: var(--primary);
   color: white;
-  padding: 0.5rem 1rem;
+  padding: 0.385rem 0.769rem;
   border-radius: var(--radius-sm);
-  margin-right: 1rem;
+  margin-right: 0.769rem;
   cursor: pointer;
-  transition: var(--transition);
 }
 
 dialog .form-inputs input[type="file"]::file-selector-button:hover {
@@ -286,8 +237,8 @@ dialog .form-inputs input[type="file"]::file-selector-button:hover {
 /* Dialog Buttons */
 dialog .form-buttons {
   display: flex;
-  gap: 1rem;
-  margin-top: 0.5rem;
+  gap: 0.769rem;
+  margin-top: 0.385rem;
 }
 
 dialog .form-buttons > button {
@@ -295,14 +246,13 @@ dialog .form-buttons > button {
   border: none;
   font-weight: 600;
   cursor: pointer;
-  padding: 0.875rem 1.25rem;
+  padding: 0.673rem 0.962rem;
   border-radius: var(--radius);
   font-size: 1rem;
-  transition: var(--transition);
 }
 
 dialog .form-buttons > button:hover {
-  transform: translateY(-2px);
+  transform: translateY(-0.154rem);
   box-shadow: var(--shadow);
 }
 
@@ -332,30 +282,30 @@ dialog .form-buttons > #continueBtn:hover {
 
 /* Confirmation Dialog */
 #confirmAction {
-  padding: 2rem;
-  max-width: 450px;
+  padding: 1.538rem;
+  max-width: 34.615rem;
 }
 
 #confirmAction > div {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.154rem;
 }
 
 #confirmAction h2 {
-  margin-bottom: 2rem;
+  margin-bottom: 1.538rem;
   text-align: center;
 }
 
 #confirmAction > div > p {
   text-align: center;
-  font-size: 1.125rem;
+  font-size: 1rem;
   color: var(--neutral-600);
-  line-height: 1.6;
+  line-height: 1.231;
 }
 
 #confirmAction .form-buttons button {
-  padding: 0.75rem 1.25rem;
+  padding: 0.577rem 0.962rem;
 }
 
 #confirmAction .form-buttons .cancel-btn {
@@ -378,32 +328,32 @@ dialog .form-buttons > #continueBtn:hover {
 
 /* Get Race ID Dialog */
 #getRaceId {
-  max-width: 400px;
+  max-width: 30.769rem;
 }
 
 /* Responsive Adjustments */
-@media (max-width: 768px) {
+@media (max-width: 59.077rem) {
   nav.home {
     grid-template-columns: repeat(2, 1fr);
   }
 
   nav.home .card .card-content {
-    padding: 2.5rem 1.5rem;
+    padding: 1.923rem 1.154rem;
   }
 
   nav.home .card .icon-container {
-    width: 100px;
-    height: 100px;
-    margin-bottom: 1.25rem;
+    width: 7.692rem;
+    height: 7.692rem;
+    margin-bottom: 0.962rem;
   }
 
   nav.home .card .icon-container svg {
-    width: 50px;
-    height: 50px;
+    width: 3.846rem;
+    height: 3.846rem;
   }
 
   nav.home .card h2 {
-    font-size: 1.5rem;
+    font-size: 1.154rem;
   }
 
   nav.home .card p {
@@ -411,21 +361,21 @@ dialog .form-buttons > #continueBtn:hover {
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 49.231rem) {
   nav.home {
     grid-template-columns: 1fr;
   }
 
   nav.home .card .card-content {
-    padding: 3rem 1.5rem;
+    padding: 2.308rem 1.154rem;
   }
 
   dialog {
-    padding: 1.5rem;
+    padding: 1.154rem;
   }
 
   dialog h2 {
-    font-size: 1.5rem;
+    font-size: 1.154rem;
   }
 
   dialog .form-buttons {

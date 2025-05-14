@@ -4,6 +4,9 @@ import { handleCloseDialog } from "../../utils/closeDialog.js";
 import { localStorageResults, userID } from "../../utils/constants.js";
 import { toast } from "../../utils/functions.js";
 
+/**
+ * Initializes the home page event handlers and dialogs.
+ */
 export function init() {
   let getIdDialogTrigger = null;
 

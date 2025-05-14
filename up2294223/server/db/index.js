@@ -16,6 +16,9 @@ const db = new sql.Database(
   onConnect
 );
 
+/**
+ * Initializes the SQLite database and creates tables if they don't exist.
+ */
 function initDb() {
   const createTables = `
   CREATE TABLE IF NOT EXISTS races (

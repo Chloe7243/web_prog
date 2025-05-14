@@ -1,5 +1,8 @@
 import handleError from "./utils/handleError.js";
 
+/**
+ * Validates race creation data.
+ */
 export function validateRaceData(req, res, next) {
   const data = req.body;
   const errors = [];
@@ -42,6 +45,9 @@ export function validateRaceData(req, res, next) {
   }
 }
 
+/**
+ * Validates result data for finalizing results.
+ */
 export function validateResultData(req, res, next) {
   const data = req.body;
   const { raceId } = req.params;
@@ -92,6 +98,9 @@ export function validateResultData(req, res, next) {
   }
 }
 
+/**
+ * Validates timekeeper results submission.
+ */
 export function validateTimekeeperResults(req, res, next) {
   const data = req.body;
   const { raceId } = req.params;
@@ -144,6 +153,9 @@ export function validateTimekeeperResults(req, res, next) {
   }
 }
 
+/**
+ * Validates result params (race ID).
+ */
 export function validateResultParams(req, res, next) {
   const data = req.params;
   const errors = [];
@@ -160,6 +172,9 @@ export function validateResultParams(req, res, next) {
   }
 }
 
+/**
+ * Validates user ID in params.
+ */
 export function validateUserId(req, res, next) {
   const data = req.params;
   const errors = [];
@@ -176,6 +191,9 @@ export function validateUserId(req, res, next) {
   }
 }
 
+/**
+ * Validates delete race request (ID and userId).
+ */
 export function validateDeleteId(req, res, next) {
   const data = { ...req.params, ...req.body };
   const errors = [];

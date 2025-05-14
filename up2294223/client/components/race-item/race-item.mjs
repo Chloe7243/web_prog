@@ -3,7 +3,13 @@ import { ShadowElement } from "../shadow-element.mjs";
 import { dateFormatter, toast } from "../../utils/functions.js";
 import { handleChangeRoute } from "../../router.js";
 
+/**
+ * Custom element for displaying a single race item with actions.
+ */
 class RaceItem extends ShadowElement {
+  /**
+   * Loads the template and sets up race item actions.
+   */
   async connectedCallback() {
     const templateURL = import.meta.url.replace(".mjs", ".html");
     await this.loadTemplate(templateURL);
@@ -55,6 +61,9 @@ class RaceItem extends ShadowElement {
     });
   }
 
+  /**
+   * Shows the actions dialog.
+   */
   showActionDialog() {
     this.dialog.showModal();
     const dialogWrapper = this.shadow.querySelector(".actions");
@@ -77,15 +86,25 @@ class RaceItem extends ShadowElement {
     this.dialog.style.top = `${dialogTop}px`;
   }
 
+  /**
+   * Navigates to the race results page.
+   */
   async showResult() {
     handleChangeRoute(`/race-details?raceId=${this["race-id"]}`);
     this.dialog.close();
   }
+
+  /**
+   * Navigates to the manage race page.
+   */
   async showTimer() {
     handleChangeRoute(`/manage-race?raceId=${this["race-id"]}`);
     this.dialog.close();
   }
 
+  /**
+   * Deletes the race.
+   */
   async deleteItem() {
     await deleteRace(
       this["race-id"],

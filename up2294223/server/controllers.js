@@ -2,6 +2,9 @@ import { db } from "./app.js";
 import { timeToMs } from "./utils/functions.js";
 import handleError from "./utils/handleError.js";
 
+/**
+ * Creates a new race and inserts runners if provided.
+ */
 export async function createRace(req, res) {
   const data = req.body;
   db.run(
@@ -33,6 +36,9 @@ export async function createRace(req, res) {
   );
 }
 
+/**
+ * Uploads timekeeper results for a race.
+ */
 export async function uploadTimekeeperResults(req, res) {
   const { raceId } = req.params;
   const { timekeeperId, runners } = req.body;
@@ -75,6 +81,9 @@ export async function uploadTimekeeperResults(req, res) {
   });
 }
 
+/**
+ * Finalizes race results and ends the race.
+ */
 export async function finalizeResults(req, res) {
   const { raceId } = req.params;
   const data = req.body;
@@ -127,6 +136,9 @@ export async function finalizeResults(req, res) {
   );
 }
 
+/**
+ * Gets all time submissions for a race and resolves conflicts.
+ */
 export async function getTimeSubmissions(req, res) {
   const { raceId } = req.params;
   const TIME_TOLERANCE_MS = 1000; // 1 second tolerance
@@ -222,6 +234,9 @@ export async function getTimeSubmissions(req, res) {
   }
 }
 
+/**
+ * Gets all races for a user.
+ */
 export async function getRaces(req, res) {
   const userId = req.params.userId;
 
@@ -241,6 +256,9 @@ export async function getRaces(req, res) {
   }
 }
 
+/**
+ * Gets final race results and race details.
+ */
 export async function getRaceResults(req, res) {
   const { id } = req.params;
 
@@ -285,6 +303,9 @@ export async function getRaceResults(req, res) {
   }
 }
 
+/**
+ * Deletes a race if the user is the organizer.
+ */
 export async function deleteRace(req, res) {
   const { id } = req.params;
   const { userId } = req.body;

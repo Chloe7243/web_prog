@@ -14,14 +14,12 @@
       flex-direction: column;
       transform: translateX(120%);
       z-index: 10000 !important;
-      width: min(35rem, 100%);
+      width: min(30rem, 90%);
       border-radius: 0.8rem;
     }
 
     .toast-container > * {
       color: black;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-        Helvetica, Arial, sans-serif;
     }
 
     .toast {
@@ -57,12 +55,12 @@
 
     .title {
       font-weight: 600;
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       margin-bottom: 0.4rem;
     }
 
     .message {
-      font-size: 1.3rem;
+      font-size: 1rem;
       opacity: 0.9;
     }
 
@@ -73,7 +71,6 @@
       padding: 0.4rem;
       margin-left: 0.8rem;
       opacity: 0.6;
-      transition: opacity 0.2s;
     }
 
     .close:hover {
@@ -171,16 +168,6 @@
         transform: scaleX(0);
       }
     }
-
-    /* @media (max-width: 480px) {
-      .toast-container {
-        top: auto;
-        bottom: 20px;
-        left: 20px;
-        right: 20px;
-        max-width: none;
-      }
-    } */
   </style>
   <div class="toast-container">
     <div id="toast" class="toast">

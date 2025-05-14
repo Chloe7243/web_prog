@@ -16,10 +16,16 @@ let paramsRaceId;
 let timerElement;
 let isOn;
 
+/**
+ * Updates the timer display.
+ */
 function updateTimer(time) {
   if (timerElement) timerElement.textContent = formatTime(time);
 }
 
+/**
+ * Initializes the timer page and stopwatch logic.
+ */
 export const init = () => {
   const buttons = {};
   const dialogs = {};
@@ -85,6 +91,9 @@ export const init = () => {
     startIcon.classList.toggle("hidden", isOn);
   };
 
+  /**
+   * Submits timed results to the server.
+   */
   async function submitTimedResults(raceId) {
     const data = { runners: runnersData, raceId };
 
@@ -108,6 +117,9 @@ export const init = () => {
     await uploadTimedResults(data, onSubmitSuccess, onSubmitFailure);
   }
 
+  /**
+   * Toggles visibility of result buttons based on timer state.
+   */
   const showResultsButtons = () => {
     resultButtons.classList.toggle(
       "hidden",
@@ -115,6 +127,9 @@ export const init = () => {
     );
   };
 
+  /**
+   * Clears all results and resets the timer.
+   */
   const clearResults = () => {
     watchedRunnersData.splice(0, watchedRunnersData.length);
     localStorage.removeItem(localStorageResults);
@@ -217,6 +232,9 @@ export const init = () => {
   }, 100);
 };
 
+/**
+ * Saves timer state and results to localStorage before unload.
+ */
 export const destroy = () => {
   const currentTime = saveTime();
   if (

@@ -5,7 +5,13 @@ const getTemplateID = (type) => {
   return `${type}-template`;
 };
 
+/**
+ * Custom element for displaying a runner row in results.
+ */
 class RunnerRow extends ShadowElement {
+  /**
+   * Loads the template and displays the appropriate mode.
+   */
   async connectedCallback() {
     const templateURL = import.meta.url.replace(".mjs", ".html");
     await this.loadTemplate(templateURL);
@@ -19,6 +25,9 @@ class RunnerRow extends ShadowElement {
     return true;
   }
 
+  /**
+   * Shows the edit mode for runner row.
+   */
   showEditMode() {
     this.clearShadow();
     const editTemplate = getTemplateID("edit");
@@ -38,6 +47,9 @@ class RunnerRow extends ShadowElement {
     }
   }
 
+  /**
+   * Shows the read-only mode for runner row.
+   */
   showReadMode() {
     this.clearShadow();
     const readTemplate = getTemplateID("read");
@@ -50,6 +62,9 @@ class RunnerRow extends ShadowElement {
       this?.["runner-id"] || "-";
   }
 
+  /**
+   * Shows the no-runner mode for runner row.
+   */
   showNoRunnerMode() {
     this.clearShadow();
     const readTemplate = getTemplateID("no-runner");
@@ -60,6 +75,9 @@ class RunnerRow extends ShadowElement {
     );
   }
 
+  /**
+   * Dispatches an event when the runner ID is updated.
+   */
   updateRunnerID(inputEvent) {
     const event = new CustomEvent("update-runnerID", {
       bubbles: true,

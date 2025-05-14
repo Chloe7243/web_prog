@@ -1,3 +1,6 @@
+/**
+ * Formats a time object to a string "HH:MM:SS.MS".
+ */
 export function formatTime(time) {
   const timeValues = Object.values(time);
   const formattedTime = timeValues
@@ -10,6 +13,9 @@ export function formatTime(time) {
   return formattedTime;
 }
 
+/**
+ * Converts a time string "HH:MM:SS.MS" to milliseconds.
+ */
 export const timeToMillis = (timeStr) => {
   const [h, m, s] = timeStr.split(":");
   const [sec, ms] = s.split(".");
@@ -21,6 +27,9 @@ export const timeToMillis = (timeStr) => {
   );
 };
 
+/**
+ * Adds ordinal suffix to a position number.
+ */
 export function addPositionSuffix(position) {
   if (!position) return position;
   let formattedPosition = String(position);
@@ -40,6 +49,9 @@ export function addPositionSuffix(position) {
   return formattedPosition;
 }
 
+/**
+ * Formats a date using Intl.DateTimeFormat.
+ */
 export function dateFormatter(date, options) {
   let value = "";
   const dateValue = typeof date === "string" ? new Date(date) : date;
@@ -54,6 +66,9 @@ export function dateFormatter(date, options) {
   return value;
 }
 
+/**
+ * Shows a toast notification using the toast-message component.
+ */
 const toaster = document.querySelector("toast-message");
 export function toast({ title, type, message, duration }) {
   const event = new CustomEvent("show-toast", {

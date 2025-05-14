@@ -3,7 +3,6 @@
 html {
   width: 100dvw;
   height: 100dvh;
-  font-size: 13px;
 }
 
 * {
@@ -23,13 +22,63 @@ button {
 :root {
   --background: #fff;
   --primary: #4a90e2;
-  --bg-button: #fff;
+  --primary-hover: #2563eb;
+  --primary-dark: #2563eb;
+  --primary-light: #dbeafe;
+  --secondary: #10b981;
+  --secondary-hover: #059669;
+  --secondary-light: #d1fae5;
   --success: #10b981;
-  --error: #ef4444;
+  --success-dark: #059669;
+  --success-hover: #16a34a;
+  --success-light: #dcfce7;
+  --danger: #ef4444;
+  --danger-dark: #dc2626;
+  --danger-hover: #dc2626;
+  --danger-light: #fee2e2;
   --warning: #f59e0b;
+  --warning-hover: #d97706;
+  --warning-light: #fef3c7;
   --info: #3b82f6;
-  --text: #ffffff;
+  --accent: #8b5cf6;
+  --accent-hover: #7c3aed;
+  --accent-light: #ede9fe;
+  --neutral: #1e293b;
+  --neutral-light: #f8fafc;
+  --neutral-dark: #0f172a;
+  --neutral-50: #f8fafc;
+  --neutral-100: #f1f5f9;
+  --neutral-200: #e2e8f0;
+  --neutral-300: #cbd5e1;
+  --neutral-400: #94a3b8;
+  --neutral-500: #64748b;
+  --neutral-600: #475569;
+  --neutral-700: #334155;
+  --neutral-800: #1e293b;
+  --neutral-900: #0f172a;
+  --gray-100: #f1f5f9;
+  --gray-200: #e2e8f0;
+  --gray-300: #cbd5e1;
+  --gray-400: #94a3b8;
+  --gray-500: #64748b;
+  --bg-button: #fff;
+  --text-dark: #0f172a;
+  --text-medium: #64748b;
+  --border-light: #e2e8f0;
+  --bg-light: #f8fafc;
   --shadow: rgba(0, 0, 0, 0.1);
+  --shadow-sm: 0 0.077rem 0.154rem rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 0.769rem 1.154rem -0.231rem rgba(0, 0, 0, 0.1),
+    0 0.308rem 0.462rem -0.154rem rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 1.538rem 1.923rem -0.385rem rgba(0, 0, 0, 0.1),
+    0 0.769rem 0.769rem -0.385rem rgba(0, 0, 0, 0.04);
+  --radius-sm: 0.25rem;
+  --radius: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --transition: all 0.2s ease;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 ::-webkit-calendar-picker-indicator {
@@ -64,22 +113,22 @@ nav * {
 
 .separator {
   margin: 0.5rem 0;
-  height: 0.2rem;
+  height: 0.015rem;
   background: gray;
   width: 100%;
 }
 
 .page-nav {
   width: 100%;
-  font-size: 1.5rem;
-  padding: 1.5rem 1rem;
+  font-size: 1.15rem;
+  padding: 1.15rem 0.77rem;
   background: var(--primary);
 }
 
 .page-nav > * {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.77rem;
   color: white;
   text-decoration: none;
 }

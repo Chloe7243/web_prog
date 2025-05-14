@@ -1,5 +1,8 @@
 import { userID } from "./utils/constants.js";
 
+/**
+ * Finalizes race results and ends the race.
+ */
 export async function saveResults(body, onSuccess, onFailure) {
   const { raceId, ...dto } = body;
   try {
@@ -21,6 +24,9 @@ export async function saveResults(body, onSuccess, onFailure) {
   } catch (error) {}
 }
 
+/**
+ * Fetches race results and details by race ID.
+ */
 export async function viewRaceResults(id, onSuccess, onFailure) {
   try {
     const response = await fetch(`/get-race-details/${id}`, {
@@ -38,6 +44,9 @@ export async function viewRaceResults(id, onSuccess, onFailure) {
   } catch (error) {}
 }
 
+/**
+ * Uploads timekeeper's results for a race.
+ */
 export async function uploadTimedResults(body, onSuccess, onFailure) {
   const { raceId, ...dto } = body;
 
@@ -61,6 +70,9 @@ export async function uploadTimedResults(body, onSuccess, onFailure) {
   } catch (error) {}
 }
 
+/**
+ * Gets all time submissions for a race.
+ */
 export async function getTimeSubmissions(raceId, onSuccess, onFailure) {
   try {
     const response = await fetch(`/get-time-submissions/${raceId}`);
@@ -77,6 +89,9 @@ export async function getTimeSubmissions(raceId, onSuccess, onFailure) {
   }
 }
 
+/**
+ * Creates a new race.
+ */
 export async function createRace(dto, onSuccess, onFailure) {
   try {
     const response = await fetch(`/create-race`, {
@@ -97,6 +112,9 @@ export async function createRace(dto, onSuccess, onFailure) {
   }
 }
 
+/**
+ * Gets all races for the current user.
+ */
 export async function getUserRaces(onSuccess, onFailure) {
   try {
     const response = await fetch(`/get-races/${userID}`);
@@ -111,6 +129,9 @@ export async function getUserRaces(onSuccess, onFailure) {
   }
 }
 
+/**
+ * Deletes a race by ID.
+ */
 export async function deleteRace(id, onSuccess, onFailure) {
   try {
     const response = await fetch(`/delete-race/${id}`, {

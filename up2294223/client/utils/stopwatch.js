@@ -12,6 +12,9 @@ const time = localStorageData?.stopwatch || {
 let interval;
 let isOn = localStorageData?.isOn;
 
+/**
+ * Increments the stopwatch time and updates the display.
+ */
 export function setTime(updateTimer) {
   time.ms += 10;
   if (time.ms >= 1000) {
@@ -29,15 +32,24 @@ export function setTime(updateTimer) {
   updateTimer(time);
 }
 
+/**
+ * Stops the timer interval.
+ */
 export function stopTimer() {
   clearInterval(interval);
 }
 
+/**
+ * Starts the timer interval.
+ */
 export function startTimer(update) {
   clearInterval(interval);
   interval = setInterval(() => setTime(update), 10);
 }
 
+/**
+ * Resets the timer and updates the display.
+ */
 export function resetTimer(update) {
   stopTimer();
   time.ms = 0;
@@ -47,14 +59,23 @@ export function resetTimer(update) {
   update(time);
 }
 
+/**
+ * Returns the current stopwatch time.
+ */
 export function saveTime() {
   return time;
 }
 
+/**
+ * Sets the stopwatch running state.
+ */
 export function setStopwatchState(value) {
   return (isOn = value);
 }
 
+/**
+ * Gets the stopwatch running state.
+ */
 export function getStopwatchState() {
   return isOn;
 }

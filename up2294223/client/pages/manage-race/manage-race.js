@@ -8,6 +8,9 @@ let conflicts = [];
 const params = new URLSearchParams(window.location.search);
 const raceId = params.get("raceId");
 
+/**
+ * Initializes the manage race page, loads race details and handles conflicts.
+ */
 export async function init() {
   const raceResults = document.querySelector("results-board");
   const finalizeButton = document.querySelector(".actions .finalize");
@@ -17,6 +20,9 @@ export async function init() {
   );
   const conflictsContainer = document.querySelector(".conflict-list");
 
+  /**
+   * Renders the race details on the page.
+   */
   function renderDetails() {
     const event = new CustomEvent("show-bulk-results", {
       bubbles: true,
@@ -36,6 +42,9 @@ export async function init() {
     emptyResults.classList.toggle("hidden", runners.length);
   }
 
+  /**
+   * Renders the list of conflicts on the page.
+   */
   function renderConflicts() {
     conflictsCount.textContent = conflicts.length;
     conflicts.forEach((conflict) => {
@@ -46,6 +55,9 @@ export async function init() {
     });
   }
 
+  /**
+   * Loads race details and updates the page accordingly.
+   */
   async function loadRaceDetails() {
     const raceName = document.querySelector(".container > header .race-name");
 
@@ -57,7 +69,7 @@ export async function init() {
       raceId,
       ({ data }) => {
         if (data.raceDetails.status !== "ongoing") {
-          handleChangeRoute(`/race-details?raceId=${data.raceDetails.race_id}`);
+          handleChangeRoute(`404`);
           return;
         }
         raceName.textContent =
@@ -69,6 +81,9 @@ export async function init() {
     );
   }
 
+  /**
+   * Loads race timers and resolves conflicts.
+   */
   async function loadRaceTimers() {
     await getTimeSubmissions(
       raceId,
@@ -128,6 +143,9 @@ export async function init() {
     conflictsCount.textContent = conflicts.length;
   });
 
+  /**
+   * Finalizes the race results and submits them.
+   */
   finalizeButton.addEventListener("click", async () => {
     if (conflicts.length) {
       toast({
@@ -180,6 +198,9 @@ export async function init() {
     await saveResults(data, onSubmitSuccess, onSubmitFailure);
   });
 
+  /**
+   * Updates the runner ID for a specific position.
+   */
   document.addEventListener("update-runnerID", ({ detail }) => {
     const updateIndex = runners.findIndex(
       (value) => value.position === detail.key

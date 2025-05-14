@@ -17,7 +17,13 @@ const titles = {
   success: "Success",
 };
 
+/**
+ * Custom element for displaying toast notifications.
+ */
 class ToastMessage extends ShadowElement {
+  /**
+   * Loads the template and sets up toast event listener.
+   */
   async connectedCallback() {
     const templateURL = import.meta.url.replace(".mjs", ".html");
     await this.loadTemplate(templateURL);
@@ -32,6 +38,9 @@ class ToastMessage extends ShadowElement {
     });
   }
 
+  /**
+   * Shows a toast notification.
+   */
   showToast(type = "info", title = "", message = "", duration = 5000) {
     const toast = this.shadow.querySelector("#toast");
     const toastIcon = toast.querySelector(".icon");
@@ -67,6 +76,9 @@ class ToastMessage extends ShadowElement {
     toast.classList.add("show");
   }
 
+  /**
+   * Removes the toast notification.
+   */
   removeToast(toast) {
     if (toast.timeoutId) {
       clearTimeout(toast.timeoutId);

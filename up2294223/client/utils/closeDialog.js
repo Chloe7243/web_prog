@@ -1,4 +1,6 @@
-// Close dialog
+/**
+ * Handles closing a dialog via cancel button or backdrop click.
+ */
 export function handleCloseDialog(dialog, cancelId, customCallback) {
   // Close dialog on close btn click
   dialog.querySelector(cancelId).addEventListener("click", () => {

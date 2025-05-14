@@ -2,12 +2,14 @@ import { viewRaceResults } from "../../api.js";
 import { handleChangeRoute } from "../../router.js";
 import { addPositionSuffix } from "../../utils/functions.js";
 
+/**
+ * Initializes the race details page and handles filtering and downloads.
+ */
 export function init() {
   let raceId;
   let raceDetailRunners = [];
 
   const IdInput = document.querySelector("input#id");
-  const shareBtn = document.querySelector(".share");
   const emptyResults = document.querySelector(".empty");
   const raceResults = document.querySelector("results-board");
   const shareOptions = document.querySelector("#share-options");
@@ -18,6 +20,10 @@ export function init() {
     ID: "",
   };
 
+  /**
+   * Renders the race details for the given runners.
+   * @param {Array} runners - List of runners to display.
+   */
   function renderDetails(runners) {
     const event = new CustomEvent("show-bulk-results", {
       bubbles: true,
@@ -80,6 +86,9 @@ export function init() {
     watchedFilter.position = "";
   });
 
+  /**
+   * Loads race details from the server and initializes the page.
+   */
   async function loadRaceDetails() {
     const raceName = document.querySelector(".race-name > span");
 
@@ -108,47 +117,10 @@ export function init() {
     );
   }
 
-  function positionDialog() {
-    const wrapperRect = shareBtn.getBoundingClientRect();
-    const dialogRect = shareOptions.getBoundingClientRect();
-
-    // Calculate maxLeft if needed
-    const maxLeft = window.innerWidth - dialogRect.width;
-    const maxTop = window.innerHeight - dialogRect.height;
-
-    // Adjust position
-    const dialogLeft = Math.min(wrapperRect.left, maxLeft);
-    const dialogTop = Math.min(wrapperRect.top, maxTop) + 50;
-
-    shareOptions.style.width = `${wrapperRect.width}px`;
-    shareOptions.style.left = `${dialogLeft}px`;
-    shareOptions.style.top = `${dialogTop}px`;
-  }
-
-  // Toggle dialog when share button is clicked
-  shareBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-
-    if (shareOptions.open) {
-      shareOptions.close();
-    } else {
-      shareOptions.show();
-      positionDialog();
-    }
-  });
-
-  // Close dialog when clicking outside
-  document.addEventListener("click", (e) => {
-    if (
-      shareOptions.open &&
-      e.target !== shareBtn &&
-      !shareOptions.contains(e.target)
-    ) {
-      shareOptions.close();
-    }
-  });
-
   // Example download handlers
+  /**
+   * Handles the download of race results as a PDF.
+   */
   shareOptions.querySelector(".pdf").addEventListener("click", async () => {
     const styleContent = `
     body {
@@ -232,6 +204,9 @@ export function init() {
     }
   });
 
+  /**
+   * Handles the download of race results as a CSV file.
+   */
   shareOptions.querySelector(".csv").addEventListener("click", () => {
     const csvRows = ["Runner ID,Time,Positon"];
     raceDetailRunners.forEach((detail) => {
@@ -248,7 +223,6 @@ export function init() {
     downloadLink.download = `${raceId}-results.csv`;
     downloadLink.click();
     downloadLink.remove();
-    shareOptions.close();
   });
 
   loadRaceDetails();

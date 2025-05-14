@@ -1,5 +1,8 @@
 import { dateFormatter, toast } from "../../utils/functions.js";
 
+/**
+ * Initializes the races page, sets up filters and event listeners.
+ */
 export function init() {
   const toDate = document.querySelector(".date_filter #toDate");
   const fromDate = document.querySelector(".date_filter #fromDate");
