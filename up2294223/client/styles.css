@@ -49,7 +49,7 @@ button {
   --neutral-50: #f8fafc;
   --neutral-100: #f1f5f9;
   --neutral-200: #e2e8f0;
-  --neutral-300: #cbd5e1;
+  --neutral-300: #e2e8f0;
   --neutral-400: #94a3b8;
   --neutral-500: #64748b;
   --neutral-600: #475569;
@@ -67,14 +67,14 @@ button {
   --border-light: #e2e8f0;
   --bg-light: #f8fafc;
   --shadow: rgba(0, 0, 0, 0.1);
-  --shadow-sm: 0 0.077rem 0.154rem rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 0.769rem 1.154rem -0.231rem rgba(0, 0, 0, 0.1),
-    0 0.308rem 0.462rem -0.154rem rgba(0, 0, 0, 0.05);
-  --shadow-lg: 0 1.538rem 1.923rem -0.385rem rgba(0, 0, 0, 0.1),
-    0 0.769rem 0.769rem -0.385rem rgba(0, 0, 0, 0.04);
-  --radius-sm: 0.25rem;
+  --shadow-sm: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 0.8rem 1.2rem -0.2rem rgba(0, 0, 0, 0.1),
+    0 0.3rem 0.5rem -0.2rem rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 1.5rem 1.9rem -0.4rem rgba(0, 0, 0, 0.1),
+    0 0.8rem 0.8rem -0.4rem rgba(0, 0, 0, 0.04);
+  --radius-sm: 0.3rem;
   --radius: 0.5rem;
-  --radius-md: 0.75rem;
+  --radius-md: 0.8rem;
   --radius-lg: 1rem;
   --transition: all 0.2s ease;
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -109,22 +109,22 @@ body {
 
 .separator {
   margin: 0.5rem 0;
-  height: 0.015rem;
+  height: 0.02rem;
   background: gray;
   width: 100%;
 }
 
 .page-nav {
   width: 100%;
-  font-size: 1.15rem;
-  padding: 1.15rem 0.77rem;
+  font-size: 1.2rem;
+  padding: 1.2rem 0.8rem;
   background: var(--primary);
 }
 
 .page-nav > * {
   display: flex;
   align-items: center;
-  gap: 0.77rem;
+  gap: 0.8rem;
   color: white;
   text-decoration: none;
 }

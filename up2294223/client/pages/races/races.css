@@ -36,7 +36,7 @@
   bottom: -0.5rem;
   left: 0;
   width: 3rem;
-  height: 0.25rem;
+  height: 0.3rem;
   background-color: var(--primary);
   border-radius: var(--radius);
 }
@@ -49,7 +49,7 @@
 
 .race-page .search_input input {
   width: 100%;
-  padding: 0.875rem 1rem;
+  padding: 0.9rem 1rem;
   border: 1px solid var(--neutral-300);
   border-radius: var(--radius);
   font-size: 1rem;
@@ -59,7 +59,7 @@
 .race-page .search_input input:focus {
   outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 0.231rem rgba(59, 130, 246, 0.2);
+  box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.2);
 }
 
 .race-page .search_input input::placeholder {
@@ -74,7 +74,7 @@
 .race-page .filters > fieldset {
   border: 1px solid var(--neutral-200);
   border-radius: var(--radius);
-  padding: 1.25rem;
+  padding: 1.3rem;
   background-color: white;
   box-shadow: var(--shadow-sm);
 }
@@ -82,7 +82,7 @@
 .race-page .filters > fieldset > legend {
   padding: 0 0.5rem;
   font-weight: 600;
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   color: var(--neutral-600);
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -92,7 +92,7 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.8rem;
 }
 
 .race-page .filters > fieldset > span:last-child {
@@ -102,24 +102,24 @@
 .race-page .filters > fieldset > span > label {
   width: 5.5rem;
   font-weight: 500;
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   color: var(--neutral-700);
 }
 
 .race-page .filters > fieldset > span > input,
 .race-page .filters > fieldset > span > select {
   flex: 1;
-  padding: 0.625rem 0.875rem;
+  padding: 0.6rem 0.9rem;
   border: 1px solid var(--neutral-300);
   border-radius: var(--radius-sm);
-  font-size: 0.875rem;
+  font-size: 0.9rem;
 }
 
 .race-page .filters > fieldset > span > input:focus,
 .race-page .filters > fieldset > span > select:focus {
   outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 0.231rem rgba(59, 130, 246, 0.2);
+  box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.2);
 }
 
 /* Races Container */
@@ -144,7 +144,7 @@
 }
 
 .race-page > div race-list::-webkit-scrollbar {
-  width: 0.462rem;
+  width: 0.5rem;
 }
 
 .race-page > div race-list::-webkit-scrollbar-track {
@@ -153,7 +153,7 @@
 
 .race-page > div race-list::-webkit-scrollbar-thumb {
   background-color: var(--neutral-400);
-  border-radius: 1.538rem;
+  border-radius: 1.5rem;
 }
 
 /* Races Header */
@@ -172,8 +172,8 @@
 .races .head > * {
   flex: 1;
   font-weight: 600;
-  padding: 1rem 1.25rem;
-  font-size: 0.875rem;
+  padding: 1rem 1.3rem;
+  font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -213,7 +213,7 @@
 
 .races .body > div > span {
   flex: 1;
-  padding: 0 1.25rem;
+  padding: 0 1.3rem;
   font-size: 1rem;
 }
 
@@ -249,9 +249,9 @@
   cursor: pointer;
   background-color: var(--primary);
   color: white;
-  padding: 0.625rem 1rem;
+  padding: 0.6rem 1rem;
   border-radius: var(--radius);
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   box-shadow: var(--shadow-sm);
   width: auto;
   min-width: 6rem;
@@ -259,7 +259,7 @@
 
 .races button:hover {
   background-color: var(--primary-hover);
-  transform: translateY(-0.077rem);
+  transform: translateY(-0.1rem);
   box-shadow: var(--shadow);
 }
 
@@ -316,7 +316,7 @@
 }
 
 .races .empty-state h3 {
-  font-size: 1.25rem;
+  font-size: 1.3rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
   color: var(--neutral-700);
@@ -328,9 +328,9 @@
 }
 
 /* Responsive Adjustments */
-@media (min-width: 59.385rem) {
+@media (min-width: 59.4rem) {
   .race-page .content > h1 {
-    font-size: 2.25rem;
+    font-size: 2.3rem;
   }
 
   .races .head > * {
@@ -338,16 +338,16 @@
   }
 
   .races .body > div {
-    padding: 1.25rem 0;
+    padding: 1.3rem 0;
   }
 
   .races button {
-    padding: 0.75rem 1.25rem;
-    font-size: 0.9375rem;
+    padding: 0.8rem 1.3rem;
+    font-size: 0.9rem;
   }
 }
 
-@media (max-width: 49.231rem) {
+@media (max-width: 49.2rem) {
   .race-page > .content {
     padding: 1rem;
     gap: 1rem;
@@ -360,8 +360,8 @@
   .races .body > div {
     flex-direction: column;
     align-items: flex-start;
-    padding: 1.25rem;
-    gap: 0.75rem;
+    padding: 1.3rem;
+    gap: 0.8rem;
   }
 
   .races .body > div > span {
@@ -387,13 +387,13 @@
     flex: 1;
     min-width: 0;
     text-align: center;
-    padding: 0.625rem;
+    padding: 0.6rem;
   }
 }
 
-@media (max-width: 36.923rem) {
+@media (max-width: 36.9rem) {
   .race-page .content > h1 {
-    font-size: 1.75rem;
+    font-size: 1.8rem;
   }
 
   .race-page .filters > fieldset {

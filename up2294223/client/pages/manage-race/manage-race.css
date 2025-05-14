@@ -26,7 +26,7 @@ header {
 
 h1 {
   text-transform: capitalize;
-  font-size: 1.875rem;
+  font-size: 1.9rem;
   font-weight: 700;
   color: var(--neutral-900);
   margin-bottom: 0.8rem;
@@ -39,14 +39,14 @@ h1::after {
   bottom: -0.1rem;
   left: 0;
   width: 3rem;
-  height: 0.25rem;
+  height: 0.3rem;
   background-color: var(--primary);
   border-radius: var(--radius);
 }
 
 .subtitle {
   color: var(--neutral-600);
-  font-size: 1.125rem;
+  font-size: 1.1rem;
 }
 
 /* Conflict Resolution Section */
@@ -73,8 +73,8 @@ h1::after {
 .section-header .count {
   background-color: var(--primary);
   color: white;
-  font-size: 0.875rem;
-  padding: 0.25rem 0.75rem;
+  font-size: 0.9rem;
+  padding: 0.3rem 0.8rem;
   border-radius: 9999px;
   font-weight: 600;
 }
@@ -179,7 +179,7 @@ h1::after {
   }
 
   .time-option {
-    padding: 0.75rem;
+    padding: 0.8rem;
   }
 
   .time-option input[type="radio"] {
@@ -187,7 +187,7 @@ h1::after {
   }
 
   .time-value {
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.3rem;
     margin-right: 0;
   }
 
@@ -197,6 +197,6 @@ h1::after {
 
   .summary-table th,
   .summary-table td {
-    padding: 0.75rem 1rem;
+    padding: 0.8rem 1rem;
   }
 }
