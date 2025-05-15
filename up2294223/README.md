@@ -9,6 +9,8 @@ From the home page, you can access key features of the app:
 - Manage races created by you.
 - View results of races that has ended or been finalized - This feature is specifically for runners or spectators.
 
+---
+
 ### Race Creation
 
 #### How to find and use
@@ -22,6 +24,8 @@ From the home screen, click **"Start a new race"**. This opens a modal where you
 - **Use of modal**: This avoids unnecessary page navigation.
 - **Validation and error handling**: The modal provides real-time validation. For example, if the race name is left empty an error message appears, preventing the form from being submitted until corrected.
 - Automatic navigation to stopwatch page if race is created **successfully**
+
+---
 
 ### Timer System
 
@@ -115,14 +119,22 @@ The results page includes a **filter by position** and **filter by id** option t
 
 - Allows exporting race results as **PDF or CSV**.
 
+### CSS Anchor Positioning (Experimental Feature)
+
+This app uses **CSS Anchor Positioning** to align elements popovers relative to buttons or other UI components — improving layout accuracy without extra JavaScript.
+
+**Where it was used**:
+
+- Visit `Results page for any race` and click on the share button
+
+Browsers without support will fall back to default positioning — layout may be slightly less precise but still functional.
+
 ---
 
 ## AI
 
 I used AI to criticise and analyse certain ideas, debugging the project. The process included refining JavaScript logic, handling edge cases with the timer, and improving user interface and usability.
 My use of AI wasn't just about solving technical problems; it also helped with explanations, simplifying complex ideas. Below are the areas where I used AI with actual prompts and results.
-
----
 
 ### Prompts to debug unexpected behaviour with `setInterval` and rendering
 
@@ -194,15 +206,11 @@ res.sendFile(path.join(\_\_dirname, "client", "index.html"));
 - Brutal AI feedback on the SPA routing system led to significant improvements in code structure and maintainability.
 - Suggestions for fixing SPA refresh issues (via Express server configuration) worked correctly and solved the problem.
 
----
-
 ### What Went Wrong
 
 - Some AI responses were unhelpful due to a lack of context, especially with debugging rendering issues caused by `setInterval`.
 - Early routing and rendering setup was fragile and overcomplicated, leading to scalability and maintainability issues.
 - Repeated attempts were needed to extract useful and specific advice from AI.
-
----
 
 ### What I Learned
 
@@ -212,10 +220,21 @@ res.sendFile(path.join(\_\_dirname, "client", "index.html"));
 
 ---
 
-## Reflection & Improvements
+## Improvements After First Prototype
 
-- Replaced full-table re-renders with **incremental runner row updates** to improve performance.
-- Added a **conflict resolution system** to handle unreliable manual timing.
-- Added **offline caching** for reliability during live events.
-- Implemented **modular Web Components** for maintainable, reusable UI parts.
-- Improved UI
+- **Optimized Performance with Incremental Updates**
+  Initially, updating the race results table caused the entire component to re-render, leading to noticeable lag as the number of runners increased. I refactored the logic so that only the affected runner rows are updated when changes occur, significantly improving performance and responsiveness during live timing.
+
+- **Support for Multiple Timekeepers**
+  A key improvement was enabling **multiple users to simultaneously time the race**. Time submissions from different devices or users are all captured and stored, with the system able to detect and manage duplicates or conflicts. This ensures flexibility and reliability in live scenarios where more than one official may be timing events.
+
+- **Offline Caching for Live Event Reliability**
+  Since race events may happen in areas with poor internet access, I implemented offline support using service workers and cache storage. This ensures that previously loaded race data remains accessible even when the network is unreliable, improving usability during live event operations.
+
+- **Modular Web Components Architecture**
+  I refactored major parts of the interface into **custom Web Components** (e.g., `<race-results>`, `<runner-row>`, `<toast-message>`, etc.). This modular structure made the codebase more maintainable and reusable.
+
+- **Accessibility & Interface Improvements**
+  Based on feedback and testing:
+  I revised the UI to enhance usability: improved contrast, larger touch targets, and consistent layout behavior across screen sizes.
+  Introduced CSS Anchor Positioning, allowing me to replace my custom JavaScript-based positioning logic for my popovers.
