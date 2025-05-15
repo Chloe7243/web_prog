@@ -9,6 +9,9 @@ export function init() {
   let raceId;
   let raceDetailRunners = [];
 
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("raceId");
+
   const IdInput = document.querySelector("input#id");
   const emptyResults = document.querySelector(".empty");
   const raceResults = document.querySelector("results-board");
@@ -90,9 +93,6 @@ export function init() {
   async function loadRaceDetails() {
     const raceName = document.querySelector(".race-name > span");
 
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get("raceId");
-
     if (!id) {
       handleChangeRoute("404");
       return;
@@ -106,7 +106,9 @@ export function init() {
         raceName.textContent = raceId;
         raceDetailRunners = data.runners;
         positionInput.setAttribute("max", data.runners.length);
-        renderDetails(data.runners);
+        setTimeout(() => {
+          renderDetails(data.runners);
+        }, 200);
       },
       () => {
         handleChangeRoute("404");

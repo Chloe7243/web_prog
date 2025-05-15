@@ -4,14 +4,13 @@ import { timeToMillis, toast } from "../../utils/functions.js";
 
 let runners = [];
 let conflicts = [];
-
-const params = new URLSearchParams(window.location.search);
-const raceId = params.get("raceId");
-
 /**
  * Initializes the manage race page, loads race details and handles conflicts.
  */
 export async function init() {
+  const params = new URLSearchParams(window.location.search);
+  const raceId = params.get("raceId");
+
   const raceResults = document.querySelector("results-board");
   const finalizeButton = document.querySelector(".actions .finalize");
   const emptyResults = document.querySelector(".empty");

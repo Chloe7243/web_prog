@@ -5,16 +5,11 @@
   display: flex;
   flex-direction: column;
   margin: 0 auto;
+  overflow: hidden;
   font-family: var(--font-sans);
   color: var(--neutral-800);
   background-color: var(--neutral-50);
   line-height: 1.5;
-}
-
-.page-nav {
-  padding: 1rem;
-  display: flex;
-  align-items: center;
 }
 
 .race-details-page > .content {
@@ -155,7 +150,6 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
   background-color: white;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
@@ -218,6 +212,10 @@
 }
 
 /* Results Board */
+.race-details-page > .content results-board {
+  min-height: 20rem;
+}
+
 .race-details-page > .content results-board,
 .race-details-page > .content .empty {
   flex: 1;

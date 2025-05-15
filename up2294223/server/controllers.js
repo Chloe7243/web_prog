@@ -1,5 +1,4 @@
 import { db } from "./app.js";
-import { timeToMs } from "./utils/functions.js";
 import handleError from "./utils/handleError.js";
 
 /**

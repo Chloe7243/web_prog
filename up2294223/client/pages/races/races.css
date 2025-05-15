@@ -10,6 +10,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
   margin: 0 auto;
 }
 
@@ -289,12 +290,6 @@
 
 .races button.delete:hover {
   background-color: var(--danger-hover);
-}
-
-.races {
-  padding: 0;
-  border-radius: var(--radius);
-  overflow: hidden;
 }
 
 /* Empty State */

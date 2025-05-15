@@ -128,11 +128,3 @@ body {
   color: white;
   text-decoration: none;
 }
-
-.timer-page,
-.race-page,
-.race-details-page {
-  display: flex;
-  flex-direction: column;
-  overflow-y: hidden;
-}
