@@ -32,6 +32,13 @@ function init() {
   const isOn = JSON.parse(localStorage.getItem(localStorageResults))?.isOn;
   if (isOn === "true") startTimer();
   loadComponents();
+  if ("serviceWorker" in navigator) {
+    try {
+      navigator.serviceWorker.register("./sw.js");
+    } catch (error) {
+      console.error("Caching failed:", error);
+    }
+  }
 }
 
 window.addEventListener("load", () => {

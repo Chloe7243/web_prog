@@ -16,7 +16,7 @@ class RaceList extends ShadowElement {
     await this.loadTemplate(templateURL);
     await this.fetchRaces();
 
-    // Listen for new messages added to refresh the list
+    // Listen for new filter added to refresh the list
     this.addEventListener("filter", ({ detail }) => {
       const { search = "", dateRange = {} } = detail;
       const searchValue = search.trim().toLowerCase();
@@ -90,7 +90,7 @@ class RaceList extends ShadowElement {
       }
     );
 
-    // Clear existing messages and display new ones
+    // Clear existing races and display new ones
     if (races) {
       this["races"] = races;
       this.renderItems(races);

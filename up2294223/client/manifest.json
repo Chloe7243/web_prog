@@ -1,6 +1,6 @@
 {
-  "name": "Timer application",
-  "short_name": "Timer app",
+  "name": "Race Timer",
+  "short_name": "Race Timer",
   "description": "Application for timing races",
   "start_url": "./client",
   "background_color": "#4a90e2",

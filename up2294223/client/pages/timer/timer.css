@@ -38,6 +38,11 @@
   margin-bottom: 1.2rem;
 }
 
+.timing-race-id {
+  font-size: 1.5rem;
+  padding: 0.8rem;
+}
+
 .timer-clock #timer {
   text-align: center;
   font-size: clamp(2.5rem, 12vw, 5rem);
@@ -272,10 +277,6 @@
   line-height: 1.6;
   margin-bottom: 1.5rem;
   color: var(--neutral-dark);
-}
-
-.timing-race-id {
-  padding: 0.8rem;
 }
 
 /* Dialog Buttons */

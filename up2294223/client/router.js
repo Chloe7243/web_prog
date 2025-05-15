@@ -52,7 +52,6 @@ async function loadPageContent() {
     }
   } catch (err) {
     console.error("Navigation error:", err);
-    // showErrorFallback();
   }
 }
 

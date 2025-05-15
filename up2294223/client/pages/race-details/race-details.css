@@ -15,8 +15,8 @@
 .race-details-page > .content {
   flex: 1;
   display: flex;
-  flex-direction: column;
   overflow: hidden;
+  flex-direction: column;
   padding: 0 1rem 1rem;
 }
 
@@ -150,6 +150,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   background-color: white;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
@@ -212,10 +213,6 @@
 }
 
 /* Results Board */
-.race-details-page > .content results-board {
-  min-height: 20rem;
-}
-
 .race-details-page > .content results-board,
 .race-details-page > .content .empty {
   flex: 1;

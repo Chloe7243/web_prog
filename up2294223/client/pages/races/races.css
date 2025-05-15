@@ -131,7 +131,8 @@
   overflow: hidden;
   background-color: white;
   border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--neutral-200);
 }
 
 .race-page > div race-list {

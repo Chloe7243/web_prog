@@ -1,171 +1,221 @@
-# Race Time - by up2294223
+# Race Timer – by up2294223
 
 ## Key features
 
-Replace this text with an introduction to your key features.
+From the home page, you can access key features of the app:
 
-### Key Feature Name/Description.
+- Create a new race.
+- Time any existing race - including races you didn't create.
+- Manage races created by you.
+- View results of races that has ended or been finalized - This feature is specifically for runners or spectators.
 
-Tell us briefly how to find & use it.
-Describe the thinking behind the design of this feature.
+### Race Creation
 
-### Key Another Feature Name/Description.
+#### How to find and use
 
-Tell us briefly how to find & use it.
-Describe the thinking behind the design of this feature.
+From the home screen, click **"Start a new race"**. This opens a modal where you can fill in the race information.
 
-.
-.
-.
+- **Fill in the race name information**: Give your race a name to identify it later in the race history.
 
-### Final Key Feature Name/Description.
+#### Design Highlights
 
-Same for each feature… you get the idea :-)
-
-## AI
-
-Replace this with DETAIL about your use of AI, listing of the prompts you used, and whether the results formed or inspired part of your final submission and where we can see this (and if not, why not?). You may wish to group prompts into headings/sections - use markdown in any way that it helps you communicate your use of AI. Tell us about what went right, what went horribly wrong and what you learned from it.
-
-### Prompts to develop XYZ (example)
-
-A sequence of prompts helped me develop this feature:
-
-> this is an example prompt given to a chatbot
-> The response was proved useless because the prompt wasn't specific enough about XYZ, so:
-
-> this is an example prompt given to a chatbot detailing XYZ
-> The response was better so I could specifically ask about QRST - this may evolve into a longer discussion highlighting some insight you gained… who knows where you might pick up marks!
-
-> how can I integrate QRST here?
-> The suggestion worked with minor modifications.
-
-### Prompts to develop GHIJ (example)
-
-For the GHIJ feature I ...
-
-> this is an example prompt given to a chatbot
-> words words words etc
-
-- [ ] Discusses why and how you have improved your artefact since the prototype deadline.
-- [ ] Reflects on the development as a whole, including your use of AI.
-
-Of course! Here's a first filled-in draft based on everything you’ve told me about your project (timer app, race results, caching, service worker, share as PDF/Excel, no third-party libraries for core logic, etc).  
-You can tweak the wording if you want a slightly different style, but this covers all the points cleanly:
-
----
-
-# Race Timer – by up2294223
-
-## Key Features
-
-Race Timer is a timer and results recording application, designed to help organize and track race events. The application includes features such as offline functionality, submiting and storing results of timed race for future reference.
+- **Use of modal**: This avoids unnecessary page navigation.
+- **Validation and error handling**: The modal provides real-time validation. For example, if the race name is left empty an error message appears, preventing the form from being submitted until corrected.
+- Automatic navigation to stopwatch page if race is created **successfully**
 
 ### Timer System
 
-- **How to find & use**: Once you load the app, you'll see two buttons: one that says **"Timer"** and another that says **"Race history"**. Click the **"Timer"** button to go to the timer/stopwatch page.  
-  When the page opens, you should see:
+#### How to find and use
 
-  - The **"Start"** button at the top left of the screen,
-  - The **"Reset"** button at the top right,
-  - The running time displayed underneath these buttons,
-  - And below the time, the **"Mark Time"** button.  
-    To start timing the race, click on the **"Start"** button. When a runner finishes, click the **"Mark Time"** button.  
-    This records their finish time and position automatically, but you will need to manually type in their ID or name afterwards.  
-    Typing in the ID or name is important to match each recorded time to the right runner. This can be done immediately or preferably after the race has finished.
+From the home screen, click **"Time an existing race"** to open the stopwatch page.
 
-- **Design thinking**:  
-  When you click the **"Start"** button, it turns into a **"Stop"** button because it makes it clear at a glance that the timer is actively running and that clicking it again will stop it.  
-  The **"Start"** button is colored **green** because green is universally associated with "go" or "start" actions, making it intuitive for users to know that clicking it begins the timer.  
-  When the timer is running, the button changes to **red** because red is associated with "stop" and informs the user that the timer is active and can be stopped if needed.  
-  The **"Mark Time"** button is made **big and white** to make it stand out clearly, so users can quickly press it as runners cross the finish line without struggling to find the button.  
-  When you click the **"Reset"** button, a **confirmation modal** pops up to avoid accidental resets. This ensures that the race timing isn't lost due to a misclick during a race.  
-  If you accidentally close the timer page or navigate back to the homepage, **the timer keeps running** in the background.  
-  The timer only stops if you manually click the stop button or if you fully close the application (e.g., closing the browser tab).  
-  This was done to **prevent inaccuracies caused by human error** and to make the system more reliable.
+On the stopwatch page you'll see:
 
-### Dynamic Race Results Display
+- **Start/Stop button** (top left)
+- **Reset button** (top right)
+- **Mark Time** button (large, center)
+- **Live list** of marked times below.
 
-- **How to find & use**: As runners are recorded, their times and positions are instantly displayed below the timer, along with an input field for entering the runner's ID or name.
-- **Design thinking**: I wanted updates to feel immediate without manually refreshing the view. Using events like `"show-results"`, `"add-runner"` and features like Proxy, the UI reacts automatically to any change in runner data, keeping the display synced and correct.
+Click **Start** to begin the race. As runners finish laps, click **Mark Time** to save their finish time and position.
 
-### Submit and Store Results In Database
+#### Design Highlights
 
-- **How to find & use**:
-  When the timer is stopped, if any times were marked, a **Submit Results** button appears at the bottom of the page.  
-  This button allows the user to officially save the race results after the race has ended.
+- **Color-coded actions**: Start (green), Stop (red), Mark Time (blue)
+- **Accidental reset prevention**: A confirmation modal protects against losing race progress.
+- **Persistent timing and results**:The times marked remains and the timer continues running even if you navigate away or reload the page unless timer is reset or results are submitted.
+- **Race submission**: After stopping the timer, a **"Submit Results"** button appears to finalize the race.
+- **Post-race submission**: If navigated to stopwatch page from create race page, race is submitted with provided raceId else a modal shows up, requesting for raceId.
+- **Error handling**: If race doesn't exist, race has ended or raceId isn't defined, a descriptive error is diplayed.
 
-- **Design thinking**:  
-  The **Submit Results** button only appears **after** the timer is stopped and **only if** at least one time has been marked.  
-  This is intentional to **reduce clutter** during the race and to **focus the user** only on important actions at the right moment.  
-  It prevents users from accidentally submitting incomplete race data while the race is still ongoing.  
-  It also provides a **clear checkpoint** where the user can review the results one final time before confirming and saving them.  
-  This approach helps improve **accuracy** and **reduces the chance of mistakes**, ensuring that only fully recorded races are saved into the Race History.
+---
 
-### Race history System
+### Managing Races
 
-- **How to find & use**: From the homepage, click on the **"Race History"** button to go to the race records page.  
-  On the race history page, you will see a table listing previous race results if any have been saved. This page also includes a search feature and filter by date feature if you need to find races within a certain time period or search race my name.
+#### How to find and use
 
-- **Design thinking**:
-  The **Race History** page was designed to make it easy for users to view and manage past race results.  
-  The results are displayed in a **clean table format** so users can quickly scan through the data without needing to open each record individually.  
-  The **Share** button is placed clearly at the top right of the results, allowing users to **export their data** without having to leave the page or navigate through menus.  
-  Exporting to **PDF** makes it simple to generate printable documents for record-keeping or sharing with others.  
-  Exporting to **Excel/CSV** supports those who want to do deeper analysis, sorting, or editing of race data.  
-  Consistent styling is used across the timer and race history pages to make navigation intuitive and to keep the app visually simple and user-friendly.  
-  The Race History page also gracefully handles situations where there are no race results saved yet by showing a friendly message instead of an empty table, ensuring a polished user experience.
+From the home screen, click **"Manage Races"** to view and manage all races you’ve previously created. This section includes a **search bar** and **filter by date** option to help you quickly locate specific races.
 
-### Share Button with PDF and Excel Options
+Each race listed shows its information and current status — **ongoing** or **ended** — and provides context-aware actions:
 
-- **How to find & use**: Clicking the "Share" button opens options to either export the results as a **PDF** or a **CSV file** (for Excel or other spreadsheet software).
-- **Design thinking**: Instead of using libraries like `jspdf`, I manually built the PDF content using the browser's native `canvas` and `PDF` APIs (or printable HTML). For the CSV export, I created a function that generates a `.csv` file on the fly to keep things lightweight.
+- For **ongoing races**, you can choose to:
 
-### Offline Support via Service Worker
+  - **Manage Race**: This opens an interface where you can resolve any time conflicts that may have occurred (e.g., inconsistent timestamps) or Save and end race.
 
-- **How to find & use**: Install the app (PWA) or simply reload after first visit – caching ensures it works offline.
-- **Design thinking**: I implemented a custom service worker without third-party tools. Static assets (like stylesheets, logos, and the main page) are cached on install, and the app falls back to cache if the network isn't available.
+- For **ended races**, you can:
 
-### Mobile-First, Responsive Layout
+  - **View Results**: Access finalized times and positions, with options to export or share.
 
-- **How to find & use**: Resize the browser or open on a mobile device — the app adjusts seamlessly.
-- **Design thinking**: I used `rem` units throughout the CSS (with a 13px base) to ensure consistent, scalable sizing. Buttons and tables adjust their size based on the viewport, improving usability across devices.
+- For **both**, you can:
+  - **Delete**: Permanently remove the race and all associated data.
+
+#### Design Higlights
+
+- **Search and filtering** help reduce friction when managing multiple races.
+- **Smart action buttons** ensure users only see relevant controls based on race status.
+- **Conflict resolution** is built into the Manage Race flow, allowing organizers to verify times before finalizing results.
+
+---
+
+### View Results as a spectator or runner
+
+#### How to find and use
+
+From the home screen, click **"View race results"**. This opens a modal where you can fill in the race information.
+
+- **Fill in the race ID input field**: Input race id of race you want to view.
+
+The results page includes a **filter by position** and **filter by id** option to help you quickly locate specific runners
+
+#### Design Highlights
+
+- **Use of modal**: This avoids unnecessary page navigation.
+- **Validation and error handling**: The modal provides real-time validation. For example, if the race id input field is left empty or race doesn't exist an error message appears, preventing the form from being submitted until corrected.
+- Automatic navigation to results if race id is **valid**
+
+---
+
+## Extra Features
+
+### Offline Support
+
+- A **custom service worker** caches files needed for offline function.
+- After the first visit, the app can work **completely offline**.
+- Caching is done manually in the `service-worker.js`, listing each asset.
+
+### Mobile-First, Responsive Design
+
+- All layouts are **responsive** and work well on both mobile and desktop.
+- Uses `rem` units for scalable sizing, with accessibility in mind.
+
+### Toast notifications
+
+- Non-intrusive toast notifications provide **real-time feedback** for user actions like submitting results or errors.
+
+### PDF and CSV Export
+
+- Allows exporting race results as **PDF or CSV**.
 
 ---
 
 ## AI
 
-I used AI (ChatGPT) to support development by helping debug tricky event flows, clarify proxy behavior, and design parts of the user experience like PDF and CSV exports.  
-I also used it to refine how service workers handle caching and offline support.
-
-### Prompts to develop Dynamic Results Display
-
-> My event listeners aren't triggering when I load race data. Can you help debug why "add-runner" event isn't firing?
-
-The response helped me realize that events must bubble correctly and the custom event flow needed tweaking. I changed event dispatching to match the connected custom element properly.
-
-### Prompts to develop Offline Support (Service Worker)
-
-> How do I cache files manually without using Workbox? Can I use wildcards?
-
-I learned that `cache.addAll()` doesn't accept wildcards like `./images/*`. This led me to explicitly list out every static asset during the install phase, ensuring reliable offline functionality.
-
-### Prompts to design Share Button (Manual PDF/CSV Export)
-
-> How can I export my HTML table as a downloadable CSV file using vanilla JavaScript?
-
-> How can I generate a basic PDF without using jspdf?
-
-The AI responses encouraged me to build my own CSV function manually using `Blob`, and suggested drawing simple content for PDFs or using print styles for downloadable reports.
+I used AI to criticise and analyse certain ideas, debugging the project. The process included refining JavaScript logic, handling edge cases with the timer, and improving user interface and usability.
+My use of AI wasn't just about solving technical problems; it also helped with explanations, simplifying complex ideas. Below are the areas where I used AI with actual prompts and results.
 
 ---
 
-## Reflection
+### Prompts to debug unexpected behaviour with `setInterval` and rendering
 
-Since the prototype deadline, I made several improvements:
+**Prompt:**
 
-- Switched from a full results re-render to incremental `add-runner` updates to improve performance because I noticed it crashed after a while.
-- Implemented offline support to allow race tracking even when network is unavailable.
-- Manually handled file exports to avoid third-party dependency risks.
-- Refined user interactions with better feedback when saving or sharing results.
+> My template renders twice due to this function. Do you know why?
+> `function S(t, e) {......}`
 
-**Overall**, using AI helped me speed up development when I was stuck, but I also learned how important it is to critically evaluate and modify AI suggestions to fit project constraints and expectations. Debugging and design thinking were still very much manual processes.
+The response was useless because it didn’t have enough context. I ended up figuring it out myself after using the debugger tool. I realised it was my `setInterval` function that was causing it.
+
+---
+
+### Prompts to improve my SPA Routing and Navigation
+
+I created a routing system where clicking links loads new content into a `<main>` element without reloading the page, and I asked AI for improvements using the following prompts:
+
+**Prompt:**
+
+> brutally criticise this
+> … My initial `router.js` file content …
+
+The response was very helpful because it was indeed brutal.
+
+This was the response:
+
+1. **You’re rebuilding a janky SPA framework from scratch.**
+   You're manually hacking together routing, component rendering, CSS/JS management, and DOM injection. It’s fragile, inefficient, and prone to subtle bugs. There’s no state management, no modularity, and no proper component lifecycle. If you're going this far, just use a minimal framework like Preact, or at least a basic component architecture.
+
+2. **You're polluting the global state with `currentScript` and `currentStylesheet`.**
+   These global references are a bad pattern. What if two components on the same page want to load scripts? You're assuming a single stylesheet/script per route, which won’t scale if components need separate assets.
+
+**Final Verdict:**
+🗑️ This is a fragile, overcomplicated, and underspecified SPA engine held together by duct tape. You’re reinventing a worse version of what real frameworks have spent years perfecting — and making all the same mistakes that they’ve already solved. Refactor this into modules with lifecycle control, or just drop in something like Preact or Alpine.js for a lightweight but sane setup.
+
+---
+
+I asked for improvements, and here’s a summary:
+
+**💡 How to Fix It Right:**
+Here’s what you should do instead:
+
+- Split responsibilities: routing, rendering, script/style loading.
+- Use a dynamic module system instead of injecting `<script>`.
+- Use `import.meta.glob` (if using a bundler like Vite) or roll your own lazy loader with ES modules.
+- Adopt a mini framework (even a 200-line custom router/component setup) instead of this brittle structure.
+- Introduce lifecycle hooks: `onEnter`, `onLeave`, etc.
+
+I made adjustments and repeated the process until I was satisfied with the criticism.
+
+---
+
+### Prompts to fix issues refreshing on SPA
+
+**Prompt:**
+
+> When I refresh a page in my SPA, I get page not found
+
+Because it had context, the response explained that I needed a "catch-all" route handler at the end of my Express server:
+
+app.get("\*", (req, res) => {
+res.sendFile(path.join(\_\_dirname, "client", "index.html"));
+});
+
+---
+
+### What Went Right
+
+- AI helped refine JavaScript logic, and simplify complex concepts.
+- Brutal AI feedback on the SPA routing system led to significant improvements in code structure and maintainability.
+- Suggestions for fixing SPA refresh issues (via Express server configuration) worked correctly and solved the problem.
+
+---
+
+### What Went Wrong
+
+- Some AI responses were unhelpful due to a lack of context, especially with debugging rendering issues caused by `setInterval`.
+- Early routing and rendering setup was fragile and overcomplicated, leading to scalability and maintainability issues.
+- Repeated attempts were needed to extract useful and specific advice from AI.
+
+---
+
+### What I Learned
+
+- AI is great for brainstorming, critique, and simplification, but not a replacement for debugging tools or critical thinking.
+- Clear, specific prompts result in much better answers.
+- Building an SPA requires careful handling of routing, lifecycle, and modularity.
+
+---
+
+## Reflection & Improvements
+
+- Replaced full-table re-renders with **incremental runner row updates** to improve performance.
+- Added a **conflict resolution system** to handle unreliable manual timing.
+- Added **offline caching** for reliability during live events.
+- Implemented **modular Web Components** for maintainable, reusable UI parts.
+- Improved UI

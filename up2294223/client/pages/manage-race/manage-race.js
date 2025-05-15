@@ -121,7 +121,7 @@ export async function init() {
 
     // Add the confirmed result
     runners.push({
-      id: "", // You can set a proper ID if needed later
+      id: "",
       time: time,
       position: position,
     });
