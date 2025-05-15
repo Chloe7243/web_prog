@@ -119,14 +119,19 @@ The results page includes a **filter by position** and **filter by id** option t
 
 - Allows exporting race results as **PDF or CSV**.
 
-### CSS Anchor Positioning (Experimental Feature)
+--
+
+## Experimental Features
+
+### CSS Anchor Positioning
 
 This app uses **CSS Anchor Positioning** to align elements popovers relative to buttons or other UI components — improving layout accuracy without extra JavaScript.
 
 **Where it was used**:
 
-- Visit `Results page for any race` and click on the share button
+- Visit `Results page for any race` and click on the `Share Result` button
 
+Since CSS Anchoring is still an experimental feature, it only works in **Chrome 125+** (and some versions of Chromium-based browsers with flags enabled).
 Browsers without support will fall back to default positioning — layout may be slightly less precise but still functional.
 
 ---
@@ -226,10 +231,10 @@ res.sendFile(path.join(\_\_dirname, "client", "index.html"));
   Initially, updating the race results table caused the entire component to re-render, leading to noticeable lag as the number of runners increased. I refactored the logic so that only the affected runner rows are updated when changes occur, significantly improving performance and responsiveness during live timing.
 
 - **Support for Multiple Timekeepers**
-  A key improvement was enabling **multiple users to simultaneously time the race**. Time submissions from different devices or users are all captured and stored, with the system able to detect and manage duplicates or conflicts. This ensures flexibility and reliability in live scenarios where more than one official may be timing events.
+  A key improvement was enabling **multiple users to simultaneously time the race**. Time submissions from different devices or users are all captured and stored, with the system able to detect and manage duplicates or conflicts.
 
 - **Offline Caching for Live Event Reliability**
-  Since race events may happen in areas with poor internet access, I implemented offline support using service workers and cache storage. This ensures that previously loaded race data remains accessible even when the network is unreliable, improving usability during live event operations.
+  Since race events may happen in areas with poor internet access, I implemented offline support using service workers and cache storage. This ensures that previously loaded race data remains accessible even when the network is unreliable.
 
 - **Modular Web Components Architecture**
   I refactored major parts of the interface into **custom Web Components** (e.g., `<race-results>`, `<runner-row>`, `<toast-message>`, etc.). This modular structure made the codebase more maintainable and reusable.
@@ -237,4 +242,4 @@ res.sendFile(path.join(\_\_dirname, "client", "index.html"));
 - **Accessibility & Interface Improvements**
   Based on feedback and testing:
   I revised the UI to enhance usability: improved contrast, larger touch targets, and consistent layout behavior across screen sizes.
-  Introduced CSS Anchor Positioning, allowing me to replace my custom JavaScript-based positioning logic for my popovers.
+  Introduced CSS Anchor Positioning, allowing me to replace my custom JavaScript-based positioning logic for my popovers and dropdowns.
