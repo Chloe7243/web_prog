@@ -9,8 +9,6 @@ From the home page, you can access key features of the app:
 - Manage races created by you.
 - View results of races that has ended or been finalized - This feature is specifically for runners or spectators.
 
----
-
 ### Race Creation
 
 #### How to find and use
@@ -96,8 +94,6 @@ The results page includes a **filter by position** and **filter by id** option t
 - **Validation and error handling**: The modal provides real-time validation. For example, if the race id input field is left empty or race doesn't exist an error message appears, preventing the form from being submitted until corrected.
 - Automatic navigation to results if race id is **valid**
 
----
-
 ## Extra Features
 
 ### Offline Support
@@ -119,8 +115,6 @@ The results page includes a **filter by position** and **filter by id** option t
 
 - Allows exporting race results as **PDF or CSV**.
 
---
-
 ## Experimental Features
 
 ### CSS Anchor Positioning
@@ -133,8 +127,6 @@ This app uses **CSS Anchor Positioning** to align elements popovers relative to 
 
 Since CSS Anchoring is still an experimental feature, it only works in **Chrome 125+** (and some versions of Chromium-based browsers with flags enabled).
 Browsers without support will fall back to default positioning — layout may be slightly less precise but still functional.
-
----
 
 ## AI
 
@@ -222,8 +214,6 @@ res.sendFile(path.join(\_\_dirname, "client", "index.html"));
 - AI is great for brainstorming, critique, and simplification, but not a replacement for debugging tools or critical thinking.
 - Clear, specific prompts result in much better answers.
 - Building an SPA requires careful handling of routing, lifecycle, and modularity.
-
----
 
 ## Improvements After First Prototype
 
