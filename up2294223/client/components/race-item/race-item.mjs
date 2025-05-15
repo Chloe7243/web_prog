@@ -30,7 +30,6 @@ class RaceItem extends ShadowElement {
       { dateStyle: "medium", timeStyle: "short" }
     );
     this.dialog = this.shadow.querySelector("#actions-dialog");
-    console.log({ rd: this["race-id"] });
 
     this.shadow
       .querySelector(".view-result-button")
